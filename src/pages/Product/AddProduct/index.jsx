@@ -30,7 +30,7 @@ function AddProduct() {
     const showSuccessNoti = () => toast.success('Tạo sản phẩm thành công!');
     const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
 
-    const bacsicForm = useFormik({
+    const form = useFormik({
         initialValues: {
             name: '',
             type: '',
@@ -49,28 +49,54 @@ function AddProduct() {
     function handleFormsubmit(values) {
         setValidateOnChange(true);
         setLoading(true);
-        fetch('http://localhost:5000/api/product', {
+
+        createProduct(values)
+            .then(() => {
+                showSuccessNoti();
+                form.resetForm();
+                setValidateOnChange(false);
+            })
+            .catch(() => {
+                showErorrNoti();
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }
+
+    async function createProduct(values) {
+        let imageUrls = [];
+        if (values.images.length > 0) {
+            const uploadPromise = values.images.map(async (image) => {
+                let formdata = new FormData();
+                formdata.append('image', image.file);
+                const res = await fetch('http://localhost:5000/api/upload', {
+                    method: 'POST',
+                    body: formdata,
+                });
+
+                const data = await res.json();
+                return data.image.url;
+            });
+            imageUrls = await Promise.all(uploadPromise);
+        }
+        const res = await fetch('http://localhost:5000/api/product', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(values),
-        })
-            .then((res) => res.json())
-            .then((resJson) => {
-                if (resJson.success) {
-                    setLoading(false);
-                    showSuccessNoti();
-                    bacsicForm.resetForm();
-                } else {
-                    setLoading(false);
-                    showErorrNoti();
-                }
-            })
-            .catch(() => {
-                setLoading(false);
-                showErorrNoti();
-            });
+            body: JSON.stringify({
+                ...values,
+                images: imageUrls,
+            }),
+        });
+
+        const resJson = await res.json();
+        if (!resJson.success) {
+            throw new Error(resJson);
+        }
+
+        return resJson;
     }
 
     return (
@@ -80,7 +106,7 @@ function AddProduct() {
                     <form
                         onSubmit={(e) => {
                             setValidateOnChange(true);
-                            bacsicForm.handleSubmit(e);
+                            form.handleSubmit(e);
                         }}
                     >
                         <div className="grid grid-cols-2 gap-x-8 gap-y-1">
@@ -95,18 +121,18 @@ function AddProduct() {
                                         type="text"
                                         id="name"
                                         className={clsx('text-input', {
-                                            invalid: bacsicForm.errors.name,
+                                            invalid: form.errors.name,
                                         })}
-                                        onChange={bacsicForm.handleChange}
-                                        value={bacsicForm.values.name}
+                                        onChange={form.handleChange}
+                                        value={form.values.name}
                                         name="name"
                                     />
                                     <span
                                         className={clsx('text-sm text-red-500 opacity-0', {
-                                            'opacity-100': bacsicForm.errors.name,
+                                            'opacity-100': form.errors.name,
                                         })}
                                     >
-                                        {bacsicForm.errors.name || 'No message'}
+                                        {form.errors.name || 'No message'}
                                     </span>
                                 </div>
 
@@ -118,19 +144,19 @@ function AddProduct() {
                                     <ProductTypeInput
                                         id="type"
                                         className={clsx('text-input cursor-pointer', {
-                                            invalid: bacsicForm.errors.type,
+                                            invalid: form.errors.type,
                                         })}
-                                        onChange={bacsicForm.handleChange}
-                                        value={bacsicForm.values.type}
+                                        onChange={form.handleChange}
+                                        value={form.values.type}
                                         name="type"
                                     />
 
                                     <span
                                         className={clsx('text-sm text-red-500 opacity-0', {
-                                            'opacity-100': bacsicForm.errors.type,
+                                            'opacity-100': form.errors.type,
                                         })}
                                     >
-                                        {bacsicForm.errors.type || 'No message'}
+                                        {form.errors.type || 'No message'}
                                     </span>
                                 </div>
                             </div>
@@ -138,7 +164,10 @@ function AddProduct() {
                             {/* IMAGE */}
                             <div className="mb-2">
                                 <label className="label">Chọn ảnh</label>
-                                <ImagesInput onChange={(images) => console.log(images)} />
+                                <ImagesInput
+                                    images={form.values.images}
+                                    onChange={(images) => form.setFieldValue('images', images)}
+                                />
                             </div>
 
                             {/* DESCRIPTION */}
@@ -150,19 +179,19 @@ function AddProduct() {
                                     type="text"
                                     id="description"
                                     className={clsx('text-input !h-auto py-2', {
-                                        invalid: bacsicForm.errors.description,
+                                        invalid: form.errors.description,
                                     })}
-                                    onChange={bacsicForm.handleChange}
-                                    value={bacsicForm.values.description}
+                                    onChange={form.handleChange}
+                                    value={form.values.description}
                                     name="description"
                                     rows={4}
                                 ></textarea>
                                 <span
                                     className={clsx('text-sm text-red-500 opacity-0', {
-                                        'opacity-100': bacsicForm.errors.description,
+                                        'opacity-100': form.errors.description,
                                     })}
                                 >
-                                    {bacsicForm.errors.description || 'No message'}
+                                    {form.errors.description || 'No message'}
                                 </span>
                             </div>
 
@@ -176,18 +205,18 @@ function AddProduct() {
                                         </label>
                                         <PriceInput
                                             id="importPrice"
-                                            onChange={bacsicForm.handleChange}
-                                            value={bacsicForm.values.importPrice}
-                                            error={bacsicForm.errors.importPrice}
+                                            onChange={form.handleChange}
+                                            value={form.values.importPrice}
+                                            error={form.errors.importPrice}
                                             name="importPrice"
                                             placeholder="Giá nhập"
                                         />
                                         <span
                                             className={clsx('text-sm text-red-500 opacity-0', {
-                                                'opacity-100': bacsicForm.errors.importPrice,
+                                                'opacity-100': form.errors.importPrice,
                                             })}
                                         >
-                                            {bacsicForm.errors.importPrice || 'No message'}
+                                            {form.errors.importPrice || 'No message'}
                                         </span>
                                     </div>
                                     {/* PRICE */}
@@ -197,40 +226,38 @@ function AddProduct() {
                                         </label>
                                         <PriceInput
                                             id="price"
-                                            onChange={bacsicForm.handleChange}
-                                            value={bacsicForm.values.price}
-                                            error={bacsicForm.errors.price}
+                                            onChange={form.handleChange}
+                                            value={form.values.price}
+                                            error={form.errors.price}
                                             name="price"
                                             placeholder="Giá bán"
                                         />
                                         <span
                                             className={clsx('text-sm text-red-500 opacity-0', {
-                                                'opacity-100': bacsicForm.errors.price,
+                                                'opacity-100': form.errors.price,
                                             })}
                                         >
-                                            {bacsicForm.errors.price || 'No message'}
+                                            {form.errors.price || 'No message'}
                                         </span>
                                     </div>
                                 </div>
                                 {/* SIZE */}
                                 <div className="">
-                                    <label className="label !cursor-default">Size giày</label>
+                                    <label className="label !cursor-default">Size giày *</label>
                                     <SizesInput
-                                        disabledSizes={[30, 31, 50]}
-                                        selectedSizes={bacsicForm.values.sizes}
+                                        selectedSizes={form.values.sizes}
                                         onSelectedSizeChange={(s) => {
-                                            bacsicForm.setFieldValue('sizes', s).then(() => {
-                                                validateOnChange &&
-                                                    bacsicForm.validateField('sizes');
+                                            form.setFieldValue('sizes', s).then(() => {
+                                                validateOnChange && form.validateField('sizes');
                                             });
                                         }}
                                     />
                                     <span
                                         className={clsx('text-sm text-red-500 opacity-0', {
-                                            'opacity-100': bacsicForm.errors.sizes,
+                                            'opacity-100': form.errors.sizes,
                                         })}
                                     >
-                                        {bacsicForm.errors.sizes || 'No message'}
+                                        {form.errors.sizes || 'No message'}
                                     </span>
                                 </div>
                             </div>

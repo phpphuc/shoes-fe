@@ -48,9 +48,7 @@ function ImageItem({ image, onDelete }) {
     );
 }
 
-function ImagesInput({ initImage = [], onChange }) {
-    const [images, setImages] = useState(initImage);
-
+function ImagesInput({ images = [], onChange }) {
     function handleSelectImages(e) {
         if (e.target.files.length === 0) {
             return;
@@ -62,14 +60,13 @@ function ImagesInput({ initImage = [], onChange }) {
                 file: f,
             })),
         ];
-        setImages(newImages);
+        e.target.value = null;
         onChange && onChange(newImages);
     }
 
     function handleDelete(index) {
         const newImages = [...images];
         newImages.splice(index, 1);
-        setImages(newImages);
         onChange && onChange(newImages);
     }
 
