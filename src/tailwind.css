@@ -25,6 +25,9 @@
     .btn.btn-green {
         @apply bg-green-600 hover:bg-green-500;
     }
+    .btn.btn-yellow {
+        @apply bg-yellow-600 hover:bg-yellow-500;
+    }
     .btn:disabled {
         @apply pointer-events-none opacity-50;
     }

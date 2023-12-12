@@ -33,6 +33,7 @@ function AddProduct() {
             description: '',
             price: '',
             importPrice: '',
+            status: 'active',
             images: [],
             sizes: [],
         },
@@ -41,7 +42,7 @@ function AddProduct() {
         validateOnBlur: false,
         validateOnChange: validateOnChange,
     });
-    const navigate = useNavigate();
+
     function handleFormsubmit(values) {
         setValidateOnChange(true);
         setLoading(true);
@@ -95,77 +96,79 @@ function AddProduct() {
         return resJson;
     }
 
+    console.log(form);
+
     return (
         <div className="container">
-            <div className="w-full">
-                <form
-                    onSubmit={(e) => {
-                        setValidateOnChange(true);
-                        form.handleSubmit(e);
-                    }}
-                >
-                    <div className="relative grid grid-cols-2 gap-x-8 gap-y-1">
-                        {/* NAME AND TYPE */}
-                        <div className="space-y-1">
-                            {/* NAME */}
-                            <div>
-                                <label className="label" htmlFor="name">
-                                    Tên sản phẩm *
-                                </label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    className={clsx('text-input', {
-                                        invalid: form.errors.name,
-                                    })}
-                                    onChange={form.handleChange}
-                                    value={form.values.name}
-                                    name="name"
-                                />
-                                <span
-                                    className={clsx('text-sm text-red-500 opacity-0', {
-                                        'opacity-100': form.errors.name,
-                                    })}
-                                >
-                                    {form.errors.name || 'No message'}
-                                </span>
-                            </div>
-
-                            {/* TYPE */}
-                            <div>
-                                <label className="label" htmlFor="type">
-                                    Loại sản phẩm *
-                                </label>
-                                <ProductTypeInput
-                                    id="type"
-                                    className={clsx('text-input cursor-pointer', {
-                                        invalid: form.errors.type,
-                                    })}
-                                    onChange={form.handleChange}
-                                    value={form.values.type}
-                                    name="type"
-                                />
-
-                                <span
-                                    className={clsx('text-sm text-red-500 opacity-0', {
-                                        'opacity-100': form.errors.type,
-                                    })}
-                                >
-                                    {form.errors.type || 'No message'}
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* IMAGE */}
-                        <div className="mb-2">
-                            <label className="label">Chọn ảnh</label>
-                            <ImagesInput
-                                images={form.values.images}
-                                onChange={(images) => form.setFieldValue('images', images)}
+            <form
+                onSubmit={(e) => {
+                    setValidateOnChange(true);
+                    form.handleSubmit(e);
+                }}
+            >
+                <div className="relative grid grid-cols-2 gap-x-8 gap-y-1">
+                    {/* NAME AND TYPE */}
+                    <div className="space-y-1">
+                        {/* NAME */}
+                        <div>
+                            <label className="label" htmlFor="name">
+                                Tên sản phẩm *
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                className={clsx('text-input', {
+                                    invalid: form.errors.name,
+                                })}
+                                onChange={form.handleChange}
+                                value={form.values.name}
+                                name="name"
                             />
+                            <span
+                                className={clsx('text-sm text-red-500 opacity-0', {
+                                    'opacity-100': form.errors.name,
+                                })}
+                            >
+                                {form.errors.name || 'No message'}
+                            </span>
                         </div>
 
-                        {/* DESCRIPTION */}
+                        {/* TYPE */}
+                        <div>
+                            <label className="label" htmlFor="type">
+                                Loại sản phẩm *
+                            </label>
+                            <ProductTypeInput
+                                id="type"
+                                className={clsx('text-input cursor-pointer', {
+                                    invalid: form.errors.type,
+                                })}
+                                onChange={form.handleChange}
+                                value={form.values.type}
+                                name="type"
+                            />
+
+                            <span
+                                className={clsx('text-sm text-red-500 opacity-0', {
+                                    'opacity-100': form.errors.type,
+                                })}
+                            >
+                                {form.errors.type || 'No message'}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* IMAGE */}
+                    <div className="mb-2">
+                        <label className="label">Chọn ảnh</label>
+                        <ImagesInput
+                            images={form.values.images}
+                            onChange={(images) => form.setFieldValue('images', images)}
+                        />
+                    </div>
+
+                    {/* DESCRIPTION AND STATUS */}
+                    <div>
                         <div>
                             <label className="label" htmlFor="description">
                                 Mô tả sản phẩm *
@@ -189,122 +192,154 @@ function AddProduct() {
                                 {form.errors.description || 'No message'}
                             </span>
                         </div>
-
-                        {/* IMPORT PRICE, PRICE AND SIZE */}
                         <div>
-                            <div className="mb-1 flex space-x-8">
-                                {/* IMPORT PRICE */}
-                                <div className="flex-1">
-                                    <label className="label" htmlFor="importPrice">
-                                        Giá nhập *
-                                    </label>
-                                    <PriceInput
-                                        id="importPrice"
+                            <label className="label !cursor-default">Trạng thái</label>
+                            <div className="flex items-center space-x-5">
+                                <div className="flex items-center">
+                                    <input
+                                        className="h-5 w-5 accent-blue-600"
+                                        type="radio"
+                                        id="status-active"
+                                        name="status"
+                                        value="active"
                                         onChange={form.handleChange}
-                                        value={form.values.importPrice}
-                                        error={form.errors.importPrice}
-                                        name="importPrice"
-                                        placeholder="Giá nhập"
+                                        checked={form.values.status === 'active'}
                                     />
-                                    <span
-                                        className={clsx('text-sm text-red-500 opacity-0', {
-                                            'opacity-100': form.errors.importPrice,
-                                        })}
-                                    >
-                                        {form.errors.importPrice || 'No message'}
-                                    </span>
+                                    <label htmlFor="status-active" className="cursor-pointer pl-2">
+                                        Đang bán
+                                    </label>
                                 </div>
-                                {/* PRICE */}
-                                <div className="flex-1">
-                                    <label className="label" htmlFor="price">
-                                        Giá bán *
-                                    </label>
-                                    <PriceInput
-                                        id="price"
+                                <div className="flex items-center">
+                                    <input
+                                        className="h-5 w-5 accent-blue-600"
+                                        type="radio"
+                                        id="status-inactive"
+                                        name="status"
+                                        value="inactive"
                                         onChange={form.handleChange}
-                                        value={form.values.price}
-                                        error={form.errors.price}
-                                        name="price"
-                                        placeholder="Giá bán"
+                                        checked={form.values.status === 'inactive'}
                                     />
-                                    <span
-                                        className={clsx('text-sm text-red-500 opacity-0', {
-                                            'opacity-100': form.errors.price,
-                                        })}
+                                    <label
+                                        htmlFor="status-inactive"
+                                        className="cursor-pointer pl-2"
                                     >
-                                        {form.errors.price || 'No message'}
-                                    </span>
+                                        Không bán
+                                    </label>
                                 </div>
                             </div>
-                            {/* SIZE */}
-                            <div className="">
-                                <label className="label !cursor-default">Size giày *</label>
-                                <SizesInput
-                                    selectedSizes={form.values.sizes}
-                                    onSelectedSizeChange={(s) => {
-                                        form.setFieldValue('sizes', s).then(() => {
-                                            validateOnChange && form.validateField('sizes');
-                                        });
-                                    }}
+                        </div>
+                    </div>
+
+                    {/* IMPORT PRICE, PRICE AND SIZE */}
+                    <div>
+                        <div className="mb-1 flex space-x-8">
+                            {/* IMPORT PRICE */}
+                            <div className="flex-1">
+                                <label className="label" htmlFor="importPrice">
+                                    Giá nhập *
+                                </label>
+                                <PriceInput
+                                    id="importPrice"
+                                    onChange={form.handleChange}
+                                    value={form.values.importPrice}
+                                    error={form.errors.importPrice}
+                                    name="importPrice"
+                                    placeholder="Giá nhập"
                                 />
                                 <span
                                     className={clsx('text-sm text-red-500 opacity-0', {
-                                        'opacity-100': form.errors.sizes,
+                                        'opacity-100': form.errors.importPrice,
                                     })}
                                 >
-                                    {form.errors.sizes || 'No message'}
+                                    {form.errors.importPrice || 'No message'}
                                 </span>
                             </div>
-                        </div>
-
-                        {/* LOADING */}
-                        {loading && (
-                            <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/50">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    className="h-20 w-20 animate-spin text-blue-600"
+                            {/* PRICE */}
+                            <div className="flex-1">
+                                <label className="label" htmlFor="price">
+                                    Giá bán *
+                                </label>
+                                <PriceInput
+                                    id="price"
+                                    onChange={form.handleChange}
+                                    value={form.values.price}
+                                    error={form.errors.price}
+                                    name="price"
+                                    placeholder="Giá bán"
+                                />
+                                <span
+                                    className={clsx('text-sm text-red-500 opacity-0', {
+                                        'opacity-100': form.errors.price,
+                                    })}
                                 >
-                                    <circle
-                                        class="opacity-50"
-                                        cx="12"
-                                        cy="12"
-                                        r="10"
-                                        stroke="currentColor"
-                                        stroke-width="4"
-                                    ></circle>
-                                    <path
-                                        fill="currentColor"
-                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                    ></path>
-                                </svg>
+                                    {form.errors.price || 'No message'}
+                                </span>
                             </div>
-                        )}
-                    </div>
-
-                    <div className="mt-6 flex items-center justify-end border-t pt-6">
-                        <div className="flex">
-                            <Link to={'/product'} className="btn btn-red btn-md">
-                                <span className="pr-2">
-                                    <i className="fa-solid fa-circle-xmark"></i>
-                                </span>
-                                <span>Hủy</span>
-                            </Link>
-                            <button
-                                type="submit"
-                                className="btn btn-blue btn-md"
-                                disabled={loading}
+                        </div>
+                        {/* SIZE */}
+                        <div className="">
+                            <label className="label !cursor-default">Size giày *</label>
+                            <SizesInput
+                                selectedSizes={form.values.sizes}
+                                onSelectedSizeChange={(s) => {
+                                    form.setFieldValue('sizes', s).then(() => {
+                                        validateOnChange && form.validateField('sizes');
+                                    });
+                                }}
+                            />
+                            <span
+                                className={clsx('text-sm text-red-500 opacity-0', {
+                                    'opacity-100': form.errors.sizes,
+                                })}
                             >
-                                <span className="pr-2">
-                                    <i className="fa-solid fa-circle-plus"></i>
-                                </span>
-                                <span>Thêm</span>
-                            </button>
+                                {form.errors.sizes || 'No message'}
+                            </span>
                         </div>
                     </div>
-                </form>
-            </div>
+
+                    {/* LOADING */}
+                    {loading && (
+                        <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/50">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                className="h-20 w-20 animate-spin text-blue-600"
+                            >
+                                <circle
+                                    className="opacity-50"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                ></circle>
+                                <path
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
+                            </svg>
+                        </div>
+                    )}
+                </div>
+
+                <div className="mt-6 flex items-center justify-end border-t pt-6">
+                    <div className="flex">
+                        <Link to={'/product'} className="btn btn-red btn-md">
+                            <span className="pr-2">
+                                <i className="fa-solid fa-circle-xmark"></i>
+                            </span>
+                            <span>Hủy</span>
+                        </Link>
+                        <button type="submit" className="btn btn-blue btn-md" disabled={loading}>
+                            <span className="pr-2">
+                                <i className="fa-solid fa-circle-plus"></i>
+                            </span>
+                            <span>Thêm</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     );
 }

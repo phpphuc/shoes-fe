@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
@@ -58,14 +59,25 @@ function NameAndImageCell({ row, getValue }) {
 
 function ActionCell({ table, row }) {
     return (
-        <div
-            className="flex justify-end"
-            onClick={(e) => {
-                e.stopPropagation();
-                table.options.meta?.onDeleteButtonClick(row);
-            }}
-        >
-            <button className="btn btn-red px-3 py-1">Xoá</button>
+        <div className="flex justify-end">
+            <button
+                className="btn btn-yellow px-3 py-1"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    table.options.meta?.onEditButtonClick(row);
+                }}
+            >
+                Sửa
+            </button>
+            <button
+                className="btn btn-red px-3 py-1"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    table.options.meta?.onDeleteButtonClick(row);
+                }}
+            >
+                Xoá
+            </button>
         </div>
     );
 }
@@ -91,7 +103,7 @@ const columns = [
         id: 'type',
         accessorFn: (o) => o.type.name,
         header: (props) => <HeaderCell tableProps={props}>Danh mục</HeaderCell>,
-        size: 200,
+        size: 160,
         enableSorting: false,
         filterFn: 'arrIncludesSome',
     },
@@ -141,12 +153,11 @@ const columns = [
         size: 120,
         enableSorting: false,
     },
-
     {
         id: 'action',
         header: '',
         cell: ActionCell,
-        size: 100,
+        size: 140,
     },
     {
         id: 'images',
@@ -159,7 +170,7 @@ function ProductList() {
     // const [deletingProductId, setDeletingProductId] = useState(null);
     // const [products, setProducts] = useState([]);
     // const [filters, setFilters] = useState({});
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     // const showDeleteNoti = () => toast.success('Xóa sản phẩm thành công!');
     // const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
     // const account = useSelector(accountSelector);
@@ -211,6 +222,9 @@ function ProductList() {
         meta: {
             onRowClick: (row) => {
                 console.log('Navigate to:', row.getValue('id'));
+            },
+            onEditButtonClick: (row) => {
+                navigate('/product/update/' + row.getValue('id'));
             },
             onDeleteButtonClick: (row) => {
                 console.log('Delete:', row.getValue('id'));
