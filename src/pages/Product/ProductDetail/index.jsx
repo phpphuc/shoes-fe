@@ -1,17 +1,17 @@
 import { Fragment, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import TypeProduct from '../../components/TypeProduct';
+import TypeProduct from '../../../components/TypeProduct';
 import clsx from 'clsx';
 import { useEffect } from 'react';
 
 import moment from 'moment';
-import TimeNow from '../../components/TimeNow';
+import TimeNow from '../../../components/TimeNow';
 
 import { useSelector } from 'react-redux';
-import { accountSelector } from '../../redux/selectors';
+import { accountSelector } from '../../../redux/selectors';
 
-function DetailTree() {
+function ProductDetail() {
     const account = useSelector(accountSelector);
     function isHiddenItem(functionName) {
         if (!account) {
@@ -85,7 +85,11 @@ function DetailTree() {
 
                     <div className="form-group w-1/2 flex-col items-center justify-items-center ">
                         <div className="h-60 w-full select-none overflow-hidden rounded border border-slate-300 bg-slate-50">
-                            <img src={product.image} alt="" className="h-full w-full object-contain" />
+                            <img
+                                src={product.image}
+                                alt=""
+                                className="h-full w-full object-contain"
+                            />
                         </div>
                     </div>
                 </div>
@@ -101,7 +105,10 @@ function DetailTree() {
                     </div>
 
                     <div className="form-group ml-4 mt-3 flex basis-1/2 flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="quantity">
+                        <label
+                            className="mb-1 cursor-default text-lg font-semibold"
+                            htmlFor="quantity"
+                        >
                             Số lượng
                         </label>
                         <div id="quantity" className="ml-lg text-input disabled py-[5px]">
@@ -121,11 +128,17 @@ function DetailTree() {
                     </div>
 
                     <div className="ml-4 mt-3 flex basis-1/2 flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="price">
+                        <label
+                            className="mb-1 cursor-default text-lg font-semibold"
+                            htmlFor="price"
+                        >
                             Giá
                         </label>
                         <div className="relative">
-                            <div id="price" className="text-input disabled w-full select-none py-[5px]">
+                            <div
+                                id="price"
+                                className="text-input disabled w-full select-none py-[5px]"
+                            >
                                 {product.price}
                             </div>
                             <label
@@ -164,4 +177,4 @@ function DetailTree() {
 }
 //
 //
-export default DetailTree;
+export default ProductDetail;

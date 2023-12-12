@@ -1,7 +1,9 @@
 function Header({ children }) {
     return (
-        <header className="flex h-8 select-none items-center justify-center  font-medium text-slate-900">
-            {children}
+        <header className="border-b">
+            <div className="container flex h-14 items-center justify-between">
+                <p className="text-xl font-bold text-slate-900">{children}</p>
+            </div>
         </header>
     );
 }

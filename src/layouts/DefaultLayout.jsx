@@ -1,5 +1,5 @@
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 
 function DefaultLayout({ heading, children }) {
     return (
@@ -8,7 +8,7 @@ function DefaultLayout({ heading, children }) {
 
             <div className="flex h-screen flex-1 flex-col">
                 <Header>{heading}</Header>
-                <main className="flex-1 p-5">{children}</main>
+                <main className="flex-1 py-5">{children}</main>
             </div>
         </div>
     );

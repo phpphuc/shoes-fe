@@ -1,0 +1,317 @@
+import { useEffect, useState } from 'react';
+import { clsx } from 'clsx';
+import 'react-toastify/dist/ReactToastify.css';
+
+import {
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    useReactTable,
+} from '@tanstack/react-table';
+import HeaderCell from '../../../components/Table/HeaderCell';
+import Pagination from '../../../components/Table/Pagination';
+import Table from '../../../components/Table';
+
+function SizeCell({ getValue }) {
+    const sizes = getValue();
+    sizes.sort();
+    let sizesRender = [];
+    if (sizes.length <= 5) {
+        sizesRender = sizes;
+    } else {
+    }
+    return (
+        <div className="flex">
+            {sizes.map((size) => (
+                <div className="border bg-gray-50 py-1 px-2 text-xs font-medium">{size}</div>
+            ))}
+        </div>
+    );
+}
+
+function StatusCell({ getValue }) {
+    return (
+        <div className="flex justify-center">
+            <div
+                className={clsx('rounded p-2 py-1 text-xs font-medium ', {
+                    'bg-green-100 text-green-800': getValue() === 'active',
+                    'bg-red-100 text-red-800': getValue() !== 'active',
+                })}
+            >
+                {getValue() === 'active' ? 'Đang bán' : 'Không bán'}
+            </div>
+        </div>
+    );
+}
+
+function NameAndImageCell({ row, getValue }) {
+    const images = row.getValue('images');
+    console.log(images);
+    return (
+        <div className="flex items-center space-x-2">
+            <img src={images?.[0]} className="h-10 w-10 rounded-full border object-cover" />
+            <p className="flex-1">{getValue()}</p>
+        </div>
+    );
+}
+
+function ActionCell({ table, row }) {
+    return (
+        <div
+            className="flex justify-end"
+            onClick={(e) => {
+                e.stopPropagation();
+                table.options.meta?.onDeleteButtonClick(row);
+            }}
+        >
+            <button className="btn btn-red px-3 py-1">Xoá</button>
+        </div>
+    );
+}
+
+const columns = [
+    {
+        accessorKey: 'id',
+        header: (props) => (
+            <HeaderCell align="center" tableProps={props}>
+                Mã
+            </HeaderCell>
+        ),
+        cell: ({ getValue }) => <p className="text-center">{getValue()}</p>,
+        size: 80,
+    },
+    {
+        accessorKey: 'name',
+        header: (props) => <HeaderCell tableProps={props}>Tên</HeaderCell>,
+        cell: NameAndImageCell,
+        size: 'full',
+    },
+    {
+        id: 'type',
+        accessorFn: (o) => o.type.name,
+        header: (props) => <HeaderCell tableProps={props}>Danh mục</HeaderCell>,
+        size: 200,
+        enableSorting: false,
+        filterFn: 'arrIncludesSome',
+    },
+    {
+        accessorKey: 'quantity',
+        header: (props) => (
+            <HeaderCell align="right" tableProps={props}>
+                Kho
+            </HeaderCell>
+        ),
+        cell: ({ getValue }) => <p className="text-right">{getValue()}</p>,
+        size: 100,
+    },
+    {
+        accessorKey: 'saledQuantity',
+        header: (props) => (
+            <HeaderCell align="right" tableProps={props}>
+                Đã bán
+            </HeaderCell>
+        ),
+        cell: ({ getValue }) => <p className="text-right">{getValue()}</p>,
+        size: 120,
+    },
+    {
+        accessorKey: 'price',
+        header: (props) => (
+            <HeaderCell align="right" tableProps={props}>
+                Giá
+            </HeaderCell>
+        ),
+        cell: ({ getValue }) => <p className="text-right">{getValue()}</p>,
+        size: 120,
+        filterFn: (row, columnId, filterValue) => {
+            if (filterValue.max && filterValue.max < row.getValue(columnId)) return false;
+            return true;
+        },
+    },
+
+    {
+        accessorKey: 'status',
+        header: (props) => (
+            <HeaderCell align="center" tableProps={props}>
+                Trạng thái
+            </HeaderCell>
+        ),
+        cell: StatusCell,
+        size: 120,
+        enableSorting: false,
+    },
+
+    {
+        id: 'action',
+        header: '',
+        cell: ActionCell,
+        size: 100,
+    },
+    {
+        id: 'images',
+        accessorKey: 'images',
+    },
+];
+
+function ProductList() {
+    // const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    // const [deletingProductId, setDeletingProductId] = useState(null);
+    // const [products, setProducts] = useState([]);
+    // const [filters, setFilters] = useState({});
+    // const navigate = useNavigate();
+    // const showDeleteNoti = () => toast.success('Xóa sản phẩm thành công!');
+    // const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
+    // const account = useSelector(accountSelector);
+    // function isHiddenItem(functionName) {
+    //     if (!account) {
+    //         return true;
+    //     }
+    //     if (!functionName) {
+    //         return false;
+    //     }
+    //     const findResult = account?.functions?.find((_func) => _func?.name === functionName);
+    //     if (findResult) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
+
+    const [products, setProducts] = useState([]);
+
+    const [columnFilters, setColumnFilters] = useState([
+        // {
+        //     id: 'type',
+        //     value: ['Giay thoi trang'],
+        // },
+        // {
+        //     id: 'price',
+        //     value: {
+        //         max: 120000,
+        //     },
+        // },
+    ]);
+
+    useEffect(() => {
+        getProducts();
+    }, []);
+
+    console.log(products);
+    const table = useReactTable({
+        data: products,
+        columns,
+        state: {
+            columnFilters,
+            columnVisibility: { images: false },
+        },
+        getCoreRowModel: getCoreRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        meta: {
+            onRowClick: (row) => {
+                console.log('Navigate to:', row.getValue('id'));
+            },
+            onDeleteButtonClick: (row) => {
+                console.log('Delete:', row.getValue('id'));
+            },
+        },
+    });
+
+    function getProducts() {
+        fetch('http://localhost:5000/api/product')
+            .then((res) => res.json())
+            .then((resJson) => {
+                if (resJson.success) {
+                    let _product = resJson.products.sort((p1, p2) => p2.id - p1.id);
+                    _product = _product.map((product) => ({
+                        ...product,
+                        quantity: product.sizes.reduce((prev, curr) => curr.quantity + prev, 0),
+                        saledQuantity: product.sizes.reduce(
+                            (prev, curr) => curr.saledQuantity + prev,
+                            0
+                        ),
+                    }));
+                    setProducts(_product);
+                } else {
+                    setProducts([]);
+                }
+            });
+    }
+
+    // function deleteProduct(id) {
+    //     fetch('http://localhost:5000/api/product/' + id, {
+    //         method: 'DELETE',
+    //     })
+    //         .then((res) => res.json())
+    //         .then((resJson) => {
+    //             setShowDeleteDialog(false);
+    //             if (resJson) {
+    //                 showDeleteNoti();
+    //                 console.log('xóa');
+    //                 getProducts();
+    //             } else {
+    //                 showErorrNoti();
+    //             }
+    //         })
+    //         .catch(() => {
+    //             showErorrNoti();
+    //             setShowDeleteDialog(false);
+    //         });
+    // }
+
+    // function linkToDetail(id) {
+    //     navigate('/product/detail/' + id);
+    // }
+
+    return (
+        <>
+            <div className="container">
+                {/* LIST */}
+
+                <div>
+                    <Table table={table} notFoundMessage="Không có sản phẩm" />
+                    <Pagination table={table} />
+                </div>
+            </div>
+
+            {/* DELETE DIALOG */}
+            {/* <div
+                className={clsx(
+                    'fixed inset-0 z-[99999] hidden items-center justify-center bg-black/20 opacity-0 transition-opacity',
+                    {
+                        '!flex !opacity-100': showDeleteDialog,
+                    }
+                )}
+            >
+                <div className="">
+                    <div className="min-w-[160px] max-w-[400px] rounded-lg bg-white p-6">
+                        <div className="text-clr-text-dark font-bold">
+                            Bạn có chắc chắn muốn xoá không?
+                        </div>
+                        <p className="mt-4">Lưu ý: Bạn không thể không phục lại sau khi xoá!</p>
+                        <div className="mt-4 flex">
+                            <button
+                                className="btn btn-blue btn-md"
+                                onClick={() => {
+                                    setDeletingProductId(null);
+                                    setShowDeleteDialog(false);
+                                }}
+                            >
+                                Quay lại
+                            </button>
+                            <button
+                                className="btn btn-md btn-red"
+                                onClick={() => deleteProduct(deletingProductId)}
+                            >
+                                Xoá
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div> */}
+        </>
+    );
+}
+
+export default ProductList;

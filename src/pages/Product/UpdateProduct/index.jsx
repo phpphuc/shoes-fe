@@ -3,14 +3,14 @@ import * as Yup from 'yup';
 import { Formik, useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import ProductTypeInput from '../../components/ProductTypeInput';
+import ProductTypeInput from '../../../components/ProductTypeInput';
 import clsx from 'clsx';
 import { useEffect } from 'react';
-import TimeNow from '../../components/TimeNow';
+import TimeNow from '../../../components/TimeNow';
 import { useParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import PriceInput from '../../components/PriceInput';
-import ImageInput from '../../components/ImageInput';
+import PriceInput from '../../../components/PriceInput';
+import ImageInput from '../../../components/ImagesInput';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Trường này bắt buộc'),
@@ -107,7 +107,9 @@ function UpdateProduct() {
                         <div className="flex flex-row">
                             {/* ID   and date*/}
                             <div className="mr-12 mt-[4%] flex basis-1/2 flex-col">
-                                <label className="mb-1 cursor-default text-lg font-semibold">Mã số</label>
+                                <label className="mb-1 cursor-default text-lg font-semibold">
+                                    Mã số
+                                </label>
 
                                 <div id="name" className="text-input disabled select-none py-[5px]">
                                     {product.id}
@@ -146,7 +148,8 @@ function UpdateProduct() {
 
                                 <span
                                     className={clsx('text-sm text-red-500 opacity-0', {
-                                        'opacity-100': bacsicForm.touched.type && bacsicForm.errors.type,
+                                        'opacity-100':
+                                            bacsicForm.touched.type && bacsicForm.errors.type,
                                     })}
                                 >
                                     {bacsicForm.errors.type || 'No message'}
@@ -171,7 +174,8 @@ function UpdateProduct() {
                                 />
                                 <span
                                     className={clsx('text-sm text-red-500 opacity-0', {
-                                        'opacity-100': bacsicForm.touched.name && bacsicForm.errors.name,
+                                        'opacity-100':
+                                            bacsicForm.touched.name && bacsicForm.errors.name,
                                     })}
                                 >
                                     {bacsicForm.errors.name || 'No message'}
@@ -190,7 +194,9 @@ function UpdateProduct() {
                                     type="number"
                                     id="quantity"
                                     className={clsx('text-input w-full py-[5px]', {
-                                        invalid: bacsicForm.touched.quantity && bacsicForm.errors.quantity,
+                                        invalid:
+                                            bacsicForm.touched.quantity &&
+                                            bacsicForm.errors.quantity,
                                     })}
                                     onChange={bacsicForm.handleChange}
                                     onBlur={bacsicForm.handleBlur}
@@ -200,7 +206,9 @@ function UpdateProduct() {
                                 />
                                 <span
                                     className={clsx('text-sm text-red-500 opacity-0', {
-                                        'opacity-100': bacsicForm.touched.quantity && bacsicForm.errors.quantity,
+                                        'opacity-100':
+                                            bacsicForm.touched.quantity &&
+                                            bacsicForm.errors.quantity,
                                     })}
                                 >
                                     {bacsicForm.errors.quantity || 'No message'}
@@ -224,7 +232,8 @@ function UpdateProduct() {
                                 />
                                 <span
                                     className={clsx('text-sm text-red-500 opacity-0', {
-                                        'opacity-100': bacsicForm.touched.price && bacsicForm.errors.price,
+                                        'opacity-100':
+                                            bacsicForm.touched.price && bacsicForm.errors.price,
                                     })}
                                 >
                                     {bacsicForm.errors.price || 'No message'}
@@ -239,7 +248,9 @@ function UpdateProduct() {
                                 })}
                             >
                                 <i className="fa-solid fa-spinner animate-spin text-lg"></i>
-                                <span className="text-lx pl-3 font-medium">Đang chỉnh sửa sản phẩm</span>
+                                <span className="text-lx pl-3 font-medium">
+                                    Đang chỉnh sửa sản phẩm
+                                </span>
                             </div>
                             <div className="flex">
                                 <Link to={'/product'} className="btn btn-red btn-md">

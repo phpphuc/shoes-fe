@@ -9,19 +9,14 @@ import AddAccount from '../pages/AddAccount';
 import DetailAccount from '../pages/DetailAccount';
 import UpdateAccount from '../pages/UpdateAccount';
 import AddOrder from '../pages/AddOrder';
-import Products from '../pages/Products';
-import AddProduct from '../pages/AddProduct';
 import ProductType from '../pages/ProductType';
-import ProductsView from '../pages/ProductsView';
 import Customers from '../pages/Customers';
 import Statistic from '../pages/Statistic';
-import DetailTree from '../pages/DetailTree';
 import DetailCustomer from '../pages/DetailCustomer';
 import Login from '../pages/Login';
 import Roles from '../pages/Roles';
 import AddRole from '../pages/AddRole';
 import UpdateRole from '../pages/UpdateRole';
-import UpdateProduct from '../pages/UpdateProduct';
 import AddCustomer from '../pages/AddCustomer';
 import UpdateCustomer from '../pages/UpdateCustomer';
 import AddProductType from '../pages/AddProductType';
@@ -29,6 +24,10 @@ import DetailTypeProduct from '../pages/DetailTypeProduct';
 import UpdateProductType from '../pages/UpdateProductType';
 import DetailOrder from '../pages/DetailOrder';
 import DetailRole from '../pages/DetailRole';
+import ProductList from '../pages/Product/ProductList';
+import ProductDetail from '../pages/Product/ProductDetail';
+import AddProduct from '../pages/Product/AddProduct';
+import UpdateProduct from '../pages/Product/UpdateProduct';
 
 // Public routes
 const publicRoutes = [
@@ -74,14 +73,14 @@ const publicRoutes = [
     // PRODUCT
     {
         path: '/product',
-        component: Products,
+        component: ProductList,
         props: {
             heading: 'Danh sách sản phẩm',
         },
     },
     {
         path: '/product/detail/:id',
-        component: DetailTree,
+        component: ProductDetail,
         props: {
             heading: 'Chi tiết sản phẩm',
         },
@@ -98,13 +97,6 @@ const publicRoutes = [
         component: UpdateProduct,
         props: {
             heading: 'Chỉnh sửa sản phẩm',
-        },
-    },
-    {
-        path: '/product/views',
-        component: ProductsView,
-        props: {
-            heading: 'Danh sách sản phẩm dạng lưới',
         },
     },
 
