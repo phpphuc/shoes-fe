@@ -303,7 +303,11 @@ function ProductDetail() {
                     </div>
                     <div className="w-[500px] space-y-8">
                         <div>
-                            <Table table={sizeTable} notFoundMessage="Không có size" />
+                            <Table
+                                table={sizeTable}
+                                notFoundMessage="Không có size"
+                                rowClickable={false}
+                            />
                             <Pagination table={sizeTable} initPageSize={5} />
                         </div>
 

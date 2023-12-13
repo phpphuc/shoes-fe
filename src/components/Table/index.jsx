@@ -1,7 +1,12 @@
+import clsx from 'clsx';
 import { flexRender } from '@tanstack/react-table';
 import { Scrollbars } from 'react-custom-scrollbars';
 
-export default function Table({ table, notFoundMessage = 'Không có dữ liệu', onRowClick }) {
+export default function Table({
+    table,
+    notFoundMessage = 'Không có dữ liệu',
+    rowClickable = true,
+}) {
     return (
         <div className="data-table">
             <div className="thead">
@@ -54,7 +59,9 @@ export default function Table({ table, notFoundMessage = 'Không có dữ liệu
                     ) : (
                         table.getRowModel().rows.map((row) => (
                             <div
-                                className="tr"
+                                className={clsx('tr', {
+                                    '!cursor-default': !rowClickable,
+                                })}
                                 key={row.id}
                                 onClick={() => table.options.meta?.onRowClick(row)}
                             >
