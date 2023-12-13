@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
 import { useNavigate } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 import {
     getCoreRowModel,
@@ -13,6 +13,8 @@ import {
 import HeaderCell from '../../../components/Table/HeaderCell';
 import Pagination from '../../../components/Table/Pagination';
 import Table from '../../../components/Table';
+import useModal from '../../../hooks/useModal';
+import DeleteDialog from '../../../components/DeleteDialog';
 
 function StatusCell({ getValue }) {
     return (
@@ -153,8 +155,6 @@ function ProductList() {
     // const [products, setProducts] = useState([]);
     // const [filters, setFilters] = useState({});
     const navigate = useNavigate();
-    // const showDeleteNoti = () => toast.success('Xóa sản phẩm thành công!');
-    // const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
     // const account = useSelector(accountSelector);
     // function isHiddenItem(functionName) {
     //     if (!account) {
@@ -189,7 +189,13 @@ function ProductList() {
         getProducts();
     }, []);
 
-    console.log(products);
+    const [openDeleteDialog, closeDeleteDialog] = useModal({
+        modal: DeleteDialog,
+        meta: {
+            onDelete: deleteProduct,
+        },
+    });
+
     const table = useReactTable({
         data: products,
         columns,
@@ -209,7 +215,7 @@ function ProductList() {
                 navigate('/product/update/' + row.getValue('id'));
             },
             onDeleteButtonClick: (row) => {
-                console.log('Delete:', row.getValue('id'));
+                openDeleteDialog({ deleteId: row.getValue('id') });
             },
         },
     });
@@ -235,26 +241,26 @@ function ProductList() {
             });
     }
 
-    // function deleteProduct(id) {
-    //     fetch('http://localhost:5000/api/product/' + id, {
-    //         method: 'DELETE',
-    //     })
-    //         .then((res) => res.json())
-    //         .then((resJson) => {
-    //             setShowDeleteDialog(false);
-    //             if (resJson) {
-    //                 showDeleteNoti();
-    //                 console.log('xóa');
-    //                 getProducts();
-    //             } else {
-    //                 showErorrNoti();
-    //             }
-    //         })
-    //         .catch(() => {
-    //             showErorrNoti();
-    //             setShowDeleteDialog(false);
-    //         });
-    // }
+    function deleteProduct(id) {
+        fetch('http://localhost:5000/api/product/' + id, {
+            method: 'DELETE',
+        })
+            .then((res) => res.json())
+            .then((resJson) => {
+                if (resJson.success) {
+                    toast.success('Xoá sản phẩm thành công');
+                    getProducts();
+                } else {
+                    toast.error('Có lỗi xảy ra!');
+                }
+            })
+            .catch(() => {
+                toast.error('Có lỗi xảy ra!');
+            })
+            .finally(() => {
+                closeDeleteDialog();
+            });
+    }
 
     // function linkToDetail(id) {
     //     navigate('/product/detail/' + id);
