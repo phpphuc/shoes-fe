@@ -14,23 +14,6 @@ import HeaderCell from '../../../components/Table/HeaderCell';
 import Pagination from '../../../components/Table/Pagination';
 import Table from '../../../components/Table';
 
-function SizeCell({ getValue }) {
-    const sizes = getValue();
-    sizes.sort();
-    let sizesRender = [];
-    if (sizes.length <= 5) {
-        sizesRender = sizes;
-    } else {
-    }
-    return (
-        <div className="flex">
-            {sizes.map((size) => (
-                <div className="border bg-gray-50 py-1 px-2 text-xs font-medium">{size}</div>
-            ))}
-        </div>
-    );
-}
-
 function StatusCell({ getValue }) {
     return (
         <div className="flex justify-center">
@@ -48,7 +31,6 @@ function StatusCell({ getValue }) {
 
 function NameAndImageCell({ row, getValue }) {
     const images = row.getValue('images');
-    console.log(images);
     return (
         <div className="flex items-center space-x-2">
             <img src={images?.[0]} className="h-10 w-10 rounded-full border object-cover" />
@@ -221,7 +203,7 @@ function ProductList() {
         getPaginationRowModel: getPaginationRowModel(),
         meta: {
             onRowClick: (row) => {
-                console.log('Navigate to:', row.getValue('id'));
+                navigate('/product/detail/' + row.getValue('id'));
             },
             onEditButtonClick: (row) => {
                 navigate('/product/update/' + row.getValue('id'));
