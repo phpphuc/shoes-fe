@@ -9,7 +9,7 @@ import AddAccount from '../pages/AddAccount';
 import DetailAccount from '../pages/DetailAccount';
 import UpdateAccount from '../pages/UpdateAccount';
 import AddOrder from '../pages/AddOrder';
-import ProductType from '../pages/ProductType';
+import ProductTypeList from '../pages/ProductType/ProductTypeList';
 import Customers from '../pages/Customers';
 import Statistic from '../pages/Statistic';
 import DetailCustomer from '../pages/DetailCustomer';
@@ -19,15 +19,15 @@ import AddRole from '../pages/AddRole';
 import UpdateRole from '../pages/UpdateRole';
 import AddCustomer from '../pages/AddCustomer';
 import UpdateCustomer from '../pages/UpdateCustomer';
-import AddProductType from '../pages/AddProductType';
-import DetailTypeProduct from '../pages/DetailTypeProduct';
-import UpdateProductType from '../pages/UpdateProductType';
 import DetailOrder from '../pages/DetailOrder';
 import DetailRole from '../pages/DetailRole';
 import ProductList from '../pages/Product/ProductList';
 import ProductDetail from '../pages/Product/ProductDetail';
 import AddProduct from '../pages/Product/AddProduct';
 import UpdateProduct from '../pages/Product/UpdateProduct';
+import AddProductType from '../pages/ProductType/AddProductType';
+import ProductTypeDetail from '../pages/ProductType/ProductTypeDetail';
+import UpdateProductType from '../pages/ProductType/UpdateProductType';
 
 // Public routes
 const publicRoutes = [
@@ -103,7 +103,7 @@ const publicRoutes = [
     // PRODUCT TYPE
     {
         path: '/product-type',
-        component: ProductType,
+        component: ProductTypeList,
         props: {
             heading: 'Danh sách loại cây',
         },
@@ -117,7 +117,7 @@ const publicRoutes = [
     },
     {
         path: '/product-type/detail/:id',
-        component: DetailTypeProduct,
+        component: ProductTypeDetail,
         props: {
             heading: 'Chi tiết loại sản phẩm',
         },

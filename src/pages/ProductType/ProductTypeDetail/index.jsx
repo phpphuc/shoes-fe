@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
-import { accountSelector } from '../../redux/selectors';
+import { accountSelector } from '../../../redux/selectors';
 
-function DetailTypeProduct() {
+function ProductTypeDetail() {
     const { id } = useParams();
     const [productType, setProductType] = useState({});
     const account = useSelector(accountSelector);
@@ -44,8 +44,12 @@ function DetailTypeProduct() {
             <div className="wrapper mx-[10%] rounded-xl  border border-slate-300 p-5">
                 <div className="mt-4 flex flex-row">
                     <div className="mt-[4%] flex w-full flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold">Mã loại sản phẩm</label>
-                        <div className="text-input disabled select-none py-[5px]">{productType.id}</div>
+                        <label className="mb-1 cursor-default text-lg font-semibold">
+                            Mã loại sản phẩm
+                        </label>
+                        <div className="text-input disabled select-none py-[5px]">
+                            {productType.id}
+                        </div>
                     </div>
                 </div>
 
@@ -54,7 +58,9 @@ function DetailTypeProduct() {
                         <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="name">
                             Tên loại sản phẩm
                         </label>
-                        <div className="text-input disabled select-none py-[5px]">{productType.name}</div>
+                        <div className="text-input disabled select-none py-[5px]">
+                            {productType.name}
+                        </div>
                     </div>
                 </div>
 
@@ -94,4 +100,4 @@ function DetailTypeProduct() {
 }
 //
 //
-export default DetailTypeProduct;
+export default ProductTypeDetail;
