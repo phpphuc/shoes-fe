@@ -3,8 +3,8 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { orderActions } from '../../redux/slices/orderSlice';
-import { orderSelector } from '../../redux/selectors';
+import { orderActions } from '../../../redux/slices/orderSlice';
+import { orderSelector } from '../../../redux/selectors';
 
 const validationSchema = Yup.object({
     name: Yup.string()

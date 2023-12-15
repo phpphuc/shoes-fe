@@ -63,7 +63,10 @@ export default function Table({
                                     '!cursor-default': !rowClickable,
                                 })}
                                 key={row.id}
-                                onClick={() => table.options.meta?.onRowClick(row)}
+                                onClick={() =>
+                                    table.options.meta?.onRowClick &&
+                                    table.options.meta?.onRowClick(row)
+                                }
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <div

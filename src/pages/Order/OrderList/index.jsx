@@ -4,11 +4,11 @@ import { Listbox, Popover } from '@headlessui/react';
 import clsx from 'clsx';
 import { useEffect } from 'react';
 import moment from 'moment';
-import PriceFormat from '../../components/PriceFormat';
+import PriceFormat from '../../../components/PriceFormat';
 import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { accountSelector } from '../../redux/selectors';
-function Orders() {
+import { accountSelector } from '../../../redux/selectors';
+function OrderList() {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [deletingOrderId, setDeletingOrderId] = useState(null);
     const [search, setSearch] = useState('');
@@ -25,11 +25,15 @@ function Orders() {
         }
         if (
             dateFilter === 'yesterday' &&
-            moment().subtract(1, 'days').format('YYYY-MM-DD') == moment(order.createdAt).format('YYYY-MM-DD')
+            moment().subtract(1, 'days').format('YYYY-MM-DD') ==
+                moment(order.createdAt).format('YYYY-MM-DD')
         ) {
             return true;
         }
-        if (dateFilter === 'today' && moment().format('YYYY-MM-DD') == moment(order.createdAt).format('YYYY-MM-DD')) {
+        if (
+            dateFilter === 'today' &&
+            moment().format('YYYY-MM-DD') == moment(order.createdAt).format('YYYY-MM-DD')
+        ) {
             return true;
         }
         return false;
@@ -100,7 +104,9 @@ function Orders() {
                 <div className="flex space-x-4">
                     {/* tite + reload btn */}
                     <div className="flex">
-                        <label className="text-2xl font-bold text-slate-800">Danh sách hóa đơn</label>
+                        <label className="text-2xl font-bold text-slate-800">
+                            Danh sách hóa đơn
+                        </label>
                         <button
                             type="button"
                             className="ml-3 text-gray-800 hover:underline"
@@ -171,15 +177,24 @@ function Orders() {
                     <thead className="w-full rounded bg-blue-500 text-white">
                         <tr className="flex h-11 w-full">
                             <th className="flex w-16 items-center justify-end px-2">Mã</th>
-                            <th className="flex flex-[2] items-center justify-start px-4">Tên khách hàng</th>
-                            <th className="flex w-60 items-center justify-start px-2">Số điện thoại</th>
-                            <th className="flex w-44 items-center justify-end px-2">Tổng tiền (VNĐ)</th>
+                            <th className="flex flex-[2] items-center justify-start px-4">
+                                Tên khách hàng
+                            </th>
+                            <th className="flex w-60 items-center justify-start px-2">
+                                Số điện thoại
+                            </th>
+                            <th className="flex w-44 items-center justify-end px-2">
+                                Tổng tiền (VNĐ)
+                            </th>
                             <th className="flex w-56 items-center justify-end px-2">Ngày</th>
                             <th className="flex w-[140px] items-center justify-center px-2"></th>
                         </tr>
                     </thead>
 
-                    <tbody className="flex h-[75vh] w-full flex-col" style={{ overflowY: 'overlay' }}>
+                    <tbody
+                        className="flex h-[75vh] w-full flex-col"
+                        style={{ overflowY: 'overlay' }}
+                    >
                         {orders
                             ?.filter((order) => checkDateInFilter(order))
                             ?.reverse()
@@ -189,7 +204,9 @@ function Orders() {
                                     className="flex min-h-[56px] cursor-pointer border-b border-slate-200 hover:bg-slate-100"
                                     onClick={() => linkToDetail(order.id)}
                                 >
-                                    <td className="flex w-16 items-center justify-end px-2 py-2">{order.id}</td>
+                                    <td className="flex w-16 items-center justify-end px-2 py-2">
+                                        {order.id}
+                                    </td>
                                     <td className="flex flex-[2] items-center justify-start px-4 py-2">
                                         {order.customer?.name}
                                     </td>
@@ -240,7 +257,9 @@ function Orders() {
             >
                 <div className="">
                     <div className="min-w-[160px] max-w-[400px] rounded-lg bg-white p-6">
-                        <div className="text-clr-text-dark font-bold">Bạn có chắc chắn muốn xoá không?</div>
+                        <div className="text-clr-text-dark font-bold">
+                            Bạn có chắc chắn muốn xoá không?
+                        </div>
                         <p className="mt-4">Lưu ý: Bạn không thể không phục lại sau khi xoá!</p>
                         <div className="mt-4 flex">
                             <button
@@ -252,7 +271,10 @@ function Orders() {
                             >
                                 Quay lại
                             </button>
-                            <button className="btn btn-md btn-red" onClick={() => deleteOrder(deletingOrderId)}>
+                            <button
+                                className="btn btn-md btn-red"
+                                onClick={() => deleteOrder(deletingOrderId)}
+                            >
                                 Xoá
                             </button>
                         </div>
@@ -263,4 +285,4 @@ function Orders() {
     );
 }
 
-export default Orders;
+export default OrderList;

@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import PriceFormat from '../../components/PriceFormat';
+import PriceFormat from '../../../components/PriceFormat';
 import ReactToPrint from 'react-to-print';
 
-function DetailOrder() {
+function OrderDetail() {
     const { id } = useParams();
     const [order, setOrder] = useState({});
     const [detailOrder, setDetailOrder] = useState([]);
@@ -19,7 +19,10 @@ function DetailOrder() {
                     setOrder(resJson.order);
 
                     // call detail
-                    fetch('http://localhost:5000/api/detail-order/find-by-order-id/' + resJson.order._id)
+                    fetch(
+                        'http://localhost:5000/api/detail-order/find-by-order-id/' +
+                            resJson.order._id
+                    )
                         .then((res) => res.json())
                         .then((resJson) => {
                             if (resJson.success) {
@@ -50,17 +53,31 @@ function DetailOrder() {
                     <table className="mt-2 w-full">
                         <thead className="w-full rounded bg-blue-500 text-white">
                             <tr className="flex h-11 w-full">
-                                <th className="flex w-10 items-center justify-end px-2 text-center">Mã</th>
+                                <th className="flex w-10 items-center justify-end px-2 text-center">
+                                    Mã
+                                </th>
                                 <th className="flex w-16 items-center justify-center px-2">Ảnh</th>
-                                <th className="flex flex-1 items-center justify-start px-2">Tên sản phẩm</th>
-                                <th className="flex w-28 items-center justify-end px-2">Giá (VND)</th>
-                                <th className="mr-2 flex w-24 items-center justify-end px-2">Số lượng</th>
+                                <th className="flex flex-1 items-center justify-start px-2">
+                                    Tên sản phẩm
+                                </th>
+                                <th className="flex w-28 items-center justify-end px-2">
+                                    Giá (VND)
+                                </th>
+                                <th className="mr-2 flex w-24 items-center justify-end px-2">
+                                    Số lượng
+                                </th>
                             </tr>
                         </thead>
 
-                        <tbody className="flex h-[400px] w-full flex-col" style={{ overflowY: 'overlay' }}>
+                        <tbody
+                            className="flex h-[400px] w-full flex-col"
+                            style={{ overflowY: 'overlay' }}
+                        >
                             {detailOrder?.map((detail, index) => (
-                                <tr key={index} className="flex border-b border-slate-200 hover:bg-slate-100">
+                                <tr
+                                    key={index}
+                                    className="flex border-b border-slate-200 hover:bg-slate-100"
+                                >
                                     <td className="flex w-10 items-center justify-end px-2 py-2">
                                         {detail.product?.id}
                                     </td>
@@ -133,7 +150,9 @@ function DetailOrder() {
                             </label>
                             <span className="text-2xl font-semibold text-green-600">
                                 <span>
-                                    <PriceFormat>{order?.totalPrice - (order?.discount || 0)}</PriceFormat>
+                                    <PriceFormat>
+                                        {order?.totalPrice - (order?.discount || 0)}
+                                    </PriceFormat>
                                 </span>
                                 <span> VNĐ</span>
                             </span>
@@ -175,4 +194,4 @@ function DetailOrder() {
 }
 //
 //
-export default DetailOrder;
+export default OrderDetail;

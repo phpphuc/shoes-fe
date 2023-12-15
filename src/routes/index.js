@@ -3,12 +3,10 @@ import FullLayout from '../layouts/FullLayout';
 
 // Pages
 import Home from '../pages/Home';
-import Order from '../pages/Order';
 import Accounts from '../pages/Account';
 import AddAccount from '../pages/AddAccount';
 import DetailAccount from '../pages/DetailAccount';
 import UpdateAccount from '../pages/UpdateAccount';
-import AddOrder from '../pages/AddOrder';
 import ProductTypeList from '../pages/ProductType/ProductTypeList';
 import Customers from '../pages/Customers';
 import Statistic from '../pages/Statistic';
@@ -19,7 +17,6 @@ import AddRole from '../pages/AddRole';
 import UpdateRole from '../pages/UpdateRole';
 import AddCustomer from '../pages/AddCustomer';
 import UpdateCustomer from '../pages/UpdateCustomer';
-import DetailOrder from '../pages/DetailOrder';
 import DetailRole from '../pages/DetailRole';
 import ProductList from '../pages/Product/ProductList';
 import ProductDetail from '../pages/Product/ProductDetail';
@@ -28,6 +25,9 @@ import UpdateProduct from '../pages/Product/UpdateProduct';
 import AddProductType from '../pages/ProductType/AddProductType';
 import ProductTypeDetail from '../pages/ProductType/ProductTypeDetail';
 import UpdateProductType from '../pages/ProductType/UpdateProductType';
+import OrderList from '../pages/Order/OrderList';
+import AddOrder from '../pages/Order/AddOrder';
+import OrderDetail from '../pages/Order/OrderDetail';
 
 // Public routes
 const publicRoutes = [
@@ -42,7 +42,7 @@ const publicRoutes = [
     // ORDER
     {
         path: '/order',
-        component: Order,
+        component: OrderList,
         props: {
             heading: 'Danh sách hoá đơn',
         },
@@ -57,7 +57,7 @@ const publicRoutes = [
     },
     {
         path: '/order/detail/:id',
-        component: DetailOrder,
+        component: OrderDetail,
         props: {
             heading: 'Chi tiết hoá đơn',
         },

@@ -6,7 +6,7 @@ const initialState = {
         phone: '',
         address: '',
     },
-    details: [],
+    details: [], // {productSIze, quantity}
     totalPrice: 0,
 };
 
@@ -20,18 +20,17 @@ export const orderSlice = createSlice({
     name: 'order',
     initialState,
     reducers: {
+        // payload {productSize, price}
         add: (state, action) => {
             //add
-            const indexDetail = state.details.findIndex((detail) => detail.product === action.payload._id);
+            const indexDetail = state.details.findIndex(
+                (detail) => detail.productSize._id === action.payload.productSize._id
+            );
             if (indexDetail !== -1) {
-                if (state.details[indexDetail].quantity === action.payload.quantity) {
-                    return state;
-                } else {
-                    state.details[indexDetail].quantity += 1;
-                }
+                return state;
             } else {
                 state.details.push({
-                    product: action.payload._id,
+                    productSize: action.payload.productSize,
                     price: action.payload.price,
                     quantity: 1,
                 });
@@ -39,17 +38,29 @@ export const orderSlice = createSlice({
             updateTotalPrice(state);
         },
 
-        // action: _id
+        // payload: {_id}
         remove: (state, action) => {
-            state.details = state.details.filter((detail) => detail.product !== action.payload);
+            state.details = state.details.filter(
+                (detail) => detail.productSize._id !== action.payload
+            );
             updateTotalPrice(state);
         },
 
-        // action: {product, quantity}
+        // payload: {_id, quantity}
         updateQuantity: (state, action) => {
-            const indexDetail = state.details.findIndex((detail) => detail.product === action.payload.product._id);
+            const indexDetail = state.details.findIndex(
+                (detail) => detail.productSize._id === action.payload._id
+            );
             if (indexDetail !== -1) {
-                if (action.payload.product.quantity < Number(action.payload.quantity)) {
+                if (
+                    state.details[indexDetail].productSize.quantity <
+                    Number(action.payload.quantity)
+                ) {
+                    state.details[indexDetail].quantity =
+                        state.details[indexDetail].productSize.quantity;
+                    return;
+                }
+                if (Number(action.payload.quantity) <= 0) {
                     return state;
                 }
                 state.details[indexDetail].quantity = Number(action.payload.quantity);

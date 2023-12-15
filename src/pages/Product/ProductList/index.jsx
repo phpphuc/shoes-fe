@@ -35,7 +35,10 @@ function NameAndImageCell({ row, getValue }) {
     const images = row.getValue('images');
     return (
         <div className="flex items-center space-x-2">
-            <img src={images?.[0]} className="h-10 w-10 rounded-full border object-cover" />
+            <img
+                src={images?.[0] || '/placeholder.png'}
+                className="h-10 w-10 rounded-full border object-cover"
+            />
             <p className="flex-1">{getValue()}</p>
         </div>
     );
@@ -262,57 +265,14 @@ function ProductList() {
             });
     }
 
-    // function linkToDetail(id) {
-    //     navigate('/product/detail/' + id);
-    // }
-
     return (
-        <>
-            <div className="container">
-                {/* LIST */}
-
-                <div>
-                    <Table table={table} notFoundMessage="Không có sản phẩm" />
-                    <Pagination table={table} />
-                </div>
+        <div className="container">
+            {/* LIST */}
+            <div>
+                <Table table={table} notFoundMessage="Không có sản phẩm" />
+                <Pagination table={table} />
             </div>
-
-            {/* DELETE DIALOG */}
-            {/* <div
-                className={clsx(
-                    'fixed inset-0 z-[99999] hidden items-center justify-center bg-black/20 opacity-0 transition-opacity',
-                    {
-                        '!flex !opacity-100': showDeleteDialog,
-                    }
-                )}
-            >
-                <div className="">
-                    <div className="min-w-[160px] max-w-[400px] rounded-lg bg-white p-6">
-                        <div className="text-clr-text-dark font-bold">
-                            Bạn có chắc chắn muốn xoá không?
-                        </div>
-                        <p className="mt-4">Lưu ý: Bạn không thể không phục lại sau khi xoá!</p>
-                        <div className="mt-4 flex">
-                            <button
-                                className="btn btn-blue btn-md"
-                                onClick={() => {
-                                    setDeletingProductId(null);
-                                    setShowDeleteDialog(false);
-                                }}
-                            >
-                                Quay lại
-                            </button>
-                            <button
-                                className="btn btn-md btn-red"
-                                onClick={() => deleteProduct(deletingProductId)}
-                            >
-                                Xoá
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-        </>
+        </div>
     );
 }
 
