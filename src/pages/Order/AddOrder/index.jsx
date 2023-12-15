@@ -26,8 +26,9 @@ import {
 import Table from '../../../components/Table';
 import Pagination from '../../../components/Table/Pagination';
 import HeaderCell from '../../../components/Table/HeaderCell';
+import PaymentDialog from './PaymentDialog';
 
-function ChooseSizeDialog({ open, close, meta }) {
+function ChooseSizeDialog({ close, meta }) {
     return (
         <div
             className={clsx(
@@ -189,17 +190,6 @@ function AddOrder() {
     const order = useSelector(orderSelector);
     const dispatch = useDispatch();
 
-    const [loading, setLoading] = useState(false);
-    const showSuccessNoti = () => toast.success('Tạo hoá đơn thành công!');
-    const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
-
-    const [showPaymentDialog, setShowPaymentDialog] = useState(false);
-    const [isValidCustomer, setIsValidCustomer] = useState(false);
-
-    const [receivedMoney, setReceivedMoney] = useState(0);
-    const [discount, setDiscount] = useState(0);
-    const [exchangeMoney, setExchangeMoney] = useState(0);
-
     const [search, setSearch] = useState('');
     const [idFilter, setIdFilter] = useState('');
 
@@ -210,8 +200,13 @@ function AddOrder() {
     const [openChooseSizeDialog, closeChooseSizeDialog] = useModal({
         modal: ChooseSizeDialog,
         meta: {
-            onChooseSize: handleAddProductSize,
+            onChooseSize: (productSize, price) =>
+                dispatch(orderActions.add({ productSize, price })),
         },
+    });
+
+    const [openPaymentDialog, closePaymentDialog] = useModal({
+        modal: PaymentDialog,
     });
 
     useEffect(() => {
@@ -267,14 +262,7 @@ function AddOrder() {
                     (product) => product._id === detail.productSize.product
                 );
                 if (!matchedProduct) {
-                    return {
-                        id: '',
-                        image: '',
-                        name: '',
-                        price: 0,
-                        size: 0,
-                        quantity: 0,
-                    };
+                    return {};
                 }
                 return {
                     _id: detail.productSize._id,
@@ -289,55 +277,6 @@ function AddOrder() {
         );
     }, [order, products]);
 
-    useEffect(() => {
-        setExchangeMoney(receivedMoney - (order?.totalPrice - discount));
-    }, [order.totalPrice, receivedMoney, discount]);
-
-    function handleAddProductSize(productSize, price) {
-        dispatch(orderActions.add({ productSize, price }));
-    }
-    function handleDeleteProduct(_id) {
-        dispatch(orderActions.remove(_id));
-    }
-    function handleUpdateQuantityProduct(_id, quantity) {
-        dispatch(orderActions.updateQuantity({ _id, quantity }));
-    }
-
-    function createOrder() {
-        setLoading(true);
-        fetch('http://localhost:5000/api/order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ...order,
-                receivedMoney,
-                exchangeMoney,
-                discount,
-            }),
-        })
-            .then((res) => res.json())
-            .then((resJson) => {
-                setShowPaymentDialog(false);
-                if (resJson.success) {
-                    setLoading(false);
-                    showSuccessNoti();
-                    dispatch(orderActions.reset());
-                    setReceivedMoney(0);
-                } else {
-                    setLoading(false);
-                    showErorrNoti();
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                setShowPaymentDialog(false);
-                setLoading(false);
-                showErorrNoti();
-            });
-    }
-
     const table = useReactTable({
         data: selectedProducts,
         columns,
@@ -349,8 +288,9 @@ function AddOrder() {
         getFilteredRowModel: getFilteredRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         meta: {
-            onUpdateQuantityProduct: handleUpdateQuantityProduct,
-            onDeleteProduct: handleDeleteProduct,
+            onUpdateQuantityProduct: (_id, quantity) =>
+                dispatch(orderActions.updateQuantity({ _id, quantity })),
+            onDeleteProduct: (_id) => dispatch(orderActions.remove(_id)),
         },
     });
 
@@ -372,7 +312,6 @@ function AddOrder() {
                                 }}
                                 placeholder="Mã"
                             />
-
                             {/* Search */}
                             <input
                                 type="text"
@@ -386,7 +325,6 @@ function AddOrder() {
                         </div>
 
                         {/* LIST PRODUCT */}
-
                         <div className="flex-1">
                             <Scrollbars autoHide autoHideTimeout={4000} autoHideDuration={200}>
                                 <div className="grid grid-cols-3 gap-2">
@@ -406,6 +344,8 @@ function AddOrder() {
                             </Scrollbars>
                         </div>
                     </div>
+
+                    <PaymentDialog meta={{ selectedProducts, order }} />
 
                     {/* RIGHT ORDER */}
                     <div className="flex h-full min-w-[700px] flex-1 flex-col rounded-r-md border py-5 px-2">
@@ -436,7 +376,7 @@ function AddOrder() {
                             <button
                                 className={clsx('btn btn-blue btn-md')}
                                 disabled={!order.totalPrice}
-                                onClick={() => setShowPaymentDialog(true)}
+                                onClick={() => openPaymentDialog({ selectedProducts, order })}
                             >
                                 <span className="pr-2">
                                     <i className="fa-solid fa-circle-plus"></i>
@@ -447,215 +387,8 @@ function AddOrder() {
                     </div>
                 </div>
             </div>
-
-            {/* PAYMENT DIALOG */}
-            <div
-                className={clsx(
-                    'fixed inset-0 z-[99999] hidden items-center justify-center bg-black/20 opacity-0 transition-opacity',
-                    {
-                        '!flex !opacity-100': showPaymentDialog,
-                    }
-                )}
-            >
-                <div className="">
-                    <div className="w-[80vw] rounded-lg bg-white p-6">
-                        <div className=" text-center text-lg font-bold text-slate-900">
-                            Thanh toán hoá đơn
-                        </div>
-                        <div className="mt-5 flex space-x-6">
-                            {/* PRODUCT */}
-                            <div className="flex-1">
-                                <table className="mt-2 w-full">
-                                    <thead className="w-full rounded bg-blue-500 text-white">
-                                        <tr className="flex h-11 w-full">
-                                            <th className="flex w-10 items-center justify-end px-2 text-center">
-                                                Mã
-                                            </th>
-                                            <th className="flex w-16 items-center justify-center px-2">
-                                                Ảnh
-                                            </th>
-                                            <th className="flex flex-1 items-center justify-start px-2">
-                                                Tên sản phẩm
-                                            </th>
-                                            <th className="flex w-28 items-center justify-end px-2">
-                                                Giá (VND)
-                                            </th>
-                                            <th className="mr-2 flex w-24 items-center justify-end px-2">
-                                                Số lượng
-                                            </th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody
-                                        className="flex h-[400px] w-full flex-col"
-                                        style={{ overflowY: 'overlay' }}
-                                    >
-                                        {selectedProducts?.length === 0 ? (
-                                            <tr className="mt-3 text-lg font-semibold">
-                                                <td className="flex w-full justify-center">
-                                                    Chưa có sản phẩm trong hoá đơn
-                                                </td>
-                                            </tr>
-                                        ) : (
-                                            selectedProducts?.map((product, index) => (
-                                                <tr
-                                                    key={index}
-                                                    className="flex border-b border-slate-200 hover:bg-slate-100"
-                                                >
-                                                    <td className="flex w-10 items-center justify-end px-2 py-2">
-                                                        {product?.id}
-                                                    </td>
-                                                    <td className="flex w-16 items-center justify-center px-2 py-2">
-                                                        <img
-                                                            src={
-                                                                product?.image || '/placeholder.png'
-                                                            }
-                                                            className="h-10 w-10 rounded-full object-cover object-center"
-                                                        />
-                                                    </td>
-                                                    <td className="flex flex-[2] items-center justify-start px-2 py-2">
-                                                        {product?.name}
-                                                    </td>
-                                                    <td className="flex w-28 items-center justify-end px-2 py-2">
-                                                        <PriceFormat>{product?.price}</PriceFormat>
-                                                    </td>
-                                                    <td className="mr-2 flex w-24 items-center justify-end px-2 py-2">
-                                                        {product?.orderQuantity}
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            {/* INFOR */}
-                            <div className="flex-1">
-                                <div className="space-y-2 border-b pb-2">
-                                    <div className="text-lg">
-                                        <span>Tên khách hàng: </span>
-                                        <span className="font-semibold">
-                                            {order?.customer?.name || ''}
-                                        </span>
-                                    </div>
-                                    <div className="text-lg">
-                                        <span>Số điện thoại: </span>
-                                        <span className="font-semibold">
-                                            {order?.customer?.phone || ''}
-                                        </span>
-                                    </div>
-                                    <div className="text-lg">
-                                        <span>Địa chỉ: </span>
-                                        <span className="font-semibold">
-                                            {order?.customer?.address || ''}
-                                        </span>
-                                    </div>
-                                    <div className="text-lg">
-                                        <span>Ngày lập hoá đơn: </span>
-                                        <span className="font-semibold">
-                                            <TimeNow className="inline font-semibold" />
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className="mt-3 space-y-3 border-b pb-3">
-                                    <div className="text-lg">
-                                        <span>Tổng tiền: </span>
-                                        <span className="text-xl font-semibold text-blue-600">
-                                            <span>
-                                                <PriceFormat>{order?.totalPrice}</PriceFormat>
-                                            </span>
-                                            <span> VNĐ</span>
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center text-lg">
-                                        <label className="mr-2" htmlFor="discount">
-                                            Giảm giá
-                                        </label>
-                                        <PriceInput
-                                            id="discount"
-                                            name="discount"
-                                            value={discount}
-                                            onChange={(e) => setDiscount(e.target.value)}
-                                            className="w-56"
-                                            placeholder="Giảm giá"
-                                        />
-                                    </div>
-                                    <div className="text-lg">
-                                        <span>Thành tiền: </span>
-                                        <span className="text-xl font-semibold text-blue-600">
-                                            <span>
-                                                <PriceFormat>
-                                                    {order?.totalPrice - discount}
-                                                </PriceFormat>
-                                            </span>
-                                            <span> VNĐ</span>
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center text-lg">
-                                        <label className="mr-2" htmlFor="price">
-                                            Tiền nhận:
-                                        </label>
-                                        <PriceInput
-                                            id="price_AddProduct_page"
-                                            name="price"
-                                            value={receivedMoney}
-                                            onChange={(e) => setReceivedMoney(e.target.value)}
-                                            className="w-56"
-                                            placeholder="Tiền nhận"
-                                        />
-                                    </div>
-
-                                    <div className="text-lg">
-                                        <span>Tiền thừa: </span>
-                                        <span
-                                            className={clsx('text-xl font-semibold text-blue-600', {
-                                                'text-red-600': exchangeMoney < 0,
-                                            })}
-                                        >
-                                            <span>
-                                                <PriceFormat>{exchangeMoney}</PriceFormat>
-                                            </span>
-                                            <span> VNĐ</span>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className="mt-3 flex justify-between">
-                                    <div
-                                        className={clsx('flex items-center text-blue-500', {
-                                            invisible: !loading,
-                                        })}
-                                    >
-                                        <i className="fa-solid fa-spinner animate-spin text-xl"></i>
-                                        <span className="text-lx pl-3 font-medium">
-                                            Đang tạo hoá đơn
-                                        </span>
-                                    </div>
-                                    <div className="flex justify-end">
-                                        <button
-                                            className="btn btn-blue btn-md"
-                                            onClick={() => setShowPaymentDialog(false)}
-                                        >
-                                            Quay lại
-                                        </button>
-                                        <button
-                                            className="btn btn-green btn-md"
-                                            disabled={exchangeMoney < 0}
-                                            onClick={() => createOrder()}
-                                        >
-                                            Thanh toán hoá đơn
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </>
     );
 }
-//
-//
+
 export default AddOrder;

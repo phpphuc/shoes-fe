@@ -1,36 +1,46 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ModalContext } from '../components/ModalProvider';
-
 export default function useModal({ modal, meta }) {
     const { modalState, setModalState } = useContext(ModalContext);
+    const [isOpen, setIsOpen] = useState(false);
+    const [extraMeta, setExtraMeta] = useState({});
     const modalIdRef = useRef(0);
+    const elem = modal({
+        open,
+        close,
+        meta: {
+            ...meta,
+            ...extraMeta,
+        },
+    });
+
+    useEffect(() => {
+        if (isOpen) {
+            setModalState((prev) => ({
+                id: prev.id,
+                modals: [
+                    ...prev.modals,
+                    {
+                        id: modalIdRef.current,
+                        element: elem,
+                    },
+                ],
+            }));
+        } else {
+            setModalState((prev) => ({
+                id: prev.id,
+                modals: prev.modals.filter((m) => m.id !== modalIdRef.current),
+            }));
+        }
+    }, [isOpen]);
 
     function open(extraMeta = {}) {
-        setModalState((prev) => ({
-            id: prev.id,
-            modals: [
-                ...prev.modals,
-                {
-                    id: modalIdRef.current,
-                    open: false,
-                    element: modal({
-                        open,
-                        close,
-                        meta: {
-                            ...meta,
-                            ...extraMeta,
-                        },
-                    }),
-                },
-            ],
-        }));
+        setExtraMeta({ ...extraMeta });
+        setIsOpen(true);
     }
 
     function close() {
-        setModalState((prev) => ({
-            id: prev.id,
-            modals: prev.modals.filter((m) => m.id !== modalIdRef.current),
-        }));
+        setIsOpen(false);
     }
 
     useEffect(() => {
