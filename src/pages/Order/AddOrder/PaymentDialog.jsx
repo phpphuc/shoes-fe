@@ -45,7 +45,7 @@ const columns = [
     },
     {
         accessorKey: 'name',
-        header: (props) => <HeaderCell tableProps={props}>Tên</HeaderCell>,
+        header: (props) => <HeaderCell tableProps={props}>Sản phẩm</HeaderCell>,
         cell: NameAndImageCell,
         size: 'full',
     },
