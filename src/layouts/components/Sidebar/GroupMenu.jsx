@@ -32,10 +32,13 @@ function GroupMenu({ groupMenu }) {
     }
 
     function isHiddenParent() {
+        return true;
         if (!groupMenu.children) {
             return isHiddenItem(groupMenu.main?.functionName);
         } else {
-            const filterResult = groupMenu.children?.filter((item) => !isHiddenItem(item.functionName));
+            const filterResult = groupMenu.children?.filter(
+                (item) => !isHiddenItem(item.functionName)
+            );
             if (filterResult.length === 0) {
                 return true;
             }
@@ -76,10 +79,13 @@ function GroupMenu({ groupMenu }) {
                         <NavLink
                             key={index}
                             className={({ isActive }) =>
-                                clsx('flex cursor-pointer items-center pl-10 pr-3 text-white hover:underline', {
-                                    'font-semibold underline': isActive,
-                                    '!hidden': isHiddenItem(item?.functionName),
-                                })
+                                clsx(
+                                    'flex cursor-pointer items-center pl-10 pr-3 text-white hover:underline',
+                                    {
+                                        'font-semibold underline': isActive,
+                                        '!hidden': isHiddenItem(item?.functionName),
+                                    }
+                                )
                             }
                             to={groupMenu.main.link + item.link}
                         >
