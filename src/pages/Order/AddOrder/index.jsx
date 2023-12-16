@@ -205,9 +205,7 @@ function AddOrder() {
         },
     });
 
-    const [openPaymentDialog, closePaymentDialog] = useModal({
-        modal: PaymentDialog,
-    });
+    const [isOpenPaymentDialog, setIsOpenPaymentDialog] = useState(false);
 
     useEffect(() => {
         fetch('http://localhost:5000/api/product')
@@ -345,8 +343,6 @@ function AddOrder() {
                         </div>
                     </div>
 
-                    <PaymentDialog meta={{ selectedProducts, order }} />
-
                     {/* RIGHT ORDER */}
                     <div className="flex h-full min-w-[700px] flex-1 flex-col rounded-r-md border py-5 px-2">
                         <p className="text-center text-lg font-semibold">Hóa đơn</p>
@@ -376,7 +372,7 @@ function AddOrder() {
                             <button
                                 className={clsx('btn btn-blue btn-md')}
                                 disabled={!order.totalPrice}
-                                onClick={() => openPaymentDialog({ selectedProducts, order })}
+                                onClick={() => setIsOpenPaymentDialog(true)}
                             >
                                 <span className="pr-2">
                                     <i className="fa-solid fa-circle-plus"></i>
@@ -387,6 +383,12 @@ function AddOrder() {
                     </div>
                 </div>
             </div>
+            {isOpenPaymentDialog && (
+                <PaymentDialog
+                    close={() => setIsOpenPaymentDialog(false)}
+                    meta={{ selectedProducts, order }}
+                />
+            )}
         </>
     );
 }

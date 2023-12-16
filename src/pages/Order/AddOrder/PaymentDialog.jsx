@@ -8,12 +8,15 @@ import {
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
+import { toast } from 'react-toastify';
 import HeaderCell from '../../../components/Table/HeaderCell';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PriceFormat from '../../../components/PriceFormat';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import PriceInput from '../../../components/PriceInput';
+import { orderActions } from '../../../redux/slices/orderSlice';
 
 function NameAndImageCell({ row, getValue }) {
     const image = row.getValue('image');
@@ -329,7 +332,6 @@ function InfoGroup({ totalMoney, setValue, setIsValid }) {
             isPaid,
         }));
     }, [isDelivered, isPaid]);
-
     useEffect(() => {
         if (isValidPhone && isPaidValid && isValidDelivered) {
             setIsValid(true);
@@ -380,6 +382,7 @@ function InfoGroup({ totalMoney, setValue, setIsValid }) {
 export default function PaymentDialog({ close, meta }) {
     const selectedProducts = meta?.selectedProducts;
     const order = meta?.order;
+    const dispatch = useDispatch();
     const [isValidInfo, setIsValidInfo] = useState(false);
     const [infoValue, setInfoValue] = useState({
         phone: '',
@@ -402,39 +405,47 @@ export default function PaymentDialog({ close, meta }) {
     });
 
     function createOrder() {
-        console.log(infoValue);
-        return;
-        setLoading(true);
+        const details = order.details.map((d) => ({
+            productSize: d.productSize._id,
+            quantity: d.quantity,
+            price: d.price,
+        }));
         fetch('http://localhost:5000/api/order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                ...order,
-                receivedMoney,
-                exchangeMoney,
-                discount,
+                customerId: null,
+                deliveryStatus: infoValue.isDelivered ? 'delivered' : 'pending',
+                paymentStatus: infoValue.isPaid ? 'paid' : 'unpaid',
+                details: details,
+                receivedMoney: infoValue.isPaid
+                    ? Number(infoValue.receivedMoney)
+                    : order.totalPrice,
+                totalPrice: order.totalPrice,
+                exchangeMoney: infoValue.isPaid
+                    ? Number(infoValue.receivedMoney) - order.totalPrice
+                    : 0,
+                phone: infoValue.phone,
+                address: infoValue.isDelivered ? null : infoValue.address,
             }),
         })
             .then((res) => res.json())
             .then((resJson) => {
-                setShowPaymentDialog(false);
                 if (resJson.success) {
-                    setLoading(false);
-                    showSuccessNoti();
                     dispatch(orderActions.reset());
-                    setReceivedMoney(0);
+                    toast.success('Tạo đơn hàng thành công');
                 } else {
-                    setLoading(false);
-                    showErorrNoti();
+                    toast.error('Có lỗi xảy ra');
                 }
             })
             .catch((error) => {
                 console.log(error);
-                setShowPaymentDialog(false);
-                setLoading(false);
-                showErorrNoti();
+                toast.error('Có lỗi xảy ra');
+            })
+            .finally(() => {
+                close();
             });
     }
     return (
@@ -456,13 +467,22 @@ export default function PaymentDialog({ close, meta }) {
                             rowClickable={false}
                         />
                         <Pagination table={table} />
+                        <p className="mt-5 text-right font-semibold">
+                            <span>Tổng tiền: </span>
+                            <span className="text-xl text-blue-600">
+                                <span>
+                                    <PriceFormat>{order?.totalPrice}</PriceFormat>
+                                </span>
+                                <span> VNĐ</span>
+                            </span>
+                        </p>
                     </div>
 
                     {/* INFOR */}
                     <div className="flex-1">
                         {/* CUSTOMER FORM */}
                         <InfoGroup
-                            totalMoney={order.totalPrice + 100000}
+                            totalMoney={order?.totalPrice}
                             setValue={setInfoValue}
                             setIsValid={setIsValidInfo}
                         />
