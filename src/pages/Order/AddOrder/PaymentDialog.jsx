@@ -87,7 +87,8 @@ const columns = [
     },
 ];
 
-function PhoneGroup({ setIsValid, setValue }) {
+function PhoneGroup({ setIsValid, setValue, customers }) {
+    const [customer, setCustomer] = useState(null);
     const validationSchema = Yup.object({
         phone: Yup.string()
             .required('Trường này bắt buộc')
@@ -105,7 +106,9 @@ function PhoneGroup({ setIsValid, setValue }) {
     });
 
     useEffect(() => {
-        setValue(form.values.phone);
+        const _customer = customers.find((c) => c.phone === form.values.phone);
+        setCustomer(_customer);
+        setValue(form.values.phone, _customer);
     }, [form.values.phone]);
 
     useEffect(() => {
@@ -132,6 +135,15 @@ function PhoneGroup({ setIsValid, setValue }) {
                 value={form.values.phone}
                 name="phone"
             />
+            {customer && (
+                <div className="mt-2 flex items-center space-x-2">
+                    <img
+                        src={customer.avatar || '/placeholder.png'}
+                        className="h-10 w-10 rounded-full border object-cover"
+                    />
+                    <p className="flex-1">{customer.name}</p>
+                </div>
+            )}
             <span
                 className={clsx('text-sm text-red-500 opacity-0', {
                     'opacity-100': form.touched.phone && form.errors.phone,
@@ -143,7 +155,7 @@ function PhoneGroup({ setIsValid, setValue }) {
     );
 }
 
-function DeliveryGroup({ isDelivered, setIsDelivered, setIsValid, setValue }) {
+function DeliveryGroup({ isDelivered, setIsDelivered, setIsValid, setValue, infoValue }) {
     const validationSchema = Yup.object({
         address: Yup.string().required('Trường này bắt buộc'),
     });
@@ -173,6 +185,7 @@ function DeliveryGroup({ isDelivered, setIsDelivered, setIsValid, setValue }) {
             }
         }
     }, [form.errors, isDelivered]);
+
     return (
         <div>
             <div className="flex items-center space-x-5">
@@ -204,9 +217,21 @@ function DeliveryGroup({ isDelivered, setIsDelivered, setIsValid, setValue }) {
 
             {!isDelivered && (
                 <div className="mt-2">
-                    <label className="label" htmlFor="address">
-                        Địa chỉ giao hàng *
-                    </label>
+                    <div className="flex items-center space-x-3">
+                        <label className="label" htmlFor="address">
+                            Địa chỉ giao hàng *
+                        </label>
+                        {infoValue?.customer && (
+                            <button
+                                className="font-semibold text-blue-600 hover:text-blue-700"
+                                onClick={() =>
+                                    form.setFieldValue('address', infoValue.customer.address)
+                                }
+                            >
+                                Mặc định
+                            </button>
+                        )}
+                    </div>
                     <textarea
                         type="text"
                         id="address"
@@ -318,7 +343,7 @@ function PaymentGroup({ isDelivered, isPaid, setIsPaid, setIsValid, totalMoney, 
     );
 }
 
-function InfoGroup({ totalMoney, setValue, setIsValid }) {
+function InfoGroup({ totalMoney, setValue, setIsValid, customers, infoValue }) {
     const [isValidPhone, setIsValidPhone] = useState(false);
     const [isDelivered, setIsDelivered] = useState(true);
     const [isValidDelivered, setIsValidDelivered] = useState(true);
@@ -344,12 +369,14 @@ function InfoGroup({ totalMoney, setValue, setIsValid }) {
         <div>
             <PhoneGroup
                 setIsValid={setIsValidPhone}
-                setValue={(phone) =>
+                setValue={(phone, customer) =>
                     setValue((prev) => ({
                         ...prev,
                         phone,
+                        customer,
                     }))
                 }
+                customers={customers}
             />
             <DeliveryGroup
                 isDelivered={isDelivered}
@@ -361,6 +388,7 @@ function InfoGroup({ totalMoney, setValue, setIsValid }) {
                         address,
                     }))
                 }
+                infoValue={infoValue}
             />
             <PaymentGroup
                 isDelivered={isDelivered}
@@ -382,6 +410,22 @@ function InfoGroup({ totalMoney, setValue, setIsValid }) {
 export default function PaymentDialog({ close, meta }) {
     const selectedProducts = meta?.selectedProducts;
     const order = meta?.order;
+    const [customers, setCustomers] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000/api/customer')
+            .then((res) => res.json())
+            .then((resJson) => {
+                if (resJson.success) {
+                    setCustomers(resJson.customers);
+                } else {
+                    setCustomers([]);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                setCustomers([]);
+            });
+    }, []);
     const dispatch = useDispatch();
     const [isValidInfo, setIsValidInfo] = useState(false);
     const [infoValue, setInfoValue] = useState({
@@ -389,7 +433,9 @@ export default function PaymentDialog({ close, meta }) {
         isDelivered: true,
         isPaid: true,
         receivedMoney: 0,
+        customer: null,
     });
+    console.log(infoValue);
 
     const table = useReactTable({
         data: selectedProducts,
@@ -416,7 +462,7 @@ export default function PaymentDialog({ close, meta }) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                customerId: null,
+                customerId: infoValue.customer?._id,
                 deliveryStatus: infoValue.isDelivered ? 'delivered' : 'pending',
                 paymentStatus: infoValue.isPaid ? 'paid' : 'unpaid',
                 details: details,
@@ -485,6 +531,8 @@ export default function PaymentDialog({ close, meta }) {
                             totalMoney={order?.totalPrice}
                             setValue={setInfoValue}
                             setIsValid={setIsValidInfo}
+                            customers={customers}
+                            infoValue={infoValue}
                         />
 
                         <div className="mt-4 flex justify-between">
