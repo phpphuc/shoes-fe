@@ -18,7 +18,7 @@ function GroupMenu({ groupMenu }) {
     const account = useSelector(accountSelector);
 
     function isHiddenItem(functionName) {
-        return true;
+        return false;
         if (!account) {
             return true;
         }
@@ -33,7 +33,7 @@ function GroupMenu({ groupMenu }) {
     }
 
     function isHiddenParent() {
-        return true;
+        return false;
         if (!groupMenu.children) {
             return isHiddenItem(groupMenu.main?.functionName);
         } else {
