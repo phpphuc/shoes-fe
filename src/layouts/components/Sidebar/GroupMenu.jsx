@@ -18,6 +18,7 @@ function GroupMenu({ groupMenu }) {
     const account = useSelector(accountSelector);
 
     function isHiddenItem(functionName) {
+        return true;
         if (!account) {
             return true;
         }
