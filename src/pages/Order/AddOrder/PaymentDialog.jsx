@@ -17,6 +17,7 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import PriceInput from '../../../components/PriceInput';
 import { orderActions } from '../../../redux/slices/orderSlice';
+import LoadingForm from '../../../components/LoadingForm';
 
 function NameAndImageCell({ row, getValue }) {
     const image = row.getValue('image');
@@ -411,6 +412,7 @@ export default function PaymentDialog({ close, meta }) {
     const selectedProducts = meta?.selectedProducts;
     const order = meta?.order;
     const [customers, setCustomers] = useState([]);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         fetch('http://localhost:5000/api/customer')
             .then((res) => res.json())
@@ -451,6 +453,7 @@ export default function PaymentDialog({ close, meta }) {
     });
 
     function createOrder() {
+        setLoading(true);
         const details = order.details.map((d) => ({
             productSize: d.productSize._id,
             quantity: d.quantity,
@@ -492,6 +495,7 @@ export default function PaymentDialog({ close, meta }) {
             })
             .finally(() => {
                 close();
+                setLoading(false);
             });
     }
     return (
@@ -527,13 +531,16 @@ export default function PaymentDialog({ close, meta }) {
                     {/* INFOR */}
                     <div className="flex-1">
                         {/* CUSTOMER FORM */}
-                        <InfoGroup
-                            totalMoney={order?.totalPrice}
-                            setValue={setInfoValue}
-                            setIsValid={setIsValidInfo}
-                            customers={customers}
-                            infoValue={infoValue}
-                        />
+                        <div className="relative">
+                            <InfoGroup
+                                totalMoney={order?.totalPrice}
+                                setValue={setInfoValue}
+                                setIsValid={setIsValidInfo}
+                                customers={customers}
+                                infoValue={infoValue}
+                            />
+                            <LoadingForm loading={loading} />
+                        </div>
 
                         <div className="mt-4 flex justify-between">
                             <div className="flex justify-end">
@@ -542,7 +549,7 @@ export default function PaymentDialog({ close, meta }) {
                                 </button>
                                 <button
                                     className="btn btn-yellow btn-md"
-                                    disabled={!isValidInfo}
+                                    disabled={!isValidInfo || loading}
                                     onClick={() => createOrder()}
                                 >
                                     Thanh toán hoá đơn
