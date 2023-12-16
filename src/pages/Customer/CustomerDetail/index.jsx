@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
-import { accountSelector } from '../../redux/selectors';
+import { accountSelector } from '../../../redux/selectors';
 
-function DetailCustomer() {
+function CustomerDetail() {
     const { id } = useParams();
     const [customer, setCustomer] = useState({});
     const account = useSelector(accountSelector);
@@ -44,17 +44,27 @@ function DetailCustomer() {
             <div className="wrapper">
                 <div className="mt-4 flex flex-row">
                     <div className="mt-[4%] flex basis-1/2 flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold">Mã khách hàng</label>
-                        <div className="text-input disabled select-none py-[5px]">{customer.id}</div>
+                        <label className="mb-1 cursor-default text-lg font-semibold">
+                            Mã khách hàng
+                        </label>
+                        <div className="text-input disabled select-none py-[5px]">
+                            {customer.id}
+                        </div>
                     </div>
                 </div>
 
                 <div className="mt-2 flex flex-row">
                     <div className="mt-2 flex basis-1/2 flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="phone" defaultValue={0}>
+                        <label
+                            className="mb-1 cursor-default text-lg font-semibold"
+                            htmlFor="phone"
+                            defaultValue={0}
+                        >
                             Số điện thoại
                         </label>
-                        <div className="text-input disabled select-none py-[5px]">{customer.phone}</div>
+                        <div className="text-input disabled select-none py-[5px]">
+                            {customer.phone}
+                        </div>
                     </div>
                 </div>
 
@@ -63,7 +73,9 @@ function DetailCustomer() {
                         <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="name">
                             Tên khách hàng
                         </label>
-                        <div className="text-input disabled select-none py-[5px]">{customer.name}</div>
+                        <div className="text-input disabled select-none py-[5px]">
+                            {customer.name}
+                        </div>
                     </div>
                 </div>
 
@@ -80,10 +92,15 @@ function DetailCustomer() {
 
                 <div className="mt-4 flex flex-row">
                     <div className="mr-2 mt-2 flex w-full flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="address">
+                        <label
+                            className="mb-1 cursor-default text-lg font-semibold"
+                            htmlFor="address"
+                        >
                             Địa chỉ
                         </label>
-                        <div className="text-input disabled select-none py-[5px]">{customer.address}</div>
+                        <div className="text-input disabled select-none py-[5px]">
+                            {customer.address}
+                        </div>
                     </div>
                 </div>
 
@@ -117,4 +134,4 @@ function DetailCustomer() {
 }
 //
 //
-export default DetailCustomer;
+export default CustomerDetail;

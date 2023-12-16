@@ -30,7 +30,6 @@ function AddProductType() {
     });
 
     function handleFormsubmit(values) {
-        setValidateOnChange(true);
         setLoading(true);
         fetch('http://localhost:5000/api/product-type', {
             method: 'POST',
@@ -59,7 +58,10 @@ function AddProductType() {
     return (
         <div className="container">
             <form
-                onSubmit={form.handleSubmit}
+                onSubmit={(e) => {
+                    setValidateOnChange(true);
+                    form.handleSubmit(e);
+                }}
                 className="mx-auto mt-5 max-w-[500px] rounded-xl border border-slate-300 p-5"
             >
                 <div className="relative pt-10">
@@ -74,7 +76,6 @@ function AddProductType() {
                                 invalid: form.errors.name,
                             })}
                             onChange={form.handleChange}
-                            onBlur={form.handleBlur}
                             value={form.values.name}
                             name="name"
                             placeholder="Giày thể thao"

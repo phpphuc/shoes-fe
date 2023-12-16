@@ -45,7 +45,6 @@ function AddProduct() {
     });
 
     function handleFormsubmit(values) {
-        setValidateOnChange(true);
         setLoading(true);
 
         createProduct(values)

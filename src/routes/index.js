@@ -8,15 +8,11 @@ import AddAccount from '../pages/AddAccount';
 import DetailAccount from '../pages/DetailAccount';
 import UpdateAccount from '../pages/UpdateAccount';
 import ProductTypeList from '../pages/ProductType/ProductTypeList';
-import Customers from '../pages/Customers';
 import Statistic from '../pages/Statistic';
-import DetailCustomer from '../pages/DetailCustomer';
 import Login from '../pages/Login';
 import Roles from '../pages/Roles';
 import AddRole from '../pages/AddRole';
 import UpdateRole from '../pages/UpdateRole';
-import AddCustomer from '../pages/AddCustomer';
-import UpdateCustomer from '../pages/UpdateCustomer';
 import DetailRole from '../pages/DetailRole';
 import ProductList from '../pages/Product/ProductList';
 import ProductDetail from '../pages/Product/ProductDetail';
@@ -28,6 +24,10 @@ import UpdateProductType from '../pages/ProductType/UpdateProductType';
 import OrderList from '../pages/Order/OrderList';
 import AddOrder from '../pages/Order/AddOrder';
 import OrderDetail from '../pages/Order/OrderDetail';
+import CustomerList from '../pages/Customer/CustomerList';
+import CustomerDetail from '../pages/Customer/CustomerDetail';
+import AddCustomer from '../pages/Customer/AddCustomer';
+import UpdateCustomer from '../pages/Customer/UpdateCustomer';
 
 // Public routes
 const publicRoutes = [
@@ -133,14 +133,14 @@ const publicRoutes = [
     // CUSTOMER
     {
         path: '/customer',
-        component: Customers,
+        component: CustomerList,
         props: {
             heading: 'Khách hàng',
         },
     },
     {
         path: '/customer/detail/:id',
-        component: DetailCustomer,
+        component: CustomerDetail,
         props: {
             heading: 'Chi tiết khách hàng',
         },

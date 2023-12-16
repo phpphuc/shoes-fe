@@ -77,6 +77,10 @@ function UpdateProductType() {
 
     return (
         <div className="container">
+            <div className="mb-6 mt-2 flex items-center justify-center space-x-3 rounded bg-blue-50 py-4">
+                <span className="text-lg font-medium text-gray-700">Mã loại sản phẩm:</span>
+                <span className="text-lg font-bold text-blue-600">{productType.id}</span>
+            </div>
             <form
                 onSubmit={form.handleSubmit}
                 className="mx-auto mt-5 max-w-[500px] rounded-xl border border-slate-300 p-5"
