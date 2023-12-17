@@ -1,6 +1,6 @@
 import PriceFormat from '../PriceFormat';
 
-export default function ProductCard({ product, onProductClick }) {
+export default function ProductCard({ product, onProductClick, isImport = false }) {
     return (
         <div
             key={product.id}
@@ -16,7 +16,7 @@ export default function ProductCard({ product, onProductClick }) {
                 <p className="text-sm font-semibold">{'Mã: ' + product.id}</p>
                 <p className="text-sm font-semibold">{'Loại: ' + product.type?.name || '-'}</p>
                 <p className="">
-                    <PriceFormat>{product.price}</PriceFormat>
+                    <PriceFormat>{!isImport ? product.price : product.importPrice}</PriceFormat>
                     <span className="ml-1">VNĐ</span>
                 </p>
             </div>

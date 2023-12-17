@@ -21,41 +21,6 @@ import HeaderCell from '../../../components/Table/HeaderCell';
 import useModal from '../../../hooks/useModal';
 import DeleteDialog from '../../../components/DeleteDialog';
 
-function DeliveryStatusCell({ getValue }) {
-    return (
-        <div className="flex justify-center">
-            <div
-                className={clsx('rounded p-2 py-1 text-xs font-medium ', {
-                    'bg-green-100 text-green-800': getValue() === 'delivered',
-                    'bg-orange-100 text-orange-800': getValue() === 'pending',
-                    'bg-red-100 text-red-800': getValue() === 'aborted',
-                })}
-            >
-                {getValue() === 'delivered'
-                    ? 'Đã giao'
-                    : getValue() === 'pending'
-                    ? 'Đang chờ'
-                    : 'Đã huỷ'}
-            </div>
-        </div>
-    );
-}
-
-function PaymentStatusCell({ getValue }) {
-    return (
-        <div className="flex justify-center">
-            <div
-                className={clsx('rounded p-2 py-1 text-xs font-medium ', {
-                    'bg-green-100 text-green-800': getValue() === 'paid',
-                    'bg-orange-100 text-orange-800': getValue() === 'unpaid',
-                })}
-            >
-                {getValue() === 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán'}
-            </div>
-        </div>
-    );
-}
-
 function ActionCell({ table, row }) {
     return (
         <div className="flex justify-end">
@@ -81,7 +46,7 @@ const columns = [
             </HeaderCell>
         ),
         cell: ({ getValue }) => <p className="text-center">{getValue()}</p>,
-        size: 80,
+        size: 100,
     },
     {
         accessorKey: 'createdAt',
@@ -93,23 +58,13 @@ const columns = [
         cell: ({ getValue }) => (
             <p className="text-center">{moment(getValue()).format('HH:MM DD/MM/YYYY')}</p>
         ),
-        size: 200,
-    },
-    {
-        accessorKey: 'phone',
-        header: (props) => (
-            <HeaderCell align="center" tableProps={props}>
-                Số điện thoại
-            </HeaderCell>
-        ),
-        cell: ({ getValue }) => <p className="text-center">{getValue()}</p>,
-        size: 'full',
+        size: 300,
     },
     {
         accessorKey: 'totalPrice',
         header: (props) => (
             <HeaderCell align="right" tableProps={props}>
-                Giá
+                Tổng tiền
             </HeaderCell>
         ),
         cell: ({ getValue }) => (
@@ -117,99 +72,57 @@ const columns = [
                 <PriceFormat>{getValue()}</PriceFormat>
             </p>
         ),
-        size: 150,
+        size: 'full',
     },
 
-    {
-        accessorKey: 'deliveryStatus',
-        header: (props) => (
-            <HeaderCell align="center" tableProps={props}>
-                Nhận hàng
-            </HeaderCell>
-        ),
-        cell: DeliveryStatusCell,
-        size: 150,
-        enableSorting: false,
-    },
-    {
-        accessorKey: 'paymentStatus',
-        header: (props) => (
-            <HeaderCell align="center" tableProps={props}>
-                Thanh toán
-            </HeaderCell>
-        ),
-        cell: PaymentStatusCell,
-        size: 150,
-        enableSorting: false,
-    },
     {
         id: 'action',
         header: '',
         cell: ActionCell,
-        size: 100,
+        size: 300,
     },
 ];
 
-function OrderList() {
-    const [orders, setOrders] = useState([]);
+function ImportList() {
+    const [imports, setImports] = useState([]);
     const navigate = useNavigate();
 
-    // function checkDateInFilter(order) {
-    //     if (dateFilter === 'all') {
-    //         return true;
-    //     }
-    //     if (
-    //         dateFilter === 'yesterday' &&
-    //         moment().subtract(1, 'days').format('YYYY-MM-DD') ==
-    //             moment(order.createdAt).format('YYYY-MM-DD')
-    //     ) {
-    //         return true;
-    //     }
-    //     if (
-    //         dateFilter === 'today' &&
-    //         moment().format('YYYY-MM-DD') == moment(order.createdAt).format('YYYY-MM-DD')
-    //     ) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
     useEffect(() => {
-        getOrders();
+        getImports();
     }, []);
 
     const [openDeleteDialog, closeDeleteDialog] = useModal({
         modal: DeleteDialog,
         meta: {
-            onDelete: deleteOrder,
+            onDelete: deleteImport,
         },
     });
 
-    function getOrders() {
-        fetch('http://localhost:5000/api/order')
+    function getImports() {
+        fetch('http://localhost:5000/api/import')
             .then((res) => res.json())
             .then((resJson) => {
                 if (resJson.success) {
-                    setOrders(resJson.orders.sort((a, b) => b.id - a.id));
+                    setImports(resJson.imports.sort((a, b) => b.id - a.id));
                 } else {
-                    setOrders([]);
+                    setImports([]);
                 }
             })
             .catch((error) => {
                 console.log(error);
-                setOrders([]);
+                setImports([]);
             });
     }
 
-    function deleteOrder(id) {
-        fetch('http://localhost:5000/api/order/' + id, {
+    function deleteImport(id) {
+        fetch('http://localhost:5000/api/import/' + id, {
             method: 'DELETE',
         })
             .then((res) => res.json())
             .then((resJson) => {
                 if (resJson) {
-                    toast.success('Xoá hoá đơn thành công');
-                    getOrders();
+                    toast.success('Xoá phiếu nhập thành công');
+                    getImports();
                 } else {
                     toast.error('Có lỗi xảy ra');
                 }
@@ -224,7 +137,7 @@ function OrderList() {
     }
 
     const table = useReactTable({
-        data: orders,
+        data: imports,
         columns,
         state: {
             // columnFilters,
@@ -236,10 +149,10 @@ function OrderList() {
         getPaginationRowModel: getPaginationRowModel(),
         meta: {
             onRowClick: (row) => {
-                navigate('/order/detail/' + row.getValue('id'));
+                navigate('/import/detail/' + row.getValue('id'));
             },
             onEditButtonClick: (row) => {
-                navigate('/order/update/' + row.getValue('id'));
+                navigate('/import/update/' + row.getValue('id'));
             },
             onDeleteButtonClick: (row) => {
                 openDeleteDialog({ deleteId: row.getValue('id') });
@@ -248,13 +161,13 @@ function OrderList() {
     });
 
     return (
-        <div className="container">
+        <div className="container max-w-[800px]">
             <div>
-                <Table table={table} notFoundMessage="Không có hoá đơn" />
+                <Table table={table} notFoundMessage="Không có phiếu nhập" />
                 <Pagination table={table} />
             </div>
         </div>
     );
 }
 
-export default OrderList;
+export default ImportList;

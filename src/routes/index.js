@@ -28,6 +28,9 @@ import CustomerList from '../pages/Customer/CustomerList';
 import CustomerDetail from '../pages/Customer/CustomerDetail';
 import AddCustomer from '../pages/Customer/AddCustomer';
 import UpdateCustomer from '../pages/Customer/UpdateCustomer';
+import ImportList from '../pages/Import/ImportList';
+import ImportDetail from '../pages/Import/ImportDetail';
+import AddImport from '../pages/Import/AddImport';
 
 // Public routes
 const publicRoutes = [
@@ -67,6 +70,29 @@ const publicRoutes = [
         component: Statistic,
         props: {
             heading: 'Thống kê',
+        },
+    },
+
+    // ORDER
+    {
+        path: '/import',
+        component: ImportList,
+        props: {
+            heading: 'Danh sách phiếu nhập',
+        },
+    },
+    {
+        path: '/import/add',
+        component: AddImport,
+        props: {
+            heading: 'Nhập sản phẩm',
+        },
+    },
+    {
+        path: '/import/detail/:id',
+        component: ImportDetail,
+        props: {
+            heading: 'Chi tiết phiếu nhập',
         },
     },
 

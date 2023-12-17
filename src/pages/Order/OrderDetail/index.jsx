@@ -44,14 +44,14 @@ const columns = [
     },
     {
         id: 'product',
-        accessorFn: (item) => item.productSize.product.name,
+        accessorFn: (item) => item?.productSize?.product?.name,
         header: (props) => <HeaderCell tableProps={props}>Sản phẩm</HeaderCell>,
         cell: NameAndImageCell,
         size: 'full',
     },
     {
         id: 'size',
-        accessorFn: (item) => item.productSize.size,
+        accessorFn: (item) => item?.productSize?.size,
         header: (props) => (
             <HeaderCell align="center" tableProps={props}>
                 Size
@@ -86,7 +86,7 @@ const columns = [
     },
     {
         id: 'image',
-        accessorFn: (item) => item.productSize.product.images?.[0],
+        accessorFn: (item) => item?.productSize?.product?.images?.[0],
     },
 ];
 

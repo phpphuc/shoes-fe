@@ -39,6 +39,29 @@ const groupMenus = [
             },
         ],
     },
+
+    {
+        main: {
+            iconClassname: 'fa-solid fa-box-open',
+            text: 'Phiếu nhập',
+            link: '/import',
+        },
+        children: [
+            {
+                iconClassname: 'fa-solid fa-list',
+                text: 'Danh sách',
+                link: '/',
+                functionName: 'product/read',
+            },
+            {
+                iconClassname: 'fa-solid fa-circle-plus',
+                text: 'Thêm',
+                link: '/add',
+                functionName: 'product/create',
+            },
+        ],
+    },
+
     {
         main: {
             iconClassname: 'fa-solid fa-box-open',
@@ -161,7 +184,10 @@ function Sidebar() {
                 <div className="font-bold">CỬA HÀNG CÂY XANH</div>
             </header>
 
-            <ul className="flex flex-1 select-none flex-col space-y-0.5 p-2 " style={{ overflowY: 'overlay' }}>
+            <ul
+                className="flex flex-1 select-none flex-col space-y-0.5 p-2 "
+                style={{ overflowY: 'overlay' }}
+            >
                 {groupMenus.map((groupMenu, index) => (
                     <GroupMenu key={index} groupMenu={groupMenu} />
                 ))}
