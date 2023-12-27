@@ -3,17 +3,8 @@ import FullLayout from '../layouts/FullLayout';
 
 // Pages
 import Home from '../pages/Home';
-import Accounts from '../pages/Account';
-import AddAccount from '../pages/AddAccount';
-import DetailAccount from '../pages/DetailAccount';
-import UpdateAccount from '../pages/UpdateAccount';
 import ProductTypeList from '../pages/ProductType/ProductTypeList';
-import Statistic from '../pages/Statistic';
 import Login from '../pages/Login';
-import Roles from '../pages/Roles';
-import AddRole from '../pages/AddRole';
-import UpdateRole from '../pages/UpdateRole';
-import DetailRole from '../pages/DetailRole';
 import ProductList from '../pages/Product/ProductList';
 import ProductDetail from '../pages/Product/ProductDetail';
 import AddProduct from '../pages/Product/AddProduct';
@@ -31,6 +22,20 @@ import UpdateCustomer from '../pages/Customer/UpdateCustomer';
 import ImportList from '../pages/Import/ImportList';
 import ImportDetail from '../pages/Import/ImportDetail';
 import AddImport from '../pages/Import/AddImport';
+import StatisticProduct from '../pages/Statistic/StatisticProduct';
+import StatisticProfit from '../pages/Statistic/StatisticProfit';
+import AddRole from '../pages/Role/AddRole';
+import RoleList from '../pages/Role/RoleList';
+import UpdateRole from '../pages/Role/UpdateRole';
+import RoleDetail from '../pages/Role/RoleDetail';
+import AccountList from '../pages/Account/AccountList';
+import AddAccount from '../pages/Account/AddAccount';
+import UpdateAccount from '../pages/Account/UpdateAccount';
+import AccountDetail from '../pages/Account/AccountDetail';
+import CouponList from '../pages/Coupon/CouponList';
+import AddCoupon from '../pages/Coupon/AddCoupon';
+import UpdateCoupon from '../pages/Coupon/UpdateCoupon';
+import CouponDetail from '../pages/Coupon/CouponDetail';
 
 // Public routes
 const publicRoutes = [
@@ -63,13 +68,6 @@ const publicRoutes = [
         component: OrderDetail,
         props: {
             heading: 'Chi tiết hoá đơn',
-        },
-    },
-    {
-        path: 'order/statistic',
-        component: Statistic,
-        props: {
-            heading: 'Thống kê',
         },
     },
 
@@ -131,14 +129,14 @@ const publicRoutes = [
         path: '/product-type',
         component: ProductTypeList,
         props: {
-            heading: 'Danh sách loại cây',
+            heading: 'Danh sách loại sản phẩm',
         },
     },
     {
         path: '/product-type/add',
         component: AddProductType,
         props: {
-            heading: 'Thêm mới loại sản phẩm',
+            heading: 'Thêm loại sản phẩm',
         },
     },
     {
@@ -185,12 +183,13 @@ const publicRoutes = [
             heading: 'Chỉnh sửa khách hàng',
         },
     },
+
     // Account
     {
         path: '/account',
-        component: Accounts,
+        component: AccountList,
         props: {
-            heading: 'Tài khoản',
+            heading: 'Danh sách tài khoản',
         },
     },
     {
@@ -209,19 +208,34 @@ const publicRoutes = [
     },
     {
         path: '/account/detail/:id',
-        component: DetailAccount,
+        component: AccountDetail,
         props: {
             heading: 'Chi tiết tài khoản',
         },
     },
 
-    // *****
+    // Statistics
+    {
+        path: '/statistic/product',
+        component: StatisticProduct,
+        props: {
+            heading: 'Thống kê sản phẩm',
+        },
+    },
+    {
+        path: '/statistic/profit',
+        component: StatisticProfit,
+        props: {
+            heading: 'Thống kê doanh số',
+        },
+    },
 
+    // ROLE
     {
         path: '/role',
-        component: Roles,
+        component: RoleList,
         props: {
-            heading: 'Quy định',
+            heading: 'Danh sách chức vụ',
         },
     },
     {
@@ -233,7 +247,7 @@ const publicRoutes = [
     },
     {
         path: '/role/detail/:id',
-        component: DetailRole,
+        component: RoleDetail,
         props: {
             heading: 'Chi tiết chức vụ',
         },
@@ -245,13 +259,36 @@ const publicRoutes = [
             heading: 'Sửa chức vụ',
         },
     },
+
+    // Coupon
     {
-        path: '/roles/detail/:id',
-        component: DetailRole,
+        path: '/coupon',
+        component: CouponList,
         props: {
-            heading: 'Chi tiết chức vụ',
+            heading: 'Danh sách phiếu giảm giá',
         },
     },
+    {
+        path: '/coupon/add',
+        component: AddCoupon,
+        props: {
+            heading: 'Thêm phiếu giảm giá',
+        },
+    },
+    {
+        path: '/coupon/update/:id',
+        component: UpdateCoupon,
+        props: {
+            heading: 'Chỉnh sửa phiếu giảm giá',
+        },
+    },
+    // {
+    //     path: '/coupon/detail/:id',
+    //     component: CouponDetail,
+    //     props: {
+    //         heading: 'Chi tiết phiếu giảm giá',
+    //     },
+    // },
 
     {
         path: '/login',

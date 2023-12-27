@@ -96,8 +96,6 @@ function AddProduct() {
         return resJson;
     }
 
-    console.log(form);
-
     return (
         <div className="container">
             <form

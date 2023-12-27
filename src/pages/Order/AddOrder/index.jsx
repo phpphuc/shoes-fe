@@ -5,7 +5,6 @@ import { Listbox, Popover } from '@headlessui/react';
 import clsx from 'clsx';
 import TimeNow from '../../../components/TimeNow';
 import PriceFormat from '../../../components/PriceFormat';
-import CustomerInput from './CustomerInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderSelector } from '../../../redux/selectors';
 import { orderActions } from '../../../redux/slices/orderSlice';

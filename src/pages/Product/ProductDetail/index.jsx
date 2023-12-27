@@ -21,6 +21,7 @@ import range from '../../../utils/range';
 import SizesInput from '../../../components/SizesInput';
 import useModal from '../../../hooks/useModal';
 import DeleteDialog from '../../../components/DeleteDialog';
+import ShowWithFunc from '../../../components/ShowWithFunc';
 
 function ActionCell({ table, row }) {
     return (
@@ -293,12 +294,17 @@ function ProductDetail() {
                                 </span>
                                 <span>Quay lại</span>
                             </Link>
-                            <Link to={'/product/update/' + id} className="btn btn-yellow btn-md">
-                                <span className="pr-2">
-                                    <i className="fa-solid fa-circle-plus"></i>
-                                </span>
-                                <span>Chỉnh sửa</span>
-                            </Link>
+                            <ShowWithFunc func="product/update">
+                                <Link
+                                    to={'/product/update/' + id}
+                                    className="btn btn-yellow btn-md"
+                                >
+                                    <span className="pr-2">
+                                        <i className="fa-solid fa-circle-plus"></i>
+                                    </span>
+                                    <span>Chỉnh sửa</span>
+                                </Link>
+                            </ShowWithFunc>
                         </div>
                     </div>
                     <div className="w-[500px] space-y-8">

@@ -22,28 +22,35 @@ import DeleteDialog from '../../../components/DeleteDialog';
 import useModal from '../../../hooks/useModal';
 import Table from '../../../components/Table';
 import Pagination from '../../../components/Table/Pagination';
+import ShowWithFunc from '../../../components/ShowWithFunc';
+import TopBar from './TopBar';
+import searchFilterFn from '../../../utils/searchFilterFn';
 
 function ActionCell({ table, row }) {
     return (
         <div className="flex justify-center">
-            <button
-                className="btn btn-yellow px-3 py-1"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    table.options.meta?.onEditButtonClick(row);
-                }}
-            >
-                Sửa
-            </button>
-            <button
-                className="btn btn-red px-3 py-1"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    table.options.meta?.onDeleteButtonClick(row);
-                }}
-            >
-                Xoá
-            </button>
+            <ShowWithFunc func="product-type/update">
+                <button
+                    className="btn btn-yellow px-3 py-1"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        table.options.meta?.onEditButtonClick(row);
+                    }}
+                >
+                    Sửa
+                </button>
+            </ShowWithFunc>
+            <ShowWithFunc func="product-type/delete">
+                <button
+                    className="btn btn-red px-3 py-1"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        table.options.meta?.onDeleteButtonClick(row);
+                    }}
+                >
+                    Xoá
+                </button>
+            </ShowWithFunc>
         </div>
     );
 }
@@ -63,6 +70,7 @@ const columns = [
         accessorKey: 'name',
         header: (props) => <HeaderCell tableProps={props}>Tên</HeaderCell>,
         size: 'full',
+        filterFn: searchFilterFn,
     },
     {
         accessorKey: 'createdAt',
@@ -87,38 +95,13 @@ const columns = [
 function ProductTypeList() {
     const [productTypes, setProductTypes] = useState([]);
     const navigate = useNavigate();
-    const account = useSelector(accountSelector);
-    // function isHiddenItem(functionName) {
-    //     if (!account) {
-    //         return true;
-    //     }
-    //     if (!functionName) {
-    //         return false;
-    //     }
-    //     const findResult = account?.functions?.find((_func) => _func?.name === functionName);
-    //     if (findResult) {
-    //         return false;
-    //     }
-    //     return true;
-    // }
     const [openDeleteDialog, closeDeleteDialog] = useModal({
         modal: DeleteDialog,
         meta: {
             onDelete: deleteProductType,
         },
     });
-    const [columnFilters, setColumnFilters] = useState([
-        // {
-        //     id: 'type',
-        //     value: ['Giay thoi trang'],
-        // },
-        // {
-        //     id: 'price',
-        //     value: {
-        //         max: 120000,
-        //     },
-        // },
-    ]);
+    const [columnFilters, setColumnFilters] = useState([{ id: 'name', value: '' }]);
 
     useEffect(() => {
         getProductTypes();
@@ -178,19 +161,17 @@ function ProductTypeList() {
     });
 
     return (
-        <>
-            <div className="container">
-                {/* LIST */}
-                <div>
-                    <Table
-                        table={table}
-                        notFoundMessage="Không có loại sản phẩm"
-                        rowClickable={false}
-                    />
-                    <Pagination table={table} />
-                </div>
+        <div className="container max-w-[900px] space-y-4">
+            <TopBar filters={columnFilters} setFilters={setColumnFilters} />
+            <div>
+                <Table
+                    table={table}
+                    notFoundMessage="Không có loại sản phẩm"
+                    rowClickable={false}
+                />
+                <Pagination table={table} />
             </div>
-        </>
+        </div>
     );
 }
 

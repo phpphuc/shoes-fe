@@ -422,7 +422,7 @@ function AddImport() {
                                     <span className="pr-2">
                                         <i className="fa-solid fa-circle-plus"></i>
                                     </span>
-                                    <span>Tạo hoá phiếu nhập</span>
+                                    <span>Tạo phiếu nhập</span>
                                 </button>
                             </div>
                         </div>

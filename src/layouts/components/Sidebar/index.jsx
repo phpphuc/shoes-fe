@@ -1,7 +1,5 @@
 import GroupMenu from './GroupMenu';
-import { useDispatch, useSelector } from 'react-redux';
-import { accountActions } from '../../../redux/slices/accountSlide';
-import { accountSelector } from '../../../redux/selectors';
+import { Scrollbars } from 'react-custom-scrollbars';
 import { toast } from 'react-toastify';
 
 const groupMenus = [
@@ -23,23 +21,16 @@ const groupMenus = [
                 iconClassname: 'fa-solid fa-list',
                 text: 'Danh sách',
                 link: '/',
-                functionName: 'order/read',
+                functionName: 'order/view',
             },
             {
                 iconClassname: 'fa-solid fa-circle-plus',
                 text: 'Thêm',
                 link: '/add',
-                functionName: 'order/create',
-            },
-            {
-                iconClassname: 'fa-solid fa-table',
-                text: 'Thống kê',
-                link: '/statistic',
-                functionName: 'order/statistc',
+                functionName: 'order/add',
             },
         ],
     },
-
     {
         main: {
             iconClassname: 'fa-solid fa-box-open',
@@ -51,13 +42,13 @@ const groupMenus = [
                 iconClassname: 'fa-solid fa-list',
                 text: 'Danh sách',
                 link: '/',
-                functionName: 'product/read',
+                functionName: 'import/view',
             },
             {
                 iconClassname: 'fa-solid fa-circle-plus',
                 text: 'Thêm',
                 link: '/add',
-                functionName: 'product/create',
+                functionName: 'import/add',
             },
         ],
     },
@@ -73,13 +64,13 @@ const groupMenus = [
                 iconClassname: 'fa-solid fa-list',
                 text: 'Danh sách',
                 link: '/',
-                functionName: 'product/read',
+                functionName: 'product/view',
             },
             {
                 iconClassname: 'fa-solid fa-circle-plus',
                 text: 'Thêm',
                 link: '/add',
-                functionName: 'product/create',
+                functionName: 'product/add',
             },
         ],
     },
@@ -95,13 +86,34 @@ const groupMenus = [
                 iconClassname: 'fa-solid fa-list',
                 text: 'Danh sách',
                 link: '/',
-                functionName: 'product-type/read',
+                functionName: 'product-type/view',
             },
             {
                 iconClassname: 'fa-solid fa-circle-plus',
                 text: 'Thêm',
                 link: '/add',
-                functionName: 'product-type/create',
+                functionName: 'product-type/add',
+            },
+        ],
+    },
+    {
+        main: {
+            iconClassname: 'fa-solid fa-clipboard',
+            text: 'Phiếu giảm giá',
+            link: '/coupon',
+        },
+        children: [
+            {
+                iconClassname: 'fa-solid fa-list',
+                text: 'Danh sách',
+                link: '/',
+                functionName: 'coupon/view',
+            },
+            {
+                iconClassname: 'fa-solid fa-circle-plus',
+                text: 'Thêm',
+                link: '/add',
+                functionName: 'coupon/add',
             },
         ],
     },
@@ -116,17 +128,37 @@ const groupMenus = [
                 iconClassname: 'fa-solid fa-list',
                 text: 'Danh sách',
                 link: '/',
-                functionName: 'customer/read',
+                functionName: 'customer/view',
             },
             {
                 iconClassname: 'fa-solid fa-circle-plus',
                 text: 'Thêm',
                 link: '/add',
-                functionName: 'customer/create',
+                functionName: 'customer/add',
             },
         ],
     },
-
+    {
+        main: {
+            iconClassname: 'fa-solid fa-clipboard',
+            text: 'Thống kê',
+            link: '/statistic',
+        },
+        children: [
+            {
+                iconClassname: 'fa-solid fa-list',
+                text: 'Sản phẩm',
+                link: '/product',
+                functionName: 'statistic/product',
+            },
+            {
+                iconClassname: 'fa-solid fa-list',
+                text: 'Doanh số',
+                link: '/profit',
+                functionName: 'statistic/profit',
+            },
+        ],
+    },
     {
         main: {
             iconClassname: ' fa-solid fa-user',
@@ -138,17 +170,16 @@ const groupMenus = [
                 iconClassname: 'fa-solid fa-list',
                 text: 'Danh sách',
                 link: '/',
-                functionName: 'account/read',
+                functionName: 'account/view',
             },
             {
                 iconClassname: 'fa-solid fa-circle-plus',
                 text: 'Thêm',
                 link: '/add',
-                functionName: 'account/create',
+                functionName: 'account/add',
             },
         ],
     },
-
     {
         main: {
             iconClassname: 'fa-solid fa-clipboard',
@@ -160,53 +191,43 @@ const groupMenus = [
                 iconClassname: 'fa-solid fa-list',
                 text: 'Danh sách',
                 link: '/',
-                functionName: 'role/read',
+                functionName: 'role/view',
             },
             {
                 iconClassname: 'fa-solid fa-circle-plus',
                 text: 'Thêm',
                 link: '/add',
-                functionName: 'role/create',
+                functionName: 'role/add',
             },
         ],
     },
 ];
 
 function Sidebar() {
-    const dispatch = useDispatch();
-    const account = useSelector(accountSelector);
-    const showLogoutNoti = () => toast.info('Đã đăng xuất!');
-
     return (
-        <div className="flex h-full min-w-[240px] flex-col bg-blue-500">
-            <header className="mb-8 flex h-16 w-full select-none flex-col items-center justify-center text-white">
+        <div className="h-full min-w-[240px] bg-blue-500">
+            <header className="flex h-20 w-full flex-col items-center justify-center border-b border-white/40 text-white">
                 <div className="text-lg font-extrabold">QUẢN LÝ</div>
                 <div className="font-bold">CỬA HÀNG CÂY XANH</div>
             </header>
 
-            <ul
-                className="flex flex-1 select-none flex-col space-y-0.5 p-2 "
-                style={{ overflowY: 'overlay' }}
-            >
-                {groupMenus.map((groupMenu, index) => (
-                    <GroupMenu key={index} groupMenu={groupMenu} />
-                ))}
-            </ul>
-
-            <div className="w-full border-t border-white p-3 text-white">
-                <div className="mb-2">
-                    <p className="font-bold">{account?.name}</p>
-                    <p className="text-sm">{account?.role?.name}</p>
-                </div>
-                <button
-                    className="btn btn-md w-full border border-white hover:bg-blue-400"
-                    onClick={() => {
-                        dispatch(accountActions.logout());
-                        showLogoutNoti();
-                    }}
+            <div className="">
+                <Scrollbars
+                    autoHide
+                    autoHideTimeout={4000}
+                    autoHeight
+                    autoHideDuration={200}
+                    autoHeightMin={`calc(100vh - 80px)`}
                 >
-                    Đăng xuất
-                </button>
+                    <ul
+                        className="flex h-full flex-col space-y-0.5 p-2"
+                        style={{ overflowY: 'overlay' }}
+                    >
+                        {groupMenus.map((groupMenu, index) => (
+                            <GroupMenu key={index} groupMenu={groupMenu} />
+                        ))}
+                    </ul>
+                </Scrollbars>
             </div>
         </div>
     );

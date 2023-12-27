@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { accountSelector } from '../../../redux/selectors';
 import {
+    filterFns,
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
@@ -16,6 +17,9 @@ import DeleteDialog from '../../../components/DeleteDialog';
 import HeaderCell from '../../../components/Table/HeaderCell';
 import Table from '../../../components/Table';
 import Pagination from '../../../components/Table/Pagination';
+import ShowWithFunc from '../../../components/ShowWithFunc';
+import searchFilterFn from '../../../utils/searchFilterFn';
+import TopBar from './TopBar';
 
 function NameAndImageCell({ row, getValue }) {
     const avatar = row.getValue('avatar');
@@ -33,24 +37,28 @@ function NameAndImageCell({ row, getValue }) {
 function ActionCell({ table, row }) {
     return (
         <div className="flex justify-end">
-            <button
-                className="btn btn-yellow px-3 py-1"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    table.options.meta?.onEditButtonClick(row);
-                }}
-            >
-                Sửa
-            </button>
-            <button
-                className="btn btn-red px-3 py-1"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    table.options.meta?.onDeleteButtonClick(row);
-                }}
-            >
-                Xoá
-            </button>
+            <ShowWithFunc func="customer/update">
+                <button
+                    className="btn btn-yellow px-3 py-1"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        table.options.meta?.onEditButtonClick(row);
+                    }}
+                >
+                    Sửa
+                </button>
+            </ShowWithFunc>
+            <ShowWithFunc func="customer/delete">
+                <button
+                    className="btn btn-red px-3 py-1"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        table.options.meta?.onDeleteButtonClick(row);
+                    }}
+                >
+                    Xoá
+                </button>
+            </ShowWithFunc>
         </div>
     );
 }
@@ -71,6 +79,7 @@ const columns = [
         header: (props) => <HeaderCell tableProps={props}>Tên</HeaderCell>,
         cell: NameAndImageCell,
         size: 'full',
+        filterFn: searchFilterFn,
     },
     {
         accessorKey: 'phone',
@@ -81,6 +90,7 @@ const columns = [
         ),
         cell: ({ getValue }) => <p className="text-center">{getValue()}</p>,
         size: 300,
+        filterFn: filterFns.includesString,
     },
 
     {
@@ -94,29 +104,15 @@ const columns = [
     },
 ];
 function CustomerList() {
-    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-    const [deletingCustomerId, setDeletingCustomerId] = useState(null);
-
-    const [search, setSearch] = useState('');
     const [customers, setCustomers] = useState([]);
     const navigate = useNavigate();
+    const [columnFilters, setColumnFilters] = useState([
+        { id: 'name', value: '' },
+        { id: 'phone', value: '' },
+    ]);
 
     const showDeleteNoti = () => toast.success('Xóa khách hàng thành công!');
     const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
-    // const account = useSelector(accountSelector);
-    // function isHiddenItem(functionName) {
-    //     if (!account) {
-    //         return true;
-    //     }
-    //     if (!functionName) {
-    //         return false;
-    //     }
-    //     const findResult = account?.functions?.find((_func) => _func?.name === functionName);
-    //     if (findResult) {
-    //         return false;
-    //     }
-    //     return true;
-    // }
     useEffect(() => {
         getCustomers();
     }, []);
@@ -169,7 +165,7 @@ function CustomerList() {
         data: customers,
         columns,
         state: {
-            // columnFilters,
+            columnFilters,
             columnVisibility: { avatar: false },
         },
         getCoreRowModel: getCoreRowModel(),
@@ -189,7 +185,8 @@ function CustomerList() {
         },
     });
     return (
-        <div className="container w-full">
+        <div className="container space-y-4">
+            <TopBar filters={columnFilters} setFilters={setColumnFilters} />
             <div>
                 <Table table={table} notFoundMessage="Không có khách hàng" />
                 <Pagination table={table} />
