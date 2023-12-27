@@ -47,14 +47,6 @@ export const importSlice = createSlice({
                 (detail) => detail.productSize._id === action.payload._id
             );
             if (indexDetail !== -1) {
-                if (
-                    state.details[indexDetail].productSize.quantity <
-                    Number(action.payload.quantity)
-                ) {
-                    state.details[indexDetail].quantity =
-                        state.details[indexDetail].productSize.quantity;
-                    return;
-                }
                 if (Number(action.payload.quantity) <= 0) {
                     return state;
                 }

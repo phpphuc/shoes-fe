@@ -184,7 +184,7 @@ function OrderDetail() {
                             <div>
                                 <span className="text-gray-700">Địa chỉ: </span>
                                 <span className="text-lg font-semibold text-gray-900">
-                                    {order?.customer?.address || ''}
+                                    {order?.address || ''}
                                 </span>
                             </div>
                         )}
