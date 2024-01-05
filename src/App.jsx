@@ -4,11 +4,14 @@ import { publicRoutes } from './routes';
 import DefaultLayout from './layouts/DefaultLayout';
 import AuthLayout from './layouts/AuthLayout';
 import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { themeSelector } from './redux/selectors';
 
 function App() {
+    const theme = useSelector(themeSelector);
     return (
         <Router>
-            <div className="App">
+            <div className={theme.darkMode?'App dark':'App'}>
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         const Page = route.component;
