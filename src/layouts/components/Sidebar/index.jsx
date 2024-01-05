@@ -205,7 +205,7 @@ const groupMenus = [
 
 function Sidebar() {
     return (
-        <div className="h-full min-w-[240px] bg-blue-500">
+        <div className="h-full min-w-[240px] bg-blue-500 dark:bg-gray-900">
             <header className="flex h-20 w-full flex-col items-center justify-center border-b border-white/40 text-white">
                 <div className="text-lg font-extrabold">QUẢN LÝ</div>
                 <div className="font-bold">CỬA HÀNG CÂY XANH</div>
