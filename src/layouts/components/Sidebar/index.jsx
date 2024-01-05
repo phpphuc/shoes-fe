@@ -1,6 +1,10 @@
 import GroupMenu from './GroupMenu';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { toast } from 'react-toastify';
+import { themeActions } from '../../../redux/slices/themeSlice';
+import { themeSelector } from '../../../redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import clsx from 'clsx';
 
 const groupMenus = [
     {
@@ -204,8 +208,15 @@ const groupMenus = [
 ];
 
 function Sidebar() {
+    const dispatch = useDispatch();
+    const sidebarVisible = useSelector((state) => state.theme.sidebarVisible);
+
     return (
-        <div className="h-full min-w-[240px] bg-blue-500 dark:bg-gray-900">
+        <>
+            <div className={clsx("lg:hidden fixed inset-0 bg-slate-900/80",{"hidden": !sidebarVisible})} onClick={() => dispatch(themeActions.toggleSidebar())}></div>
+        <div className={clsx("absolute z-[9876543] lg:static flex lg:flex h-full min-w-[240px] flex-col bg-blue-500 dark:bg-gray-900 dark:border-r dark:border-white/10",{"hidden": !sidebarVisible})}>
+            
+        {/* <div className="h-full min-w-[240px] bg-blue-500 dark:bg-gray-900"> */}
             <header className="flex h-20 w-full flex-col items-center justify-center border-b border-white/40 text-white">
                 <div className="text-lg font-extrabold">QUẢN LÝ</div>
                 <div className="font-bold">CỬA HÀNG CÂY XANH</div>
@@ -230,6 +241,10 @@ function Sidebar() {
                 </Scrollbars>
             </div>
         </div>
+        <button className={clsx('lg:hidden absolute top-0 left-[240px] rounded-full m-3 text-white',{"hidden": !sidebarVisible})} onClick={() => dispatch(themeActions.toggleSidebar())}><svg class="h-7 w-7 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+</svg></button>
+        </>
     );
 }
 
