@@ -213,7 +213,7 @@ function Sidebar() {
 
     return (
         <>
-            <div className={clsx("lg:hidden fixed inset-0 bg-slate-900/80",{"hidden": !sidebarVisible})} onClick={() => dispatch(themeActions.toggleSidebar())}></div>
+            <div className={clsx("lg:hidden fixed inset-0 z-50 bg-slate-900/80",{"hidden": !sidebarVisible})} onClick={() => dispatch(themeActions.toggleSidebar())}></div>
         <div className={clsx("absolute z-[9876543] lg:static flex lg:flex h-full min-w-[240px] flex-col bg-blue-500 dark:bg-gray-900 dark:border-r dark:border-white/10",{"hidden": !sidebarVisible})}>
             
         {/* <div className="h-full min-w-[240px] bg-blue-500 dark:bg-gray-900"> */}
