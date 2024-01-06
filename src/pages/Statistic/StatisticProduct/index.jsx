@@ -185,13 +185,13 @@ export default function StatisticProduct() {
             />
             <div className="mt-3 flex flex-wrap gap-6">
                 <div className="flex-1 pr-4">
-                    <p className="text-center font-medium text-gray-700">Sản phẩm được nhập hàng</p>
+                    <p className="text-center font-medium text-gray-700 dark:text-slate-200">Sản phẩm được nhập hàng</p>
                     <div>
                         <div className='flex justify-center'>{dataImport.datasets.length > 0 && <Pie data={dataImport} />}</div>
                     </div>
                 </div>
                 <div className="flex-1 pl-4">
-                    <p className="text-center font-medium text-gray-700">Sản phẩm được bán</p>
+                    <p className="text-center font-medium text-gray-700 dark:text-slate-200">Sản phẩm được bán</p>
                     <div className='flex justify-center'>{dataOrder.datasets.length > 0 && <Pie data={dataOrder} />}</div>
                 </div>
             </div>

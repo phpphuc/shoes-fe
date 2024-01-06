@@ -33,10 +33,10 @@ export default function SizesInput({
                 <div
                     key={i}
                     className={clsx(
-                        'mr-2 mb-2 cursor-pointer rounded border px-3 py-2 hover:border-blue-500',
+                        'mr-2 mb-2 cursor-pointer rounded border px-3 py-2 hover:border-blue-500 dark:text-slate-200',
                         {
                             '!border-blue-600 bg-blue-600 text-white': checkSelectedSize(s),
-                            'pointer-events-none bg-slate-300 opacity-50': checkDisabledSize(s),
+                            'pointer-events-none bg-slate-300 opacity-50 dark:text-slate-900': checkDisabledSize(s),
                         }
                     )}
                     onClick={() => handleSelectSize(s)}

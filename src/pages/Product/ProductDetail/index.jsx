@@ -212,22 +212,22 @@ function ProductDetail() {
                 <div className="flex flex-wrap space-x-8 space-y-4">
                     <div className="flex-1 space-y-4">
                         <div className="flex items-baseline space-x-3">
-                            <p className="text-gray-600">Mã sản phẩm:</p>
+                            <p className="text-gray-600 dark:text-slate-200">Mã sản phẩm:</p>
                             <p className="text-lg font-bold text-blue-600">{product.id}</p>
                         </div>
                         <div>
-                            <p className="text-gray-600">Tên sản phẩm:</p>
+                            <p className="text-gray-600 dark:text-slate-200">Tên sản phẩm:</p>
                             <p className="text-2xl font-semibold text-blue-600">{product.name}</p>
                         </div>
                         <div>
-                            <p className="text-gray-600">Loại sản phẩm:</p>
+                            <p className="text-gray-600 dark:text-slate-200">Loại sản phẩm:</p>
                             <p className="text-lg font-semibold text-gray-900">
                                 {product.type?.name}
                             </p>
                         </div>
 
                         <div>
-                            <p className="text-gray-600">Ảnh:</p>
+                            <p className="text-gray-600 dark:text-slate-200">Ảnh:</p>
                             <div className="flex flex-wrap">
                                 {product.images?.map((image, index) => (
                                     <div className="p-1" key={index}>
@@ -241,19 +241,19 @@ function ProductDetail() {
                         </div>
 
                         <div>
-                            <p className="text-gray-600">Mô tả sản phẩm:</p>
-                            <p className="text-gray-900">{product.description}</p>
+                            <p className="text-gray-600 dark:text-slate-200">Mô tả sản phẩm:</p>
+                            <p className="text-gray-900 dark:text-slate-200">{product.description}</p>
                         </div>
 
                         <div className="flex space-x-8">
                             <div>
-                                <p className="text-gray-600">Giá nhập:</p>
+                                <p className="text-gray-600 dark:text-slate-200">Giá nhập:</p>
                                 <p className="text-2xl font-semibold text-blue-600">
                                     {product.importPrice + ' VNĐ'}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-gray-600">Giá bán:</p>
+                                <p className="text-gray-600 dark:text-slate-200">Giá bán:</p>
                                 <p className="text-2xl font-semibold text-green-700">
                                     {product.price + ' VNĐ'}
                                 </p>
@@ -262,13 +262,13 @@ function ProductDetail() {
 
                         <div className="flex space-x-8">
                             <div>
-                                <p className="text-gray-600">Số lượng trong kho:</p>
+                                <p className="text-gray-600 dark:text-slate-200">Số lượng trong kho:</p>
                                 <p className="text-2xl font-semibold text-blue-600">
                                     {product.quantity}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-gray-600">Số lượng đã bán:</p>
+                                <p className="text-gray-600 dark:text-slate-200">Số lượng đã bán:</p>
                                 <p className="text-2xl font-semibold text-green-700">
                                     {product.saledQuantity}
                                 </p>
@@ -276,7 +276,7 @@ function ProductDetail() {
                         </div>
 
                         <div>
-                            <p className="text-gray-600">Trạng thái:</p>
+                            <p className="text-gray-600 dark:text-slate-200">Trạng thái:</p>
                             <p
                                 className={clsx('text-xl font-semibold', {
                                     'text-green-600': product.status === 'active',
@@ -318,7 +318,7 @@ function ProductDetail() {
                         </div>
 
                         <div>
-                            <p className="mb-2 text-gray-600">Thêm size:</p>
+                            <p className="mb-2 text-gray-600 dark:text-slate-200">Thêm size:</p>
                             <div className="relative">
                                 <SizesInput
                                     selectedSizes={selectedSizes}

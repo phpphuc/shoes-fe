@@ -11,7 +11,7 @@ function App() {
     const theme = useSelector(themeSelector);
     return (
         <Router>
-            <div className={theme.darkMode?'App dark':'App'}>
+            <div className={theme.darkMode?'dark':''}>
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         const Page = route.component;

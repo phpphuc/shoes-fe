@@ -32,11 +32,118 @@ export default function TopBar({ filters, setFilters }) {
                 </ShowWithFunc>
             </div>
             <div className="space-y-2">
-                <div className="flex space-x-4">
-                    <div className="w-[300px]">
-                        <label className="label !mb-0 cursor-default text-sm">Số điện thoại</label>
+
+                <div className="  lg:hidden">
+                    <div className="sm:grid sm:grid-cols-2 sm:gap-4">
+                        <div>
+                            <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Số điện thoại</label>
+                            <input
+                                className="text-input dark:bg-slate-800 dark:text-white/80"
+                                placeholder="Tìm theo số điện thoại"
+                                value={getFilterValue('phone', filters) || ''}
+                                onChange={(e) =>
+                                    setFilters(setFilterValueHandler('phone', e.target.value))
+                                }
+                            />
+                        </div>
+                        <div>
+                            <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">
+                                Ngày lập hoá đơn
+                            </label>
+                            <Datepicker
+                                value={getFilterValue('createdAt', filters)}
+                                i18n={'en'}
+                                configs={{
+                                    shortcuts: {
+                                        today: 'Hôm nay',
+                                        yesterday: 'Hôm qua',
+                                        past: (period) => `${period} ngày trước`,
+                                        currentMonth: 'Tháng này',
+                                        pastMonth: 'Tháng trước',
+                                    },
+                                }}
+                                inputClassName="border-2 border-slate-300 outline-none rounded w-full text-base !py-1.5 hover:border-blue-500"
+                                displayFormat={'DD/MM/YYYY'}
+                                separator={'đến'}
+                                onChange={(newValue) =>
+                                    setFilters(setFilterValueHandler('createdAt', newValue))
+                                }
+                                showShortcuts={true}
+                            />
+                        </div>
+                    </div>
+                    <div className="sm:grid sm:grid-cols-2 sm:gap-4">
+                        <div>
+                            <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Giá</label>
+                            <div className="flex items-center space-x-1">
+                                <input
+                                    className="text-input dark:bg-slate-800 dark:text-white/80"
+                                    placeholder="Từ"
+                                    value={getFilterValue('totalPrice', filters)?.min || ''}
+                                    onChange={(e) =>
+                                        setFilters(
+                                            setFilterValueHandler('totalPrice', (prev) => ({
+                                                ...prev,
+                                                min: e.target.value,
+                                            }))
+                                        )
+                                    }
+                                />
+                                <div>-</div>
+                                <input
+                                    className="text-input dark:bg-slate-800 dark:text-white/80"
+                                    placeholder="Đến"
+                                    value={getFilterValue('totalPrice', filters)?.max || ''}
+                                    onChange={(e) =>
+                                        setFilters(
+                                            setFilterValueHandler('totalPrice', (prev) => ({
+                                                ...prev,
+                                                max: e.target.value,
+                                            }))
+                                        )
+                                    }
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Thành tiền</label>
+                            <div className="flex items-center space-x-1">
+                                <input
+                                    className="text-input dark:bg-slate-800 dark:text-white/80"
+                                    placeholder="Từ"
+                                    value={getFilterValue('intoMoney', filters)?.min || ''}
+                                    onChange={(e) =>
+                                        setFilters(
+                                            setFilterValueHandler('intoMoney', (prev) => ({
+                                                ...prev,
+                                                min: e.target.value,
+                                            }))
+                                        )
+                                    }
+                                />
+                                <div>-</div>
+                                <input
+                                    className="text-input dark:bg-slate-800 dark:text-white/80"
+                                    placeholder="Đến"
+                                    value={getFilterValue('intoMoney', filters)?.max || ''}
+                                    onChange={(e) =>
+                                        setFilters(
+                                            setFilterValueHandler('intoMoney', (prev) => ({
+                                                ...prev,
+                                                max: e.target.value,
+                                            }))
+                                        )
+                                    }
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="hidden lg:flex space-x-4">
+                    <div className="w-[200px]">
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Số điện thoại</label>
                         <input
-                            className="text-input"
+                            className="text-input dark:bg-slate-800 dark:text-white/80"
                             placeholder="Tìm theo số điện thoại"
                             value={getFilterValue('phone', filters) || ''}
                             onChange={(e) =>
@@ -45,7 +152,7 @@ export default function TopBar({ filters, setFilters }) {
                         />
                     </div>
                     <div className="flex-1">
-                        <label className="label !mb-0 cursor-default text-sm">
+                        <label className="label !mb-0 cursor-default text-sm whitespace-nowrap dark:text-slate-200">
                             Ngày lập hoá đơn
                         </label>
                         <Datepicker
@@ -70,10 +177,10 @@ export default function TopBar({ filters, setFilters }) {
                         />
                     </div>
                     <div className="w-[300px]">
-                        <label className="label !mb-0 cursor-default text-sm">Giá</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Giá</label>
                         <div className="flex items-center space-x-1">
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-slate-800 dark:text-white/80"
                                 placeholder="Từ"
                                 value={getFilterValue('totalPrice', filters)?.min || ''}
                                 onChange={(e) =>
@@ -87,7 +194,7 @@ export default function TopBar({ filters, setFilters }) {
                             />
                             <div>-</div>
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-slate-800 dark:text-white/80"
                                 placeholder="Đến"
                                 value={getFilterValue('totalPrice', filters)?.max || ''}
                                 onChange={(e) =>
@@ -102,10 +209,10 @@ export default function TopBar({ filters, setFilters }) {
                         </div>
                     </div>
                     <div className="w-[300px]">
-                        <label className="label !mb-0 cursor-default text-sm">Thành tiền</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Thành tiền</label>
                         <div className="flex items-center space-x-1">
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-slate-800 dark:text-white/80"
                                 placeholder="Từ"
                                 value={getFilterValue('intoMoney', filters)?.min || ''}
                                 onChange={(e) =>
@@ -119,7 +226,7 @@ export default function TopBar({ filters, setFilters }) {
                             />
                             <div>-</div>
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-slate-800 dark:text-white/80"
                                 placeholder="Đến"
                                 value={getFilterValue('intoMoney', filters)?.max || ''}
                                 onChange={(e) =>
@@ -134,9 +241,9 @@ export default function TopBar({ filters, setFilters }) {
                         </div>
                     </div>
                 </div>
-                <div className="flex space-x-4">
+                <div className="md:flex md:space-x-4">
                     <div className="w-[400px]">
-                        <label className="label !mb-0 cursor-default text-sm">
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">
                             Trạng thái giao hàng
                         </label>
                         <div className="flex h-9 items-center space-x-3">
@@ -212,7 +319,7 @@ export default function TopBar({ filters, setFilters }) {
                         </div>
                     </div>
                     <div className="w-[400px]">
-                        <label className="label !mb-0 cursor-default text-sm">
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">
                             Trạng thái thanh toán
                         </label>
                         <div className="flex h-9 items-center space-x-3">

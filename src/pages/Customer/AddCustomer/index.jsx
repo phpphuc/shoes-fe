@@ -138,13 +138,13 @@ function AddCustomer() {
 
                     <div className="ml-8 flex-1">
                         <div className="flex flex-col">
-                            <label className="label" htmlFor="phone">
+                            <label className="label dark:text-slate-200" htmlFor="phone">
                                 Số điện thoại *
                             </label>
                             <input
                                 type="text"
                                 id="phone"
-                                className={clsx('text-input w-full py-[5px]', {
+                                className={clsx('text-input w-full py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.phone,
                                 })}
                                 onChange={form.handleChange}
@@ -162,13 +162,13 @@ function AddCustomer() {
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="label" htmlFor="password">
+                            <label className="label dark:text-slate-200" htmlFor="password">
                                 Mật khẩu *
                             </label>
                             <input
                                 type="password"
                                 id="password"
-                                className={clsx('text-input w-full py-[5px]', {
+                                className={clsx('text-input w-full py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.password,
                                 })}
                                 onChange={form.handleChange}
@@ -186,13 +186,13 @@ function AddCustomer() {
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="label" htmlFor="name">
+                            <label className="label dark:text-slate-200" htmlFor="name">
                                 Tên khách hàng *
                             </label>
                             <input
                                 type="text"
                                 id="name"
-                                className={clsx('text-input w-full py-[5px]', {
+                                className={clsx('text-input w-full py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.name,
                                 })}
                                 onChange={form.handleChange}
@@ -210,12 +210,12 @@ function AddCustomer() {
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="label" htmlFor="address">
+                            <label className="label dark:text-slate-200" htmlFor="address">
                                 Địa chỉ *
                             </label>
                             <textarea
                                 id="address"
-                                className={clsx('text-input !h-auto py-2', {
+                                className={clsx('text-input !h-auto py-2 dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.address,
                                 })}
                                 onChange={form.handleChange}

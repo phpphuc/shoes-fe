@@ -6,22 +6,28 @@ import { toast } from 'react-toastify';
 import { accountActions } from '../../redux/slices/accountSlide';
 import { accountSelector } from '../../redux/selectors';
 
+import { themeSelector } from '../../redux/selectors/';
+import clsx from 'clsx';
+
 function Home() {
     const dispatch = useDispatch();
     const account = useSelector(accountSelector);
+    const theme = useSelector(themeSelector);   
     const showLogoutNoti = () => toast.info('Đã đăng xuất!');
 
     return (
         <div className="container flex h-full w-full items-center justify-center space-x-11 px-10">
             <div className="flex-1">
-                <img className="w-full object-cover" src="/banner.png" />
+                {/* <img className="w-full object-cover" src="/banner.png" /> */}
+                <img class={clsx("w-full object-cover", { "hidden": theme.darkMode })} src="/banner.png" />
+                <img class={clsx("w-full object-cover", { "hidden": !theme.darkMode })} src="/banner_dark.png" />
             </div>
 
             <div className="flex-1 text-gray-600">
                 <p className="mb-2 text-5xl font-extrabold text-blue-800">QUẢN LÝ</p>
                 <p className="mb-8 text-4xl font-bold text-blue-800">CỬA HÀNG BÁN GIÀY</p>
 
-                <p className="font-gray-900 mb-8 text-4xl font-bold">
+                <p className="font-gray-900 mb-8 text-4xl font-bold dark:text-slate-200">
                     {'Xin chào, ' + account?.name}
                 </p>
 
@@ -38,21 +44,21 @@ function Home() {
                     <span>Đăng xuất</span>
                 </button>
 
-                <p className="text-xl font-bold">
+                <p className="text-xl font-bold dark:text-slate-200">
                     Nếu cần hỗ trợ kỹ thuật, vui lòng thực hiện một trong ba cách sau:
                 </p>
-                <p className="text-lg ">
+                <p className="text-lg dark:text-slate-200">
                     <span>1. Truy cập </span>
                     <a href="https://forum.uit.edu.vn/" className="underline hover:text-blue-600">
                         https://forum.uit.edu.vn/
                     </a>
                     <span> và gửi yêu cầu hỗ trợ.</span>
                 </p>
-                <p className="text-lg">
+                <p className="text-lg dark:text-slate-200">
                     <span>2. Gửi email cho phòng kỹ thuật: </span>
                     <span className="underline">20521154@gm.uit.edu.vn</span>
                 </p>
-                <p className="text-lg ">
+                <p className="text-lg dark:text-slate-200">
                     <span>
                         <span>3. Gọi HOTLINE hỗ trợ khách hàng: </span>
                         <span className="underline">0365011369</span>

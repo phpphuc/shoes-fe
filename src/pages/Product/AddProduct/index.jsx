@@ -109,13 +109,13 @@ function AddProduct() {
                     <div className="space-y-1">
                         {/* NAME */}
                         <div>
-                            <label className="label" htmlFor="name">
+                            <label className="label dark:text-slate-200" htmlFor="name">
                                 Tên sản phẩm *
                             </label>
                             <input
                                 type="text"
                                 id="name"
-                                className={clsx('text-input', {
+                                className={clsx('text-input dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.name,
                                 })}
                                 onChange={form.handleChange}
@@ -133,12 +133,12 @@ function AddProduct() {
 
                         {/* TYPE */}
                         <div>
-                            <label className="label" htmlFor="type">
+                            <label className="label dark:text-slate-200" htmlFor="type">
                                 Loại sản phẩm *
                             </label>
                             <ProductTypeInput
                                 id="type"
-                                className={clsx('text-input cursor-pointer', {
+                                className={clsx('text-input cursor-pointer dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.type,
                                 })}
                                 onChange={form.handleChange}
@@ -158,7 +158,7 @@ function AddProduct() {
 
                     {/* IMAGE */}
                     <div className="mb-2">
-                        <label className="label">Chọn ảnh</label>
+                        <label className="label dark:text-slate-200">Chọn ảnh</label>
                         <ImagesInput
                             images={form.values.images}
                             onChange={(images) => form.setFieldValue('images', images)}
@@ -168,13 +168,13 @@ function AddProduct() {
                     {/* DESCRIPTION AND STATUS */}
                     <div>
                         <div>
-                            <label className="label" htmlFor="description">
+                            <label className="label dark:text-slate-200" htmlFor="description">
                                 Mô tả sản phẩm *
                             </label>
                             <textarea
                                 type="text"
                                 id="description"
-                                className={clsx('text-input !h-auto py-2', {
+                                className={clsx('text-input !h-auto py-2 dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.description,
                                 })}
                                 onChange={form.handleChange}
@@ -191,7 +191,7 @@ function AddProduct() {
                             </span>
                         </div>
                         <div>
-                            <label className="label !cursor-default">Trạng thái</label>
+                            <label className="label !cursor-default dark:text-slate-200">Trạng thái</label>
                             <div className="flex items-center space-x-5">
                                 <div className="flex items-center">
                                     <input
@@ -203,7 +203,7 @@ function AddProduct() {
                                         onChange={form.handleChange}
                                         checked={form.values.status === 'active'}
                                     />
-                                    <label htmlFor="status-active" className="cursor-pointer pl-2">
+                                    <label htmlFor="status-active" className="cursor-pointer pl-2 dark:text-slate-200">
                                         Đang bán
                                     </label>
                                 </div>
@@ -219,7 +219,7 @@ function AddProduct() {
                                     />
                                     <label
                                         htmlFor="status-inactive"
-                                        className="cursor-pointer pl-2"
+                                        className="cursor-pointer pl-2 dark:text-slate-200"
                                     >
                                         Không bán
                                     </label>
@@ -233,7 +233,7 @@ function AddProduct() {
                         <div className="mb-1 flex space-x-8">
                             {/* IMPORT PRICE */}
                             <div className="flex-1">
-                                <label className="label" htmlFor="importPrice">
+                                <label className="label dark:text-slate-200" htmlFor="importPrice">
                                     Giá nhập *
                                 </label>
                                 <PriceInput
@@ -254,7 +254,7 @@ function AddProduct() {
                             </div>
                             {/* PRICE */}
                             <div className="flex-1">
-                                <label className="label" htmlFor="price">
+                                <label className="label dark:text-slate-200" htmlFor="price">
                                     Giá bán *
                                 </label>
                                 <PriceInput
@@ -276,7 +276,7 @@ function AddProduct() {
                         </div>
                         {/* SIZE */}
                         <div className="">
-                            <label className="label !cursor-default">Size giày *</label>
+                            <label className="label !cursor-default dark:text-slate-200">Size giày *</label>
                             <SizesInput
                                 selectedSizes={form.values.sizes}
                                 onSelectedSizeChange={(s) => {

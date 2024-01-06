@@ -22,11 +22,11 @@ function ProductTypeInput({ ...props }) {
 
     return (
         <select {...props} ref={selectElem}>
-            <option value="" disabled>
+            <option className='dark:bg-gray-600 dark:text-slate-400' value="" disabled>
                 -- Chọn loại sản phẩm --
             </option>
             {productTypes.map((productType) => (
-                <option key={productType._id} value={productType._id}>
+                <option className='dark:bg-gray-600' key={productType._id} value={productType._id}>
                     {productType.name}
                 </option>
             ))}

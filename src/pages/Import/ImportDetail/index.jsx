@@ -139,16 +139,16 @@ function ImportDetail() {
                 <div className="flex-1">
                     <div className="bimport-b space-y-2 pb-2">
                         <div>
-                            <span className="text-gray-700">Ngày lập: </span>
-                            <span className="text-lg font-semibold text-gray-900">
+                            <span className="text-gray-700 dark:text-slate-200">Ngày lập: </span>
+                            <span className="text-lg font-semibold text-gray-900 dark:text-slate-200">
                                 {moment(_import.createdAt).format('HH:mm DD/MM/YYYY ')}
                             </span>
                         </div>
 
                         {_import?.note && (
                             <div>
-                                <p className="text-gray-700">Ghi chú: </p>
-                                <span className="text-lg font-semibold text-gray-900">
+                                <p className="text-gray-700 dark:text-slate-200">Ghi chú: </p>
+                                <span className="text-lg font-semibold text-gray-900 dark:text-slate-200">
                                     {_import.note}
                                 </span>
                             </div>
@@ -157,7 +157,7 @@ function ImportDetail() {
 
                     <div className="bimport-b mt-3 space-y-3 pb-3">
                         <div>
-                            <span className="text-gray-700">Tổng tiền: </span>
+                            <span className="text-gray-700 dark:text-slate-200">Tổng tiền: </span>
                             <span className="text-xl font-semibold text-blue-600">
                                 <span>
                                     <PriceFormat>{_import?.totalPrice}</PriceFormat>

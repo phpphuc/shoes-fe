@@ -335,7 +335,7 @@ function AddImport() {
                             {/* ID */}
                             <input
                                 type="text"
-                                className="text-input w-16 py-1"
+                                className="text-input w-16 py-1 dark:bg-white/5 dark:text-slate-200"
                                 value={idFilter}
                                 onChange={(e) => {
                                     setIdFilter(e.target.value);
@@ -345,7 +345,7 @@ function AddImport() {
                             {/* Search */}
                             <input
                                 type="text"
-                                className="text-input flex-1 py-1"
+                                className="text-input flex-1 py-1 dark:bg-white/5 dark:text-slate-200"
                                 value={search}
                                 onChange={(e) => {
                                     setSearch(e.target.value);
@@ -378,7 +378,7 @@ function AddImport() {
 
                     {/* RIGHT ORDER */}
                     <div className="bimport flex h-full flex-1 flex-col rounded-r-md py-5 px-2">
-                        <p className="text-center text-lg font-semibold">Phiếu nhập</p>
+                        <p className="text-center text-lg font-semibold dark:text-slate-200">Phiếu nhập</p>
 
                         {/* LIST PRODUCT */}
                         <div className="mt-3 flex-1">
@@ -392,11 +392,11 @@ function AddImport() {
 
                         <div className="border-t pt-1">
                             <div className="mb-1">
-                                <label className="label" htmlFor="address">
+                                <label className="label dark:text-white" htmlFor="address">
                                     Ghi chú
                                 </label>
                                 <textarea
-                                    className={clsx('text-input !h-auto py-2')}
+                                    className={clsx('text-input !h-auto py-2 dark:bg-white/5 dark:text-slate-200')}
                                     onChange={(e) => setNote(e.target.value)}
                                     value={note}
                                     rows={2}
@@ -404,7 +404,7 @@ function AddImport() {
                             </div>
                             <div className="flex justify-between">
                                 <div className="flex items-center">
-                                    <p className="font-semibold">
+                                    <p className="font-semibold dark:text-white">
                                         <span>Tổng tiền: </span>
                                         <span className="text-xl text-blue-600">
                                             <span>

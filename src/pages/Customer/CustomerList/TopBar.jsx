@@ -11,13 +11,13 @@ export default function TopBar({ filters, setFilters }) {
         <div className="space-y-1">
             <div className="flex items-center justify-between space-x-4">
                 <input
-                    className="text-input flex-1"
+                    className="text-input flex-1 dark:bg-white/5 dark:text-slate-200"
                     placeholder="Tìm theo tên"
                     value={getFilterValue('name', filters) || ''}
                     onChange={(e) => setFilters(setFilterValueHandler('name', e.target.value))}
                 />
                 <input
-                    className="text-input flex-1"
+                    className="text-input flex-1 dark:bg-white/5 dark:text-slate-200"
                     placeholder="Tìm theo số điện thoại"
                     value={getFilterValue('phone', filters) || ''}
                     onChange={(e) => setFilters(setFilterValueHandler('phone', e.target.value))}

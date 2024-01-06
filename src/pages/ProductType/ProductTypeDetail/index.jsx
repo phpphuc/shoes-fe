@@ -32,10 +32,10 @@ function ProductTypeDetail() {
             <div className="wrapper mx-[10%] rounded-xl  border border-slate-300 p-5">
                 <div className="mt-4 flex flex-row">
                     <div className="mt-[4%] flex w-full flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold">
+                        <label className="mb-1 cursor-default text-lg font-semibold dark:bg-white/5 dark:text-slate-200">
                             Mã loại sản phẩm
                         </label>
-                        <div className="text-input disabled select-none py-[5px]">
+                        <div className="text-input disabled select-none py-[5px] dark:bg-white/5 dark:text-slate-200">
                             {productType.id}
                         </div>
                     </div>
@@ -43,10 +43,10 @@ function ProductTypeDetail() {
 
                 <div className="mt-4 flex flex-row">
                     <div className="mt-2 flex w-full flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="name">
+                        <label className="mb-1 cursor-default text-lg font-semibold dark:bg-white/5 dark:text-slate-200" htmlFor="name">
                             Tên loại sản phẩm
                         </label>
-                        <div className="text-input disabled select-none py-[5px]">
+                        <div className="text-input disabled select-none py-[5px] dark:bg-white/5 dark:text-slate-200">
                             {productType.name}
                         </div>
                     </div>
@@ -54,10 +54,10 @@ function ProductTypeDetail() {
 
                 <div className="mt-4 mb-4 flex flex-row">
                     <div className="mt-2 flex w-full flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="date">
+                        <label className="mb-1 cursor-default text-lg font-semibold dark:bg-white/5 dark:text-slate-200" htmlFor="date">
                             Ngày thêm
                         </label>
-                        <div className="text-input disabled select-none py-[5px]">
+                        <div className="text-input disabled select-none py-[5px] dark:bg-white/5 dark:text-slate-200">
                             {moment(productType.createdAt).format('(HH:mm:ss)     DD/MM/YYYY')}
                         </div>
                     </div>

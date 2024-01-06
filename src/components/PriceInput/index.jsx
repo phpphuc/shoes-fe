@@ -28,7 +28,7 @@ function PriceInput({
             <label
                 htmlFor={id}
                 className={clsx(
-                    'text-input relative z-30 block w-full cursor-text py-[5px] peer-focus:border-blue-500',
+                    'text-input relative z-30 block w-full cursor-text py-[5px] peer-focus:border-blue-500 dark:text-slate-200',
                     {
                         invalid: error,
                         'text-gray-400': !value,

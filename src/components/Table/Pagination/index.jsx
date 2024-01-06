@@ -20,21 +20,21 @@ export default function Pagination({ table, initPageSize = 5 }) {
 
     return (
         <div className="mt-3 flex justify-end">
-            <div className="flex items-center space-x-5 text-sm text-gray-700">
+            <div className="flex items-center space-x-5 text-sm text-gray-700 dark:text-slate-200">
                 <div className="flex items-center space-x-1">
                     <span>Mỗi trang: </span>
                     <select
-                        className="cursor-pointer rounded border px-1 py-1"
+                        className="cursor-pointer rounded border px-1 py-1 dark:bg-white/5"
                         value={pageSize}
                         onChange={(e) => {
                             setPageSize(e.target.value);
                             table.setPageSize(e.target.value);
                         }}
                     >
-                        <option value={5}>5</option>
-                        <option value={10}>10</option>
-                        <option value={15}>15</option>
-                        <option value={20}>20</option>
+                        <option className='dark:bg-gray-600' value={5}>5</option>
+                        <option className='dark:bg-gray-600' value={10}>10</option>
+                        <option className='dark:bg-gray-600' value={15}>15</option>
+                        <option className='dark:bg-gray-600' value={20}>20</option>
                     </select>
                 </div>
                 <div>
@@ -55,7 +55,7 @@ export default function Pagination({ table, initPageSize = 5 }) {
                 </div>
                 <div className="flex">
                     <button
-                        className={clsx('rounded p-1 hover:bg-gray-100', {
+                        className={clsx('rounded p-1 hover:bg-gray-100 dark:hover:bg-slate-800/75', {
                             'pointer-events-none opacity-50': !table.getCanPreviousPage(),
                         })}
                         onClick={() => table.setPageIndex(0)}
@@ -76,7 +76,7 @@ export default function Pagination({ table, initPageSize = 5 }) {
                         </svg>
                     </button>
                     <button
-                        className={clsx('rounded p-1 hover:bg-gray-100', {
+                        className={clsx('rounded p-1 hover:bg-gray-100 dark:hover:bg-slate-800/75', {
                             'pointer-events-none opacity-50': !table.getCanPreviousPage(),
                         })}
                         onClick={() => table.previousPage()}
@@ -97,7 +97,7 @@ export default function Pagination({ table, initPageSize = 5 }) {
                         </svg>
                     </button>
                     <button
-                        className={clsx('rounded p-1 hover:bg-gray-100', {
+                        className={clsx('rounded p-1 hover:bg-gray-100 dark:hover:bg-slate-800/75', {
                             'pointer-events-none opacity-50': !table.getCanNextPage(),
                         })}
                         onClick={() => table.nextPage()}
@@ -118,7 +118,7 @@ export default function Pagination({ table, initPageSize = 5 }) {
                         </svg>
                     </button>
                     <button
-                        className={clsx('rounded p-1 hover:bg-gray-100', {
+                        className={clsx('rounded p-1 hover:bg-gray-100 dark:hover:bg-slate-800/75', {
                             'pointer-events-none opacity-50': !table.getCanNextPage(),
                         })}
                         onClick={() => table.setPageIndex(table.getPageCount() - 1)}

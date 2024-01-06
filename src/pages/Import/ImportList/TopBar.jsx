@@ -34,7 +34,7 @@ export default function TopBar({ filters, setFilters }) {
             <div className="space-y-2">
                 <div className="md:flex md:space-x-4">
                     <div className="flex-1">
-                        <label className="label !mb-0 cursor-default text-sm">
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">
                             Ngày lập phiếu nhập
                         </label>
                         <Datepicker
@@ -59,10 +59,10 @@ export default function TopBar({ filters, setFilters }) {
                         />
                     </div>
                     <div className="">
-                        <label className="label !mb-0 cursor-default text-sm">Giá</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Giá</label>
                         <div className="flex items-center space-x-1">
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-slate-800 dark:text-white/80"
                                 placeholder="Từ"
                                 value={getFilterValue('totalPrice', filters)?.min || ''}
                                 onChange={(e) =>
@@ -76,7 +76,7 @@ export default function TopBar({ filters, setFilters }) {
                             />
                             <div>-</div>
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-slate-800 dark:text-white/80"
                                 placeholder="Đến"
                                 value={getFilterValue('totalPrice', filters)?.max || ''}
                                 onChange={(e) =>

@@ -4,6 +4,7 @@ import { accountSelector } from '../../redux/selectors';
 export default function ShowWithFunc({ func, children }) {
     const account = useSelector(accountSelector);
     function isHiddenItem(func) {
+        // return false;
         if (!account) {
             return true;
         }

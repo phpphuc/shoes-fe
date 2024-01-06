@@ -296,13 +296,13 @@ function AddOrder() {
             <div className="container h-full w-full overflow-y-hidden py-2">
                 <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
                     {/* LEFT VIEW */}
-                    <div className="flex flex-1 flex-col rounded-l-md border py-3 px-2">
+                    <div className="flex flex-1 flex-col rounded-l-md border py-3 px-2 dark:border-white/50">
                         {/* HEADER ACTION GROUP */}
                         <div className="flex space-x-2 pb-2">
                             {/* ID */}
                             <input
                                 type="text"
-                                className="text-input w-16 py-1"
+                                className="text-input w-16 py-1 dark:bg-white/5 dark:text-slate-200"
                                 value={idFilter}
                                 onChange={(e) => {
                                     setIdFilter(e.target.value);
@@ -312,7 +312,7 @@ function AddOrder() {
                             {/* Search */}
                             <input
                                 type="text"
-                                className="text-input flex-1 py-1"
+                                className="text-input flex-1 py-1 dark:bg-white/5 dark:text-slate-200"
                                 value={search}
                                 onChange={(e) => {
                                     setSearch(e.target.value);
@@ -343,8 +343,8 @@ function AddOrder() {
                     </div>
 
                     {/* RIGHT ORDER */}
-                    <div className="flex h-full min-w-full flex-1 flex-col rounded-r-md border py-5 px-2">
-                        <p className="text-center text-lg font-semibold">Hóa đơn</p>
+                    <div className="flex h-full min-w-full flex-1 flex-col rounded-r-md border py-5 px-2 dark:border-white/50">
+                        <p className="text-center text-lg font-semibold dark:text-slate-200">Hóa đơn</p>
 
                         {/* LIST PRODUCT */}
                         <div className="mt-3 flex-1">
@@ -358,7 +358,7 @@ function AddOrder() {
 
                         <div className="flex justify-between">
                             <div className="flex items-center">
-                                <p className="font-semibold">
+                                <p className="font-semibold dark:text-white">
                                     <span>Tổng tiền: </span>
                                     <span className="text-xl text-blue-600">
                                         <span>

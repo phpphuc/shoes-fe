@@ -177,42 +177,42 @@ function OrderDetail() {
                 <div className="flex-1">
                     <div className="space-y-2 border-b pb-2">
                         <div>
-                            <span className="text-gray-700">Số điện thoại: </span>
-                            <span className="text-lg font-semibold text-gray-900">
+                            <span className="text-gray-700 dark:text-slate-200">Số điện thoại: </span>
+                            <span className="text-lg font-semibold text-gray-900 dark:text-slate-200">
                                 {order?.phone || ''}
                             </span>
                         </div>
                         {order?.address && (
                             <div>
-                                <span className="text-gray-700">Địa chỉ: </span>
-                                <span className="text-lg font-semibold text-gray-900">
+                                <span className="text-gray-700 dark:text-slate-200">Địa chỉ: </span>
+                                <span className="text-lg font-semibold text-gray-900 dark:text-slate-200">
                                     {order?.address || ''}
                                 </span>
                             </div>
                         )}
 
                         <div>
-                            <span className="text-gray-700">Ngày lập: </span>
-                            <span className="text-lg font-semibold text-gray-900">
+                            <span className="text-gray-700 dark:text-slate-200">Ngày lập: </span>
+                            <span className="text-lg font-semibold text-gray-900 dark:text-slate-200">
                                 {moment(order.createdAt).format('HH:mm DD/MM/YYYY ')}
                             </span>
                         </div>
 
                         {order?.customer && (
                             <div>
-                                <p className="text-gray-700">Tài khoản: </p>
+                                <p className="text-gray-700 dark:text-slate-200">Tài khoản: </p>
                                 <div className="mt-2 flex items-center space-x-2">
                                     <img
                                         src={order.customer?.avatar || '/placeholder.png'}
                                         className="h-10 w-10 rounded-full border object-cover"
                                     />
-                                    <p className="flex-1 font-medium">{order.customer?.name}</p>
+                                    <p className="flex-1 font-medium dark:text-slate-200">{order.customer?.name}</p>
                                 </div>
                             </div>
                         )}
                         {order?.coupon && (
                             <div>
-                                <p className="text-gray-700">Mã giảm giá: </p>
+                                <p className="text-gray-700 dark:text-slate-200">Mã giảm giá: </p>
                                 <div className="rounded border border-green-600 px-4 py-2">
                                     <p className="font-medium text-gray-700">
                                         {order.coupon.description}
@@ -222,7 +222,7 @@ function OrderDetail() {
                                             {'Mã: ' + order.coupon.name}
                                         </p>
                                         <div className="space-x-1">
-                                            <span className="text-gray-600">Giảm:</span>
+                                            <span className="text-gray-600 dark:text-slate-200">Giảm:</span>
                                             <span className="font-bold text-green-600">
                                                 {order.coupon.discountPercent + '%'}
                                             </span>
@@ -236,7 +236,7 @@ function OrderDetail() {
                     <div className="mt-3 flex space-x-6 border-b pb-3">
                         <div className="space-y-3 ">
                             <div>
-                                <span className="text-gray-700">Tổng giá: </span>
+                                <span className="text-gray-700 dark:text-slate-200">Tổng giá: </span>
                                 <span className="text-xl font-semibold text-blue-600">
                                     <span>
                                         <PriceFormat>{order?.totalPrice}</PriceFormat>
@@ -245,7 +245,7 @@ function OrderDetail() {
                                 </span>
                             </div>
                             <div>
-                                <span className="text-gray-700">Giảm giá: </span>
+                                <span className="text-gray-700 dark:text-slate-200">Giảm giá: </span>
                                 <span className="text-xl font-bold text-green-600">
                                     <span>
                                         <PriceFormat>
@@ -256,7 +256,7 @@ function OrderDetail() {
                                 </span>
                             </div>
                             <div>
-                                <span className="text-gray-700">Thành tiền: </span>
+                                <span className="text-gray-700 dark:text-slate-200">Thành tiền: </span>
                                 <span className="text-xl font-bold text-blue-600">
                                     <span>
                                         <PriceFormat>{order?.intoMoney}</PriceFormat>
@@ -268,7 +268,7 @@ function OrderDetail() {
                         <div className="border-l"></div>
                         <div className="space-y-3">
                             <div>
-                                <span className="text-gray-700">Tiền nhận: </span>
+                                <span className="text-gray-700 dark:text-slate-200">Tiền nhận: </span>
                                 <span className="text-xl font-semibold text-orange-400">
                                     <span>
                                         <PriceFormat>{order?.receivedMoney}</PriceFormat>
@@ -277,7 +277,7 @@ function OrderDetail() {
                                 </span>
                             </div>
                             <div className="">
-                                <span className="text-gray-700">Tiền thừa: </span>
+                                <span className="text-gray-700 dark:text-slate-200">Tiền thừa: </span>
                                 <span className="text-xl font-semibold text-blue-500">
                                     <span>
                                         <PriceFormat>{order?.exchangeMoney}</PriceFormat>
@@ -294,7 +294,7 @@ function OrderDetail() {
                         })}
                     >
                         <div className="space-y-2">
-                            <p className="text-gray-700">Trạng thái giao hàng: </p>
+                            <p className="text-gray-700 dark:text-slate-200">Trạng thái giao hàng: </p>
                             <div className="relative flex space-x-3">
                                 <div
                                     className="inline-flex items-center"
@@ -351,7 +351,7 @@ function OrderDetail() {
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <p className="text-gray-700">Trạng thái thanh toán: </p>
+                            <p className="text-gray-700 dark:text-slate-200">Trạng thái thanh toán: </p>
                             <div className="relative flex space-x-3">
                                 <div
                                     className="inline-flex items-center"

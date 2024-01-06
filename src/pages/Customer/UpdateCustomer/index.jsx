@@ -112,8 +112,8 @@ function UpdateCustomer() {
 
     return (
         <div className="container">
-            <div className="mb-6 mt-2 flex items-center justify-center space-x-3 rounded bg-blue-50 py-4">
-                <span className="text-lg font-medium text-gray-700">Mã khách hàng:</span>
+            <div className="mb-6 mt-2 flex items-center justify-center space-x-3 rounded bg-blue-50 py-4 dark:bg-white/5">
+                <span className="text-lg font-medium text-gray-700 dark:text-slate-200">Mã khách hàng:</span>
                 <span className="text-lg font-bold text-blue-600">{customer.id}</span>
             </div>
             <form
@@ -163,7 +163,7 @@ function UpdateCustomer() {
                     </div>
                     <div className="ml-8 flex-1">
                         <div className="mb-4 flex flex-col">
-                            <label className="label pointer-events-none" htmlFor="phone">
+                            <label className="label pointer-events-none dark:text-slate-200" htmlFor="phone">
                                 Số điện thoại:
                             </label>
                             <input
@@ -175,13 +175,13 @@ function UpdateCustomer() {
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="label" htmlFor="name">
+                            <label className="label dark:text-slate-200" htmlFor="name">
                                 Tên khách hàng *
                             </label>
                             <input
                                 type="text"
                                 id="name"
-                                className={clsx('text-input w-full py-[5px]', {
+                                className={clsx('text-input w-full py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.name,
                                 })}
                                 onChange={form.handleChange}
@@ -199,12 +199,12 @@ function UpdateCustomer() {
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="label" htmlFor="address">
+                            <label className="label dark:text-slate-200" htmlFor="address">
                                 Địa chỉ *
                             </label>
                             <textarea
                                 id="address"
-                                className={clsx('text-input !h-auto py-2', {
+                                className={clsx('text-input !h-auto py-2 dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.address,
                                 })}
                                 onChange={form.handleChange}

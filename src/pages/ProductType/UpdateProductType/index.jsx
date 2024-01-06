@@ -77,8 +77,8 @@ function UpdateProductType() {
 
     return (
         <div className="container">
-            <div className="mb-6 mt-2 flex items-center justify-center space-x-3 rounded bg-blue-50 py-4">
-                <span className="text-lg font-medium text-gray-700">Mã loại sản phẩm:</span>
+            <div className="mb-6 mt-2 flex items-center justify-center space-x-3 rounded bg-blue-50 py-4 dark:bg-white/5">
+                <span className="text-lg font-medium text-gray-700 dark:text-slate-200">Mã loại sản phẩm:</span>
                 <span className="text-lg font-bold text-blue-600">{productType.id}</span>
             </div>
             <form
@@ -87,13 +87,13 @@ function UpdateProductType() {
             >
                 <div className="relative pt-10">
                     <div className="flex flex-col">
-                        <label className="label" htmlFor="name">
+                        <label className="label dark:text-slate-200" htmlFor="name">
                             Tên loại sản phẩm
                         </label>
                         <input
                             type="text"
                             id="name"
-                            className={clsx('text-input w-full py-[5px]', {
+                            className={clsx('text-input w-full py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                 invalid: form.errors.name,
                             })}
                             onChange={form.handleChange}

@@ -89,8 +89,8 @@ function UpdateCoupon() {
 
     return (
         <div className="container">
-            <div className="mb-6 mt-2 flex items-center justify-center space-x-3 rounded bg-blue-50 py-4">
-                <span className="text-lg font-medium text-gray-700">Mã giảm giá:</span>
+            <div className="mb-6 mt-2 flex items-center justify-center space-x-3 rounded bg-blue-50 py-4 dark:bg-white/5">
+                <span className="text-lg font-medium text-gray-700 dark:text-slate-200">Mã giảm giá:</span>
                 <span className="text-lg font-bold text-blue-600">{coupon.name}</span>
             </div>
             <form
@@ -102,13 +102,13 @@ function UpdateCoupon() {
             >
                 <div className="relative pt-10">
                     <div className="flex flex-col">
-                        <label className="label" htmlFor="name">
+                        <label className="label dark:text-slate-200" htmlFor="name">
                             Mô tả *
                         </label>
                         <textarea
                             type="text"
                             id="description"
-                            className={clsx('text-input !h-auto py-2', {
+                            className={clsx('text-input !h-auto py-2 dark:bg-white/5 dark:text-slate-200', {
                                 invalid: form.errors.description,
                             })}
                             onChange={form.handleChange}
@@ -126,21 +126,21 @@ function UpdateCoupon() {
                     </div>
 
                     <div className="flex flex-col">
-                        <label className="label" htmlFor="discountPercent">
+                        <label className="label dark:text-slate-200" htmlFor="discountPercent">
                             Phần trăm giảm giá *
                         </label>
                         <div className="flex items-center space-x-2">
                             <input
                                 type="number"
                                 id="discountPercent"
-                                className={clsx('text-input w-[100px] py-[5px]', {
+                                className={clsx('text-input w-[100px] py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.discountPercent,
                                 })}
                                 onChange={form.handleChange}
                                 value={form.values.discountPercent}
                                 name="discountPercent"
                             />
-                            <span className="text-lg font-medium text-gray-700">%</span>
+                            <span className="text-lg font-medium text-gray-700 dark:text-slate-200">%</span>
                         </div>
                         <span
                             className={clsx('text-sm text-red-500 opacity-0', {
@@ -152,7 +152,7 @@ function UpdateCoupon() {
                     </div>
 
                     <div>
-                        <label className="label !cursor-default">Giới hạn</label>
+                        <label className="label !cursor-default dark:text-slate-200">Giới hạn</label>
                         <div className="flex items-center space-x-5">
                             <div className="flex items-center">
                                 <input
@@ -164,7 +164,7 @@ function UpdateCoupon() {
                                     onChange={form.handleChange}
                                     checked={form.values.oneTime === 'notOneTime'}
                                 />
-                                <label htmlFor="oneTime-notOneTime" className="cursor-pointer pl-2">
+                                <label htmlFor="oneTime-notOneTime" className="cursor-pointer pl-2 dark:text-slate-200">
                                     Dùng nhiều lần
                                 </label>
                             </div>
@@ -178,7 +178,7 @@ function UpdateCoupon() {
                                     onChange={form.handleChange}
                                     checked={form.values.oneTime === 'oneTime'}
                                 />
-                                <label htmlFor="oneTime-oneTime" className="cursor-pointer pl-2">
+                                <label htmlFor="oneTime-oneTime" className="cursor-pointer pl-2 dark:text-slate-200">
                                     Dùng 1 lần
                                 </label>
                             </div>
@@ -186,7 +186,7 @@ function UpdateCoupon() {
                     </div>
 
                     <div className="mt-3">
-                        <label className="label !cursor-default">Trạng thái</label>
+                        <label className="label !cursor-default dark:text-slate-200">Trạng thái</label>
                         <div className="flex items-center space-x-5">
                             <div className="flex items-center">
                                 <input
@@ -198,7 +198,7 @@ function UpdateCoupon() {
                                     onChange={form.handleChange}
                                     checked={form.values.status === 'active'}
                                 />
-                                <label htmlFor="status-active" className="cursor-pointer pl-2">
+                                <label htmlFor="status-active" className="cursor-pointer pl-2 dark:text-slate-200">
                                     Đang hoạt động
                                 </label>
                             </div>
@@ -212,7 +212,7 @@ function UpdateCoupon() {
                                     onChange={form.handleChange}
                                     checked={form.values.status === 'inactive'}
                                 />
-                                <label htmlFor="status-inactive" className="cursor-pointer pl-2">
+                                <label htmlFor="status-inactive" className="cursor-pointer pl-2 dark:text-slate-200">
                                     Không hoạt động
                                 </label>
                             </div>

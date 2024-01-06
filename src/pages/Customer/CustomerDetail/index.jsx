@@ -38,22 +38,22 @@ function CustomerDetail() {
                     </div>
                     <div className="ml-8 flex-1 space-y-3">
                         <div className="mb-4 flex flex-col">
-                            <label className="label pointer-events-none">Mã khách hàng:</label>
+                            <label className="label pointer-events-none dark:text-slate-200">Mã khách hàng:</label>
                             <p className="font-medium text-blue-600">{customer?.id}</p>
                         </div>
                         <div className="mb-4 flex flex-col">
-                            <label className="label pointer-events-none">Số điện thoại:</label>
+                            <label className="label pointer-events-none dark:text-slate-200">Số điện thoại:</label>
                             <p className="font-medium text-blue-600">{customer?.phone}</p>
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="label pointer-events-none">Tên khách hàng:</label>
-                            <p className="text-xl font-medium">{customer?.name}</p>
+                            <label className="label pointer-events-none dark:text-slate-200">Tên khách hàng:</label>
+                            <p className="text-xl font-medium dark:text-slate-50">{customer?.name}</p>
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="label pointer-events-none">Địa chỉ *</label>
-                            <p>{customer?.address}</p>
+                            <label className="label pointer-events-none dark:text-slate-200">Địa chỉ *</label>
+                            <p className=' dark:text-slate-50'>{customer?.address}</p>
                         </div>
                     </div>
                 </div>

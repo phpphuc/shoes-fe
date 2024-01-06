@@ -51,19 +51,19 @@ export default function TopBar({ filters, setFilters }) {
             <div className="space-y-2">
                 <div className="md:hidden">
                     <div className="flex-1">
-                        <label className="label !mb-0 cursor-default text-sm">Tìm kiếm</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Tìm kiếm</label>
                         <input
-                            className="text-input"
+                            className="text-input dark:bg-white/5 dark:text-slate-200"
                             placeholder="Tìm theo tên"
                             value={getFilterValue('name', filters) || ''}
                             onChange={(e) =>
                                 setFilters(setFilterValueHandler('name', e.target.value))
                             }
                         />
-                        <label className="label !mb-0 cursor-default text-sm">Giá</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Giá</label>
                         <div className="flex items-center space-x-1">
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-white/5 dark:text-slate-200"
                                 placeholder="Từ"
                                 value={getFilterValue('price', filters)?.min || ''}
                                 onChange={(e) =>
@@ -77,7 +77,7 @@ export default function TopBar({ filters, setFilters }) {
                             />
                             <div>-</div>
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-white/5 dark:text-slate-200"
                                 placeholder="Đến"
                                 value={getFilterValue('price', filters)?.max || ''}
                                 onChange={(e) =>
@@ -90,7 +90,7 @@ export default function TopBar({ filters, setFilters }) {
                                 }
                             />
                         </div>
-                        <label className="label !mb-0 cursor-default text-sm">Danh mục</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Danh mục</label>
                         <Listbox
                             value={selectedProductTypes}
                             onChange={(productTypeName) =>
@@ -187,9 +187,9 @@ export default function TopBar({ filters, setFilters }) {
                 </div>
                 <div className="hidden md:flex space-x-4">
                     <div className="flex-1">
-                        <label className="label !mb-0 cursor-default text-sm">Tìm kiếm</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Tìm kiếm</label>
                         <input
-                            className="text-input"
+                            className="text-input dark:bg-white/5 dark:text-slate-200"
                             placeholder="Tìm theo tên"
                             value={getFilterValue('name', filters) || ''}
                             onChange={(e) =>
@@ -198,10 +198,10 @@ export default function TopBar({ filters, setFilters }) {
                         />
                     </div>
                     <div className="w-[200px]">
-                        <label className="label !mb-0 cursor-default text-sm">Giá</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Giá</label>
                         <div className="flex items-center space-x-1">
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-white/5 dark:text-slate-200"
                                 placeholder="Từ"
                                 value={getFilterValue('price', filters)?.min || ''}
                                 onChange={(e) =>
@@ -215,7 +215,7 @@ export default function TopBar({ filters, setFilters }) {
                             />
                             <div>-</div>
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-white/5 dark:text-slate-200"
                                 placeholder="Đến"
                                 value={getFilterValue('price', filters)?.max || ''}
                                 onChange={(e) =>
@@ -230,7 +230,7 @@ export default function TopBar({ filters, setFilters }) {
                         </div>
                     </div>
                     <div className="w-[300px]">
-                        <label className="label !mb-0 cursor-default text-sm">Danh mục</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Danh mục</label>
                         <Listbox
                             value={selectedProductTypes}
                             onChange={(productTypeName) =>
@@ -327,10 +327,10 @@ export default function TopBar({ filters, setFilters }) {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 sm:flex sm:space-x-4">
                     <div className="w-[200px]">
-                        <label className="label !mb-0 cursor-default text-sm">Kho</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Kho</label>
                         <div className="flex items-center space-x-1">
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-white/5 dark:text-slate-200"
                                 placeholder="Từ"
                                 value={getFilterValue('quantity', filters)?.min || ''}
                                 onChange={(e) =>
@@ -344,7 +344,7 @@ export default function TopBar({ filters, setFilters }) {
                             />
                             <div>-</div>
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-white/5 dark:text-slate-200"
                                 placeholder="Đến"
                                 value={getFilterValue('quantity', filters)?.max || ''}
                                 onChange={(e) =>
@@ -359,10 +359,10 @@ export default function TopBar({ filters, setFilters }) {
                         </div>
                     </div>
                     <div className="w-[200px]">
-                        <label className="label !mb-0 cursor-default text-sm">Đã bán</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Đã bán</label>
                         <div className="flex items-center space-x-1">
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-white/5 dark:text-slate-200"
                                 placeholder="Từ"
                                 value={getFilterValue('saledQuantity', filters)?.min || ''}
                                 onChange={(e) =>
@@ -376,7 +376,7 @@ export default function TopBar({ filters, setFilters }) {
                             />
                             <div>-</div>
                             <input
-                                className="text-input"
+                                className="text-input dark:bg-white/5 dark:text-slate-200"
                                 placeholder="Đến"
                                 value={getFilterValue('saledQuantity', filters)?.max || ''}
                                 onChange={(e) =>
@@ -391,7 +391,7 @@ export default function TopBar({ filters, setFilters }) {
                         </div>
                     </div>
                     <div className="w-[300px]">
-                        <label className="label !mb-0 cursor-default text-sm">Trạng thái</label>
+                        <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Trạng thái</label>
                         <div className="flex h-9 items-center space-x-3">
                             <div
                                 className="inline-flex items-center"

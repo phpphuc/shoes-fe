@@ -12,13 +12,13 @@ export default function TopBar({ filters, setFilters }) {
             <div className="flex items-center justify-between space-x-4">
                 <div className='flex flex-1 space-x-4'>
                     <input
-                        className="text-input flex-1"
+                        className="text-input flex-1 dark:bg-white/5 dark:text-slate-200"
                         placeholder="Tìm theo mã"
                         value={getFilterValue('name', filters) || ''}
                         onChange={(e) => setFilters(setFilterValueHandler('name', e.target.value))}
                     />
                     <input
-                        className="text-input flex-1"
+                        className="text-input flex-1 dark:bg-white/5 dark:text-slate-200"
                         placeholder="Tìm theo mô tả"
                         value={getFilterValue('description', filters) || ''}
                         onChange={(e) =>
@@ -49,10 +49,10 @@ export default function TopBar({ filters, setFilters }) {
             </div>
             <div className="md:flex items-center md:space-x-6">
                 <div className="w-[300px]">
-                    <label className="label !mb-0 cursor-default text-sm">Phần trăm giảm giá</label>
+                    <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Phần trăm giảm giá</label>
                     <div className="flex items-center space-x-1">
                         <input
-                            className="text-input"
+                            className="text-input dark:bg-white/5 dark:text-slate-200"
                             placeholder="Từ"
                             value={getFilterValue('discountPercent', filters)?.min || ''}
                             onChange={(e) =>
@@ -66,7 +66,7 @@ export default function TopBar({ filters, setFilters }) {
                         />
                         <div>-</div>
                         <input
-                            className="text-input"
+                            className="text-input dark:bg-white/5 dark:text-slate-200"
                             placeholder="Đến"
                             value={getFilterValue('discountPercent', filters)?.max || ''}
                             onChange={(e) =>
@@ -81,7 +81,7 @@ export default function TopBar({ filters, setFilters }) {
                     </div>
                 </div>
                 <div className="">
-                    <label className="label !mb-0 cursor-default text-sm">Giới hạn</label>
+                    <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Giới hạn</label>
                     <div className="flex h-9 items-center space-x-3">
                         <div
                             className="inline-flex items-center"
@@ -131,7 +131,7 @@ export default function TopBar({ filters, setFilters }) {
                     </div>
                 </div>
                 <div className="">
-                    <label className="label !mb-0 cursor-default text-sm">Trạng thái</label>
+                    <label className="label !mb-0 cursor-default text-sm dark:text-slate-200">Trạng thái</label>
                     <div className="flex h-9 items-center space-x-3">
                         <div
                             className="inline-flex items-center"

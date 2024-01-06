@@ -22,11 +22,11 @@ function AccountRoleInput({ ...props }) {
 
     return (
         <select {...props} ref={selectElem}>
-            <option value="" disabled>
+            <option className='dark:bg-gray-600 dark:text-slate-400' value="" disabled>
                 -- Chọn chức vụ --
             </option>
             {accountRoles.map((role) => (
-                <option key={role._id} value={role._id}>
+                <option className='dark:bg-gray-600 dark:text-slate-200' key={role._id} value={role._id}>
                     {role.name}
                 </option>
             ))}

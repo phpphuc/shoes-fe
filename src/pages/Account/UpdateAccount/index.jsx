@@ -98,7 +98,7 @@ function UpdateAccount() {
             >
                 <div className="relative pt-10">
                     <div className="flex flex-col">
-                        <label className="label cursor-default">Tên đăng nhập *</label>
+                        <label className="label cursor-default dark:text-slate-200">Tên đăng nhập *</label>
                         <input
                             type="text"
                             id="username"
@@ -116,13 +116,13 @@ function UpdateAccount() {
                         </span>
                     </div>
                     <div className="flex flex-col">
-                        <label className="label" htmlFor="email">
+                        <label className="label dark:text-slate-200" htmlFor="email">
                             Email *
                         </label>
                         <input
                             type="text"
                             id="email"
-                            className={clsx('text-input w-full py-[5px]', {
+                            className={clsx('text-input w-full py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                 invalid: form.errors.email,
                             })}
                             onChange={form.handleChange}
@@ -138,13 +138,13 @@ function UpdateAccount() {
                         </span>
                     </div>
                     <div className="flex flex-col">
-                        <label className="label" htmlFor="name">
+                        <label className="label dark:text-slate-200" htmlFor="name">
                             Họ tên *
                         </label>
                         <input
                             type="text"
                             id="name"
-                            className={clsx('text-input w-full py-[5px]', {
+                            className={clsx('text-input w-full py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                 invalid: form.errors.name,
                             })}
                             onChange={form.handleChange}
@@ -161,12 +161,12 @@ function UpdateAccount() {
                     </div>
 
                     <div>
-                        <label className="label" htmlFor="type">
+                        <label className="label dark:text-slate-200" htmlFor="type">
                             Chức vụ *
                         </label>
                         <AccountRoleInput
                             id="role"
-                            className={clsx('text-input cursor-pointer py-[5px]', {
+                            className={clsx('text-input cursor-pointer py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                 invalid: form.errors.role,
                             })}
                             onChange={form.handleChange}

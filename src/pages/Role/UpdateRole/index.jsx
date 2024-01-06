@@ -61,7 +61,7 @@ function FunctionGroup({ func, selectedFunctionIds, setSelectedFunctionIds }) {
                     readOnly
                     checked={isCheckAll()}
                 />
-                <label className="cursor-pointer pl-2 font-semibold text-gray-700">
+                <label className="cursor-pointer pl-2 font-semibold text-gray-700 dark:text-slate-200">
                     {func.name}
                 </label>
             </div>
@@ -78,7 +78,7 @@ function FunctionGroup({ func, selectedFunctionIds, setSelectedFunctionIds }) {
                             readOnly
                             checked={isCheck(subFunc.id)}
                         />
-                        <label className="cursor-pointer pl-2 text-gray-600">{subFunc.name}</label>
+                        <label className="cursor-pointer pl-2 text-gray-600 dark:text-slate-200">{subFunc.name}</label>
                     </div>
                 ))}
             </div>
@@ -164,8 +164,8 @@ function UpdateRole() {
 
     return (
         <div className="container">
-            <div className="mb-3 mt-2 flex items-center justify-center space-x-3 rounded bg-blue-50 py-4">
-                <span className="text-lg font-medium text-gray-700">Mã chức vụ:</span>
+            <div className="mb-3 mt-2 flex items-center justify-center space-x-3 rounded bg-blue-50 py-4 dark:bg-white/5">
+                <span className="text-lg font-medium text-gray-700 dark:text-slate-200">Mã chức vụ:</span>
                 <span className="text-lg font-bold text-blue-600">{role.id}</span>
             </div>
             <form
@@ -178,13 +178,13 @@ function UpdateRole() {
                 <div className="relative">
                     <div className="mt-5 flex items-center space-x-4">
                         <div className="flex flex-1 flex-col">
-                            <label className="label" htmlFor="name">
+                            <label className="label dark:text-slate-200" htmlFor="name">
                                 Tên chức vụ *
                             </label>
                             <input
                                 type="text"
                                 id="name"
-                                className={clsx('text-input w-full py-[5px]', {
+                                className={clsx('text-input w-full py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.name,
                                 })}
                                 onChange={form.handleChange}
@@ -200,13 +200,13 @@ function UpdateRole() {
                             </span>
                         </div>
                         <div className="flex flex-1 flex-col">
-                            <label className="label" htmlFor="description">
+                            <label className="label dark:text-slate-200" htmlFor="description">
                                 Mô tả chức vụ
                             </label>
                             <input
                                 type="text"
                                 id="description"
-                                className={clsx('text-input w-full py-[5px]', {
+                                className={clsx('text-input w-full py-[5px] dark:bg-white/5 dark:text-slate-200', {
                                     invalid: form.errors.description,
                                 })}
                                 onChange={form.handleChange}
@@ -224,7 +224,7 @@ function UpdateRole() {
                     </div>
 
                     <div>
-                        <p className="mb-2 font-semibold text-gray-600">Chọn chức năng</p>
+                        <p className="mb-2 font-semibold text-gray-600 dark:text-slate-200">Chọn chức năng</p>
                         <div className="!h-[360px] w-full overflow-y-scroll rounded border border-gray-300 px-5 py-5">
                             {functions.map((func) => (
                                 <FunctionGroup
