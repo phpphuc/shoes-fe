@@ -166,7 +166,7 @@ function OrderDetail() {
 
     return (
         <div className="container">
-            <div className="mt-5 flex space-x-6" ref={componentRef}>
+            <div className="mt-5 md:flex space-x-6" ref={componentRef}>
                 {/* PRODUCT */}
                 <div className="flex-1">
                     <Table table={table} notFoundMessage="Không có sản phẩm" rowClickable={false} />

@@ -201,6 +201,7 @@ function CouponList() {
             .then((res) => res.json())
             .then((resJson) => {
                 if (resJson.success) {
+                    console.log(resJson.coupons);
                     setCoupons(resJson.coupons);
                 } else {
                     setCoupons([]);

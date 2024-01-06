@@ -10,23 +10,25 @@ export default function TopBar({ filters, setFilters }) {
     return (
         <div className="space-y-2">
             <div className="flex items-center justify-between space-x-4">
-                <input
-                    className="text-input flex-1"
-                    placeholder="Tìm theo mã"
-                    value={getFilterValue('name', filters) || ''}
-                    onChange={(e) => setFilters(setFilterValueHandler('name', e.target.value))}
-                />
-                <input
-                    className="text-input flex-1"
-                    placeholder="Tìm theo mô tả"
-                    value={getFilterValue('description', filters) || ''}
-                    onChange={(e) =>
-                        setFilters(setFilterValueHandler('description', e.target.value))
-                    }
-                />
+                <div className='flex flex-1 space-x-4'>
+                    <input
+                        className="text-input flex-1"
+                        placeholder="Tìm theo mã"
+                        value={getFilterValue('name', filters) || ''}
+                        onChange={(e) => setFilters(setFilterValueHandler('name', e.target.value))}
+                    />
+                    <input
+                        className="text-input flex-1"
+                        placeholder="Tìm theo mô tả"
+                        value={getFilterValue('description', filters) || ''}
+                        onChange={(e) =>
+                            setFilters(setFilterValueHandler('description', e.target.value))
+                        }
+                    />
+            </div>
 
                 <ShowWithFunc func="coupon/add">
-                    <Link to="/coupon/add" className="btn btn-md btn-blue">
+                    <Link to="/coupon/add" className="btn btn-sm sm:btn-md btn-blue">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -41,11 +43,11 @@ export default function TopBar({ filters, setFilters }) {
                                 d="M12 4.5v15m7.5-7.5h-15"
                             />
                         </svg>
-                        <span className="ml-2">Thêm phiếu giảm giá</span>
+                        <span className="ml-2 hidden sm:block">Thêm phiếu giảm giá</span>
                     </Link>
                 </ShowWithFunc>
             </div>
-            <div className="flex items-center space-x-6">
+            <div className="md:flex items-center md:space-x-6">
                 <div className="w-[300px]">
                     <label className="label !mb-0 cursor-default text-sm">Phần trăm giảm giá</label>
                     <div className="flex items-center space-x-1">

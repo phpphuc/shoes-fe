@@ -294,7 +294,7 @@ function AddOrder() {
     return (
         <>
             <div className="container h-full w-full overflow-y-hidden py-2">
-                <div className="flex h-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
                     {/* LEFT VIEW */}
                     <div className="flex flex-1 flex-col rounded-l-md border py-3 px-2">
                         {/* HEADER ACTION GROUP */}
@@ -343,7 +343,7 @@ function AddOrder() {
                     </div>
 
                     {/* RIGHT ORDER */}
-                    <div className="flex h-full min-w-[700px] flex-1 flex-col rounded-r-md border py-5 px-2">
+                    <div className="flex h-full min-w-full flex-1 flex-col rounded-r-md border py-5 px-2">
                         <p className="text-center text-lg font-semibold">Hóa đơn</p>
 
                         {/* LIST PRODUCT */}

@@ -11,13 +11,13 @@ export default function TopBar({ filters, setFilters }) {
         <div className="space-y-1">
             <div className="flex items-center justify-between space-x-4">
                 <input
-                    className="text-input w-[400px]"
+                    className="text-input"
                     placeholder="Tìm theo tên"
                     value={getFilterValue('name', filters) || ''}
                     onChange={(e) => setFilters(setFilterValueHandler('name', e.target.value))}
                 />
                 <input
-                    className="text-input flex-1"
+                    className="text-input"
                     placeholder="Tìm theo mô tả"
                     value={getFilterValue('description', filters) || ''}
                     onChange={(e) =>
@@ -25,7 +25,7 @@ export default function TopBar({ filters, setFilters }) {
                     }
                 />
                 <ShowWithFunc func="role/add">
-                    <Link to="/role/add" className="btn btn-md btn-blue">
+                    <Link to="/role/add" className="btn btn-sm sm:btn-md btn-blue">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -40,7 +40,7 @@ export default function TopBar({ filters, setFilters }) {
                                 d="M12 4.5v15m7.5-7.5h-15"
                             />
                         </svg>
-                        <span className="ml-2">Thêm chức vụ</span>
+                        <span className="ml-2 hidden sm:block">Thêm chức vụ</span>
                     </Link>
                 </ShowWithFunc>
             </div>

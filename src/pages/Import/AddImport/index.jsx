@@ -327,7 +327,7 @@ function AddImport() {
     return (
         <>
             <div className="container h-full w-full overflow-y-hidden py-2">
-                <div className="relative flex h-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 relative flex h-full">
                     {/* LEFT VIEW */}
                     <div className="bimport flex flex-1 flex-col rounded-l-md py-3 px-2">
                         {/* HEADER ACTION GROUP */}
@@ -377,7 +377,7 @@ function AddImport() {
                     </div>
 
                     {/* RIGHT ORDER */}
-                    <div className="bimport flex h-full min-w-[700px] flex-1 flex-col rounded-r-md py-5 px-2">
+                    <div className="bimport flex h-full flex-1 flex-col rounded-r-md py-5 px-2">
                         <p className="text-center text-lg font-semibold">Phiếu nhập</p>
 
                         {/* LIST PRODUCT */}

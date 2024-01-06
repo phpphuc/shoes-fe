@@ -32,7 +32,7 @@ export default function TopBar({ filters, setFilters }) {
                 </ShowWithFunc>
             </div>
             <div className="space-y-2">
-                <div className="flex space-x-4">
+                <div className="md:flex md:space-x-4">
                     <div className="flex-1">
                         <label className="label !mb-0 cursor-default text-sm">
                             Ngày lập phiếu nhập
@@ -58,7 +58,7 @@ export default function TopBar({ filters, setFilters }) {
                             showShortcuts={true}
                         />
                     </div>
-                    <div className="w-[400px]">
+                    <div className="">
                         <label className="label !mb-0 cursor-default text-sm">Giá</label>
                         <div className="flex items-center space-x-1">
                             <input

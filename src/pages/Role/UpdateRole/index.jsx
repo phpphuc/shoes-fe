@@ -177,7 +177,7 @@ function UpdateRole() {
             >
                 <div className="relative">
                     <div className="mt-5 flex items-center space-x-4">
-                        <div className="flex w-[300px] flex-col">
+                        <div className="flex flex-1 flex-col">
                             <label className="label" htmlFor="name">
                                 Tên chức vụ *
                             </label>

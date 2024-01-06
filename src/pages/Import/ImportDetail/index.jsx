@@ -128,7 +128,7 @@ function ImportDetail() {
 
     return (
         <div className="container">
-            <div className="mt-5 flex space-x-6" ref={componentRef}>
+            <div className="mt-5 lg:flex space-x-6" ref={componentRef}>
                 {/* PRODUCT */}
                 <div className="min-w-[700px] flex-1">
                     <Table table={table} notFoundMessage="Không có sản phẩm" rowClickable={false} />

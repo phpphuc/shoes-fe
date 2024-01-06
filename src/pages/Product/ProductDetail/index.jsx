@@ -209,7 +209,7 @@ function ProductDetail() {
     return (
         <div className="container max-w-[1000px]">
             <div>
-                <div className="flex space-x-8">
+                <div className="flex flex-wrap space-x-8 space-y-4">
                     <div className="flex-1 space-y-4">
                         <div className="flex items-baseline space-x-3">
                             <p className="text-gray-600">Mã sản phẩm:</p>

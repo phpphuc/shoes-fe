@@ -15,6 +15,9 @@
     .btn.btn-md {
         @apply min-w-[150px] px-5 py-2;
     }
+    .btn.btn-sm {
+        @apply min-w-[50px] px-3 py-2;
+    }
 
     .btn.btn-red {
         @apply bg-red-500 hover:bg-red-400;

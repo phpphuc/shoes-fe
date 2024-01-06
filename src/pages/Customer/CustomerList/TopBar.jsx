@@ -23,7 +23,7 @@ export default function TopBar({ filters, setFilters }) {
                     onChange={(e) => setFilters(setFilterValueHandler('phone', e.target.value))}
                 />
                 <ShowWithFunc func="customer/add">
-                    <Link to="/customer/add" className="btn btn-md btn-blue">
+                    <Link to="/customer/add" className="btn btn-sm sm:btn-md btn-blue">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -38,7 +38,7 @@ export default function TopBar({ filters, setFilters }) {
                                 d="M12 4.5v15m7.5-7.5h-15"
                             />
                         </svg>
-                        <span className="ml-2">Thêm khách hàng</span>
+                        <span className="ml-2 hidden sm:block">Thêm khách hàng</span>
                     </Link>
                 </ShowWithFunc>
             </div>

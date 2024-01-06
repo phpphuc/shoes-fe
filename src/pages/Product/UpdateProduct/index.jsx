@@ -136,7 +136,7 @@ function UpdateProduct() {
                     form.handleSubmit(e);
                 }}
             >
-                <div className="relative grid grid-cols-2 gap-x-8 gap-y-1">
+                <div className="relative grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1">
                     {/* NAME AND TYPE */}
                     <div className="space-y-1">
                         {/* NAME */}

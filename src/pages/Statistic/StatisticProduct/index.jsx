@@ -183,16 +183,16 @@ export default function StatisticProduct() {
                 onChange={(newValue) => setRangeDateValue(newValue)}
                 showShortcuts={true}
             />
-            <div className="mt-3 flex">
+            <div className="mt-3 flex flex-wrap gap-6">
                 <div className="flex-1 pr-4">
                     <p className="text-center font-medium text-gray-700">Sản phẩm được nhập hàng</p>
                     <div>
-                        <div>{dataImport.datasets.length > 0 && <Pie data={dataImport} />}</div>
+                        <div className='flex justify-center'>{dataImport.datasets.length > 0 && <Pie data={dataImport} />}</div>
                     </div>
                 </div>
                 <div className="flex-1 pl-4">
                     <p className="text-center font-medium text-gray-700">Sản phẩm được bán</p>
-                    <div>{dataOrder.datasets.length > 0 && <Pie data={dataOrder} />}</div>
+                    <div className='flex justify-center'>{dataOrder.datasets.length > 0 && <Pie data={dataOrder} />}</div>
                 </div>
             </div>
         </div>
