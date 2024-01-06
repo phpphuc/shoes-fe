@@ -45,7 +45,7 @@ function Login() {
         })
             .then((res) => res.json())
             .then((resJson) => {
-                if (resJson.success) {git remote set-url origin 
+                if (resJson.success) {
                     console.log(resJson.account);
                     showSuccessNoti();
                     dispatch(accountActions.login(resJson.account));
