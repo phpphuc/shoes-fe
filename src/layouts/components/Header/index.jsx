@@ -9,7 +9,7 @@ import clsx from 'clsx';
 
 function Header({ children }) {
     const dispatch = useDispatch();
-    const account = {"name":'Minh Châu', "role":{"name":"Quản lý"}};
+    const account = useSelector(accountSelector);// {"name":'Minh Châu', "role":{"name":"Quản lý"}};
     const theme = useSelector(themeSelector);   
     const handleToggleSidebar = () => {
         dispatch(themeActions.toggleSidebar());

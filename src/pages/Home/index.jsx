@@ -22,7 +22,7 @@ function Home() {
                 <p className="mb-8 text-4xl font-bold text-blue-800">CỬA HÀNG BÁN GIÀY</p>
 
                 <p className="font-gray-900 mb-8 text-4xl font-bold">
-                    {'Xin chào, ' + account.name}
+                    {'Xin chào, ' + account?.name}
                 </p>
 
                 <button
