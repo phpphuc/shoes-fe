@@ -60,7 +60,7 @@ const publicRoutes = [
         path: '/order/add',
         component: AddOrder,
         props: {
-            heading: 'Đặt thêm sản phẩm',
+            heading: 'Tạo hoá đơn',
         },
     },
     {
@@ -83,7 +83,7 @@ const publicRoutes = [
         path: '/import/add',
         component: AddImport,
         props: {
-            heading: 'Nhập sản phẩm',
+            heading: 'Tạo phiếu nhập',
         },
     },
     {
@@ -159,7 +159,7 @@ const publicRoutes = [
         path: '/customer',
         component: CustomerList,
         props: {
-            heading: 'Khách hàng',
+            heading: 'Danh sách khách hàng',
         },
     },
     {
@@ -256,7 +256,7 @@ const publicRoutes = [
         path: '/role/update/:id',
         component: UpdateRole,
         props: {
-            heading: 'Sửa chức vụ',
+            heading: 'Chỉnh sửa chức vụ',
         },
     },
 

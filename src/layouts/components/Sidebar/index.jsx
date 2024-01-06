@@ -37,7 +37,7 @@ const groupMenus = [
     },
     {
         main: {
-            iconClassname: 'fa-solid fa-box-open',
+            iconClassname: 'fa-solid fa-file-import',
             text: 'Phiếu nhập',
             link: '/import',
         },
@@ -102,7 +102,7 @@ const groupMenus = [
     },
     {
         main: {
-            iconClassname: 'fa-solid fa-clipboard',
+            iconClassname: 'fa-solid fa-tag',
             text: 'Phiếu giảm giá',
             link: '/coupon',
         },
@@ -144,19 +144,19 @@ const groupMenus = [
     },
     {
         main: {
-            iconClassname: 'fa-solid fa-clipboard',
+            iconClassname: 'fa-solid fa-chart-simple',
             text: 'Thống kê',
             link: '/statistic',
         },
         children: [
             {
-                iconClassname: 'fa-solid fa-list',
+                iconClassname: 'fa-solid fa-box-open',
                 text: 'Sản phẩm',
                 link: '/product',
                 functionName: 'statistic/product',
             },
             {
-                iconClassname: 'fa-solid fa-list',
+                iconClassname: 'fa-solid fa-money-bill-trend-up',
                 text: 'Doanh số',
                 link: '/profit',
                 functionName: 'statistic/profit',
@@ -186,7 +186,7 @@ const groupMenus = [
     },
     {
         main: {
-            iconClassname: 'fa-solid fa-clipboard',
+            iconClassname: 'fa-solid fa-user-tag',
             text: 'Chức vụ',
             link: '/role',
         },
@@ -219,7 +219,7 @@ function Sidebar() {
         {/* <div className="h-full min-w-[240px] bg-blue-500 dark:bg-gray-900"> */}
             <header className="flex h-20 w-full flex-col items-center justify-center border-b border-white/40 text-white">
                 <div className="text-lg font-extrabold">QUẢN LÝ</div>
-                <div className="font-bold">CỬA HÀNG CÂY XANH</div>
+                <div className="font-bold">CỬA HÀNG BÁN GIÀY</div>
             </header>
 
             <div className="">
